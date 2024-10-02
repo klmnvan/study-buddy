@@ -22,5 +22,5 @@
 | test     | добавление тестов                                                                   |
 
 ## Автор
-[GitHub](https://github.com/klmnvan)
-[Gogs](http://gogs.ngknn.ru:3000/klmnvan)
+[klmnvan GitHub](https://github.com/klmnvan)  
+[klmnvan Gogs](http://gogs.ngknn.ru:3000/klmnvan)
