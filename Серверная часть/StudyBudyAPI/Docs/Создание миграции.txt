@@ -1,0 +1,11 @@
+В Терминале (Вид-Терминал)
+dotnet ef migrations add initial 
+эта команда создаст маграцию со снимком (ModelSnapshot)
+dotnet ef database update
+эта команда загружает в базу данные
+откат последней миграции 
+dotnet ef migrations remove
+откат всех миграций
+dotnet ef database update 0
+подробнее про удаление тут
+https://stackoverflow.com/questions/38192450/how-to-unapply-a-migration-in-asp-net-core-with-ef-core
