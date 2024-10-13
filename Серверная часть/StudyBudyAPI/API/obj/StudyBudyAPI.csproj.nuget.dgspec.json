@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильный приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {}
+    "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильных приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильный приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {
+    "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильных приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильный приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
+        "projectUniqueName": "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильных приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
         "projectName": "StudyBudyAPI",
-        "projectPath": "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильный приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
+        "projectPath": "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильных приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
         "packagesPath": "C:\\Users\\mcsyan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильный приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\obj\\",
+        "outputPath": "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильных приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mcsyan\\AppData\\Roaming\\NuGet\\NuGet.Config",

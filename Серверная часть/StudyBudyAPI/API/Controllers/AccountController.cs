@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.DotNet.Scaffolding.Shared.Messaging;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using StudyBudyAPI.Data;
@@ -8,6 +8,7 @@ using StudyBudyAPI.Dtos.Account;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
+using System.Diagnostics;
 
 namespace StudyBudyAPI.Controllers
 {
@@ -19,17 +20,20 @@ namespace StudyBudyAPI.Controllers
         private readonly ITokenService _tokenService;
         private readonly StudyBuddyDbContext _context;
         private readonly SignInManager<AppUser> _signInManager;
+        private readonly ILogger<AccountController> _logger;
 
         public AccountController(UserManager<AppUser> userManager, ITokenService tokenService, StudyBuddyDbContext context, 
-            SignInManager<AppUser> signInManager)
+            SignInManager<AppUser> signInManager, ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _tokenService = tokenService;
             _context = context;
             _signInManager = signInManager;
+            _logger = logger;
         }
 
         [HttpPost("register")] //аннотация вида http запроса
+        [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
         {
             try
@@ -76,7 +80,7 @@ namespace StudyBudyAPI.Controllers
                                 {
                                     Nickname = newUser.Nickname,
                                     Email = appUser.Email,
-                                    Token = _tokenService.CreateToken(appUser)
+                                    //Token = _tokenService.CreateToken(appUser, "User")
                                 }
                             );
                         }
@@ -106,13 +110,15 @@ namespace StudyBudyAPI.Controllers
         }
 
         [HttpPost("login")]
+        [AllowAnonymous]
         public async Task<IActionResult> Login(LoginDto loginDto)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             //Поиск пользователя в системе (как схема auth в supabase?)
-            var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
+            var appUser = await _userManager.FindByNameAsync(loginDto.Email.ToLower());
+            //var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
 
             if (appUser == null) return Unauthorized("Такого пользователя нет в базе");
 
@@ -128,9 +134,43 @@ namespace StudyBudyAPI.Controllers
                 {
                     Nickname = user.Nickname,
                     Email = user.Email,
-                    Token = _tokenService.CreateToken(appUser)
+                    Token = _tokenService.CreateToken(appUser, "User")
                 }
             );
+        }
+
+        
+        [HttpGet]
+        [Route("accountInfo")]
+        public async Task<ActionResult<UserInfoDto>> AccountInfo()
+        {
+            try
+            {
+                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                var userRoles = await _userManager.GetRolesAsync(appUser);
+                if (appUser == null || userRoles == null)
+                {
+                    return BadRequest("Пользователь не найден");
+                }
+                Trace.WriteLine(appUser.Id);
+                var user = _context.Users.Include(u => u.AppUser).FirstOrDefault(u => u.IdUser == appUser.Id);
+                if (user is null)
+                {
+                    return StatusCode(401);
+                }
+                UserInfoDto userInfo = new()
+                {
+                    IdUser = appUser.Id,
+                    Nickname = user.Nickname,
+                    Email = user.Email,
+                    Role = userRoles!.FirstOrDefault()
+                };
+                return Ok(userInfo);
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
         }
     }
 }

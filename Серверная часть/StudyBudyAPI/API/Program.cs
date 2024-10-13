@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
@@ -8,6 +9,8 @@ using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Service;
 using System.Text;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc.Abstractions;
 
 namespace StudyBudyAPI
 {
@@ -22,7 +25,6 @@ namespace StudyBudyAPI
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
-            builder.Services.AddSwaggerGen();
 
             builder.Services.AddSwaggerGen(option =>
             {
@@ -30,7 +32,7 @@ namespace StudyBudyAPI
                 option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,
-                    Description = "Please enter a valid token",
+                    Description = "Введите действительный токен",
                     Name = "Authorization",
                     Type = SecuritySchemeType.Http,
                     BearerFormat = "JWT",
@@ -58,31 +60,34 @@ namespace StudyBudyAPI
                     builder.Configuration.GetConnectionString(nameof(StudyBuddyDbContext)));
             });
 
+            builder.Services.AddScoped<ITokenService, TokenService>();
+
             builder.Services.AddIdentity<AppUser, Role>(options =>
             {
-                options.SignIn.RequireConfirmedAccount = false;
-                options.Password.RequiredLength = 6;
+                //options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequiredLength = 8;
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
                 options.Password.RequireLowercase = false;
                 options.User.RequireUniqueEmail = true;
             })
-            .AddEntityFrameworkStores<StudyBuddyDbContext>();
+                .AddRoles<Role>()
+                .AddEntityFrameworkStores<StudyBuddyDbContext>();
 
             var validIssuer = builder.Configuration.GetValue<string>("JWT:Issuer");
             var validAudience = builder.Configuration.GetValue<string>("JWT:Audience");
             var symmetricSecurityKey = builder.Configuration.GetValue<string>("JWT:SigningKey");
 
-            builder.Services.AddAuthentication(options =>
+            builder.Services.AddAuthentication(options =>  // схема аутентификации - с помощью jwt-токенов
             {
-                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultForbidScheme = JwtBearerDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultAuthenticateScheme = 
+                options.DefaultChallengeScheme = 
+                options.DefaultScheme = 
+                options.DefaultForbidScheme = 
+                options.DefaultSignInScheme = 
                 options.DefaultSignOutScheme = JwtBearerDefaults.AuthenticationScheme;
-            }).AddJwtBearer(options =>
+            }).AddJwtBearer(options => // подключение аутентификации с помощью jwt-токенов;
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
@@ -92,17 +97,42 @@ namespace StudyBudyAPI
                     ClockSkew = TimeSpan.Zero,
                     ValidateIssuer = true,
                     ValidateLifetime = true,
-                    ValidIssuer = validIssuer,
                     ValidateAudience = true,
+                    ValidIssuer = validIssuer,
                     ValidAudience = validAudience,
                     ValidateIssuerSigningKey = true,
                     IssuerSigningKey = new SymmetricSecurityKey(
                         Encoding.UTF8.GetBytes(builder.Configuration["JWT:SigningKey"])
                     )
                 };
-            });
+                options.Events = new JwtBearerEvents //Для создания кастомного сообщения о том, что пользователь не авторизован
+                {
+                    OnChallenge = async context =>
+                    {
+                        // Call this to skip the default logic and avoid using the default response
+                        context.HandleResponse();
 
-            builder.Services.AddScoped<ITokenService, TokenService>();
+                        var httpContext = context.HttpContext;
+                        var statusCode = StatusCodes.Status401Unauthorized;
+
+                        var routeData = httpContext.GetRouteData();
+                        var actionContext = new ActionContext(httpContext, routeData, new ActionDescriptor());
+
+                        var factory = httpContext.RequestServices.GetRequiredService<ProblemDetailsFactory>();
+                        var problemDetails = factory.CreateProblemDetails(httpContext, statusCode);
+
+                        var result = new ObjectResult(problemDetails) { StatusCode = statusCode };
+                        await result.ExecuteResultAsync(actionContext);
+                    }
+                };
+            });
+            builder.Services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
+            }); //для того, чтобы для каждого запроса нужна была атворизация
+
 
             var app = builder.Build();
 
@@ -118,8 +148,7 @@ namespace StudyBudyAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
-
-            app.MapControllers();
+            app.MapControllers(); 
 
             app.Run();
         }

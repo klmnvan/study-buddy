@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "gcGJzsLuOxU8u2mC8KZp2PBc/P5dwSddzgInE0b6Sm2BEUHFQg7Oh6T7Rkbx7xr5ISo4eoDD5oeCZLAMKqae1A==",
+  "dgSpecHash": "X7xW238fX39C4Ga2GaLHEkglPwD9lG6KWPwvgGoxvmDLekJ3lZETicvOrFFG3RvDLZIBQzN/BG+I13gFvQ+IyA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильный приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
+  "projectFilePath": "C:\\Users\\mcsyan\\Desktop\\N\\учеба\\4 курс\\Разработка мобильных приложений\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mcsyan\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\mcsyan\\.nuget\\packages\\humanizer\\2.14.1\\humanizer.2.14.1.nupkg.sha512",
