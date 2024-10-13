@@ -1,4 +1,6 @@
-﻿namespace StudyBudyAPI.Models.DB
+﻿using System.Text.Json.Serialization;
+
+namespace StudyBudyAPI.Models.DB
 {
     public class Note
     {
@@ -6,6 +8,7 @@
         public int IdExam { get; set; }
         public string Content { get; set; } = string.Empty;
         //Для связей
+        [JsonIgnore]
         public Exam Exam { get; set; } //Реализации связи один ко многим к таблице экзаменов, ссылка на экзамен
     }
 }

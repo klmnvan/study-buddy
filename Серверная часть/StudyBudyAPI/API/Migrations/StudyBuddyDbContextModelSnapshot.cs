@@ -219,13 +219,13 @@ namespace StudyBudyAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("6f2b6aab-f631-4a1d-8085-c812e4c3ad81"),
+                            Id = new Guid("5aa4fea9-c52f-4a01-a052-78d3d4f9d52f"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("f8c4b8e8-4f84-43a2-a01d-63daee39472f"),
+                            Id = new Guid("44620187-2cfd-4418-a2c6-950794d86d77"),
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -239,7 +239,7 @@ namespace StudyBudyAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdDiscipline"));
 
-                    b.Property<int>("IdTeacher")
+                    b.Property<int?>("IdTeacher")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("IdUser")
@@ -345,7 +345,7 @@ namespace StudyBudyAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("IdDiscipline")
+                    b.Property<int?>("IdDiscipline")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("IdUser")
@@ -379,11 +379,16 @@ namespace StudyBudyAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("IdUser")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("OfficeNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("IdTeacher");
+
+                    b.HasIndex("IdUser");
 
                     b.ToTable("Teachers");
                 });
@@ -464,8 +469,7 @@ namespace StudyBudyAPI.Migrations
                     b.HasOne("StudyBudyAPI.Models.DB.Teacher", "Teacher")
                         .WithMany("Disciplines")
                         .HasForeignKey("IdTeacher")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("StudyBudyAPI.Models.DB.User", "User")
                         .WithMany("Disciplines")
@@ -516,8 +520,7 @@ namespace StudyBudyAPI.Migrations
                     b.HasOne("StudyBudyAPI.Models.DB.Discipline", "Discipline")
                         .WithMany("Tasks")
                         .HasForeignKey("IdDiscipline")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("StudyBudyAPI.Models.DB.User", "User")
                         .WithMany("Tasks")
@@ -526,6 +529,17 @@ namespace StudyBudyAPI.Migrations
                         .IsRequired();
 
                     b.Navigation("Discipline");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Teacher", b =>
+                {
+                    b.HasOne("StudyBudyAPI.Models.DB.User", "User")
+                        .WithMany("Teachers")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
@@ -571,6 +585,8 @@ namespace StudyBudyAPI.Migrations
                     b.Navigation("Exams");
 
                     b.Navigation("Tasks");
+
+                    b.Navigation("Teachers");
                 });
 #pragma warning restore 612, 618
         }

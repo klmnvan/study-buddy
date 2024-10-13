@@ -11,6 +11,9 @@ using StudyBudyAPI.Service;
 using System.Text;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Abstractions;
+using StudyBudyAPI.Repository;
+using Microsoft.Extensions.Options;
+using Microsoft.OpenApi.Any;
 
 namespace StudyBudyAPI
 {
@@ -22,7 +25,10 @@ namespace StudyBudyAPI
 
             // Add services to the container.
 
-            builder.Services.AddControllers();
+            builder.Services.AddControllers().AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
+            });
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
 
@@ -52,6 +58,12 @@ namespace StudyBudyAPI
                         new List<string>()
                     }
                 });
+                option.MapType<DateOnly>(() => new OpenApiSchema
+                {
+                    Type = "string",
+                    Format = "date",
+                    Example = new OpenApiString("2022-01-01")
+                });
             });
 
             builder.Services.AddDbContext<StudyBuddyDbContext>(options =>
@@ -61,6 +73,12 @@ namespace StudyBudyAPI
             });
 
             builder.Services.AddScoped<ITokenService, TokenService>();
+            builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+            builder.Services.AddScoped<IDisciplineRepository, DisciplineRepository>();
+            builder.Services.AddScoped<IRequirementRepository, RequirementRepository>();
+            builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+            builder.Services.AddScoped<IExamRepository, ExamRepository>();
+            builder.Services.AddScoped<INoteRepository, NoteRepository>();
 
             builder.Services.AddIdentity<AppUser, Role>(options =>
             {

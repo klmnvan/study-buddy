@@ -12,8 +12,8 @@ using StudyBudyAPI.Data;
 namespace StudyBudyAPI.Migrations
 {
     [DbContext(typeof(StudyBuddyDbContext))]
-    [Migration("20241011194934_initial")]
-    partial class initial
+    [Migration("20241013182406_start")]
+    partial class start
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -222,19 +222,19 @@ namespace StudyBudyAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c6bddac5-d33a-40e3-8e5a-a73d95267850"),
+                            Id = new Guid("5aa4fea9-c52f-4a01-a052-78d3d4f9d52f"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("4eb90fea-daef-4c03-8531-986d3abed3b6"),
+                            Id = new Guid("44620187-2cfd-4418-a2c6-950794d86d77"),
                             Name = "User",
                             NormalizedName = "USER"
                         });
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Discipline", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Discipline", b =>
                 {
                     b.Property<int>("IdDiscipline")
                         .ValueGeneratedOnAdd()
@@ -242,7 +242,7 @@ namespace StudyBudyAPI.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("IdDiscipline"));
 
-                    b.Property<int>("IdTeacher")
+                    b.Property<int?>("IdTeacher")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("IdUser")
@@ -261,7 +261,7 @@ namespace StudyBudyAPI.Migrations
                     b.ToTable("Disciplines");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Exam", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Exam", b =>
                 {
                     b.Property<int>("IdExam")
                         .ValueGeneratedOnAdd()
@@ -289,7 +289,7 @@ namespace StudyBudyAPI.Migrations
                     b.ToTable("Exams");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Note", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Note", b =>
                 {
                     b.Property<int>("IdNote")
                         .ValueGeneratedOnAdd()
@@ -311,7 +311,7 @@ namespace StudyBudyAPI.Migrations
                     b.ToTable("Notes");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Requirement", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Requirement", b =>
                 {
                     b.Property<int>("IdRequirement")
                         .ValueGeneratedOnAdd()
@@ -333,7 +333,7 @@ namespace StudyBudyAPI.Migrations
                     b.ToTable("Requirements");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Task", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Task", b =>
                 {
                     b.Property<int>("IdTask")
                         .ValueGeneratedOnAdd()
@@ -348,7 +348,7 @@ namespace StudyBudyAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("IdDiscipline")
+                    b.Property<int?>("IdDiscipline")
                         .HasColumnType("integer");
 
                     b.Property<Guid>("IdUser")
@@ -370,7 +370,7 @@ namespace StudyBudyAPI.Migrations
                     b.ToTable("Tasks");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Teacher", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Teacher", b =>
                 {
                     b.Property<int>("IdTeacher")
                         .ValueGeneratedOnAdd()
@@ -382,21 +382,30 @@ namespace StudyBudyAPI.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<Guid>("IdUser")
+                        .HasColumnType("uuid");
+
                     b.Property<string>("OfficeNumber")
                         .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("IdTeacher");
 
+                    b.HasIndex("IdUser");
+
                     b.ToTable("Teachers");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.User", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.User", b =>
                 {
                     b.Property<Guid>("IdUser")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid")
                         .HasDefaultValueSql("gen_random_uuid()");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Nickname")
                         .IsRequired()
@@ -458,15 +467,14 @@ namespace StudyBudyAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Discipline", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Discipline", b =>
                 {
-                    b.HasOne("StudyBudyAPI.Models.Teacher", "Teacher")
+                    b.HasOne("StudyBudyAPI.Models.DB.Teacher", "Teacher")
                         .WithMany("Disciplines")
                         .HasForeignKey("IdTeacher")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("StudyBudyAPI.Models.User", "User")
+                    b.HasOne("StudyBudyAPI.Models.DB.User", "User")
                         .WithMany("Disciplines")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -477,9 +485,9 @@ namespace StudyBudyAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Exam", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Exam", b =>
                 {
-                    b.HasOne("StudyBudyAPI.Models.User", "User")
+                    b.HasOne("StudyBudyAPI.Models.DB.User", "User")
                         .WithMany("Exams")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -488,9 +496,9 @@ namespace StudyBudyAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Note", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Note", b =>
                 {
-                    b.HasOne("StudyBudyAPI.Models.Exam", "Exam")
+                    b.HasOne("StudyBudyAPI.Models.DB.Exam", "Exam")
                         .WithMany("Notes")
                         .HasForeignKey("IdExam")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -499,9 +507,9 @@ namespace StudyBudyAPI.Migrations
                     b.Navigation("Exam");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Requirement", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Requirement", b =>
                 {
-                    b.HasOne("StudyBudyAPI.Models.Discipline", "Discipline")
+                    b.HasOne("StudyBudyAPI.Models.DB.Discipline", "Discipline")
                         .WithMany("Requirements")
                         .HasForeignKey("IdDiscipline")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -510,15 +518,14 @@ namespace StudyBudyAPI.Migrations
                     b.Navigation("Discipline");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Task", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Task", b =>
                 {
-                    b.HasOne("StudyBudyAPI.Models.Discipline", "Discipline")
+                    b.HasOne("StudyBudyAPI.Models.DB.Discipline", "Discipline")
                         .WithMany("Tasks")
                         .HasForeignKey("IdDiscipline")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("StudyBudyAPI.Models.User", "User")
+                    b.HasOne("StudyBudyAPI.Models.DB.User", "User")
                         .WithMany("Tasks")
                         .HasForeignKey("IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -529,11 +536,22 @@ namespace StudyBudyAPI.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.User", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Teacher", b =>
+                {
+                    b.HasOne("StudyBudyAPI.Models.DB.User", "User")
+                        .WithMany("Teachers")
+                        .HasForeignKey("IdUser")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.User", b =>
                 {
                     b.HasOne("StudyBudyAPI.Models.Account.AppUser", "AppUser")
                         .WithOne("UserNavigation")
-                        .HasForeignKey("StudyBudyAPI.Models.User", "IdUser")
+                        .HasForeignKey("StudyBudyAPI.Models.DB.User", "IdUser")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -546,30 +564,32 @@ namespace StudyBudyAPI.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Discipline", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Discipline", b =>
                 {
                     b.Navigation("Requirements");
 
                     b.Navigation("Tasks");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Exam", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Exam", b =>
                 {
                     b.Navigation("Notes");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.Teacher", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.Teacher", b =>
                 {
                     b.Navigation("Disciplines");
                 });
 
-            modelBuilder.Entity("StudyBudyAPI.Models.User", b =>
+            modelBuilder.Entity("StudyBudyAPI.Models.DB.User", b =>
                 {
                     b.Navigation("Disciplines");
 
                     b.Navigation("Exams");
 
                     b.Navigation("Tasks");
+
+                    b.Navigation("Teachers");
                 });
 #pragma warning restore 612, 618
         }

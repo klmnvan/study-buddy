@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace StudyBudyAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class initial : Migration
+    public partial class start : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -51,20 +51,6 @@ namespace StudyBudyAPI.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AspNetUsers", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Teachers",
-                columns: table => new
-                {
-                    IdTeacher = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FullName = table.Column<string>(type: "text", nullable: false),
-                    OfficeNumber = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teachers", x => x.IdTeacher);
                 });
 
             migrationBuilder.CreateTable(
@@ -178,7 +164,8 @@ namespace StudyBudyAPI.Migrations
                 columns: table => new
                 {
                     IdUser = table.Column<Guid>(type: "uuid", nullable: false, defaultValueSql: "gen_random_uuid()"),
-                    Nickname = table.Column<string>(type: "text", nullable: false)
+                    Nickname = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -188,33 +175,6 @@ namespace StudyBudyAPI.Migrations
                         column: x => x.IdUser,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Disciplines",
-                columns: table => new
-                {
-                    IdDiscipline = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    IdTeacher = table.Column<int>(type: "integer", nullable: false),
-                    IdUser = table.Column<Guid>(type: "uuid", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Disciplines", x => x.IdDiscipline);
-                    table.ForeignKey(
-                        name: "FK_Disciplines_Teachers_IdTeacher",
-                        column: x => x.IdTeacher,
-                        principalTable: "Teachers",
-                        principalColumn: "IdTeacher",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_Disciplines_Users_IdUser",
-                        column: x => x.IdUser,
-                        principalTable: "Users",
-                        principalColumn: "IdUser",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -234,6 +194,74 @@ namespace StudyBudyAPI.Migrations
                     table.PrimaryKey("PK_Exams", x => x.IdExam);
                     table.ForeignKey(
                         name: "FK_Exams_Users_IdUser",
+                        column: x => x.IdUser,
+                        principalTable: "Users",
+                        principalColumn: "IdUser",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Teachers",
+                columns: table => new
+                {
+                    IdTeacher = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    FullName = table.Column<string>(type: "text", nullable: false),
+                    OfficeNumber = table.Column<string>(type: "text", nullable: false),
+                    IdUser = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teachers", x => x.IdTeacher);
+                    table.ForeignKey(
+                        name: "FK_Teachers_Users_IdUser",
+                        column: x => x.IdUser,
+                        principalTable: "Users",
+                        principalColumn: "IdUser",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Notes",
+                columns: table => new
+                {
+                    IdNote = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    IdExam = table.Column<int>(type: "integer", nullable: false),
+                    Content = table.Column<string>(type: "text", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Notes", x => x.IdNote);
+                    table.ForeignKey(
+                        name: "FK_Notes_Exams_IdExam",
+                        column: x => x.IdExam,
+                        principalTable: "Exams",
+                        principalColumn: "IdExam",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Disciplines",
+                columns: table => new
+                {
+                    IdDiscipline = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Title = table.Column<string>(type: "text", nullable: false),
+                    IdTeacher = table.Column<int>(type: "integer", nullable: true),
+                    IdUser = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Disciplines", x => x.IdDiscipline);
+                    table.ForeignKey(
+                        name: "FK_Disciplines_Teachers_IdTeacher",
+                        column: x => x.IdTeacher,
+                        principalTable: "Teachers",
+                        principalColumn: "IdTeacher",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Disciplines_Users_IdUser",
                         column: x => x.IdUser,
                         principalTable: "Users",
                         principalColumn: "IdUser",
@@ -269,7 +297,7 @@ namespace StudyBudyAPI.Migrations
                     Title = table.Column<string>(type: "text", nullable: false),
                     Deadline = table.Column<DateOnly>(type: "date", nullable: false),
                     IdUser = table.Column<Guid>(type: "uuid", nullable: false),
-                    IdDiscipline = table.Column<int>(type: "integer", nullable: false),
+                    IdDiscipline = table.Column<int>(type: "integer", nullable: true),
                     Description = table.Column<string>(type: "text", nullable: false),
                     IsCompleted = table.Column<bool>(type: "boolean", nullable: false)
                 },
@@ -290,33 +318,13 @@ namespace StudyBudyAPI.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "Notes",
-                columns: table => new
-                {
-                    IdNote = table.Column<int>(type: "integer", nullable: false)
-                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    IdExam = table.Column<int>(type: "integer", nullable: false),
-                    Content = table.Column<string>(type: "text", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Notes", x => x.IdNote);
-                    table.ForeignKey(
-                        name: "FK_Notes_Exams_IdExam",
-                        column: x => x.IdExam,
-                        principalTable: "Exams",
-                        principalColumn: "IdExam",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("4eb90fea-daef-4c03-8531-986d3abed3b6"), null, "User", "USER" },
-                    { new Guid("c6bddac5-d33a-40e3-8e5a-a73d95267850"), null, "Admin", "ADMIN" }
+                    { new Guid("44620187-2cfd-4418-a2c6-950794d86d77"), null, "User", "USER" },
+                    { new Guid("5aa4fea9-c52f-4a01-a052-78d3d4f9d52f"), null, "Admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -389,6 +397,11 @@ namespace StudyBudyAPI.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Tasks_IdUser",
                 table: "Tasks",
+                column: "IdUser");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teachers_IdUser",
+                table: "Teachers",
                 column: "IdUser");
         }
 

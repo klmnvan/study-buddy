@@ -9,7 +9,7 @@ namespace StudyBudyAPI.Configurations
         {
             builder.HasKey(t => t.IdTask);
             builder.HasOne(t => t.User).WithMany(u => u.Tasks).OnDelete(DeleteBehavior.Cascade).HasForeignKey(t => t.IdUser);
-            builder.HasOne(t => t.Discipline).WithMany(d => d.Tasks).OnDelete(DeleteBehavior.Cascade).HasForeignKey(t => t.IdDiscipline);
+            builder.HasOne(t => t.Discipline).WithMany(d => d.Tasks).OnDelete(DeleteBehavior.Cascade).HasForeignKey(t => t.IdDiscipline).IsRequired(false);
         }
     }
 

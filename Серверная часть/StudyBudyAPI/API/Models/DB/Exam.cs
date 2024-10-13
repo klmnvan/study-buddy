@@ -1,4 +1,6 @@
-﻿namespace StudyBudyAPI.Models.DB
+﻿using System.Text.Json.Serialization;
+
+namespace StudyBudyAPI.Models.DB
 {
     public class Exam
     {
@@ -8,7 +10,10 @@
         public DateOnly DateExam { get; set; }
         public Guid IdUser { get; set; }
         //Для связей
+
+        [JsonIgnore]
         public User User { get; set; } //Реализации связи один ко многим к таблице пользователей, ссылка на пользователя
+        [JsonIgnore]
         public ICollection<Note> Notes { get; set; } = [];
     }
 
