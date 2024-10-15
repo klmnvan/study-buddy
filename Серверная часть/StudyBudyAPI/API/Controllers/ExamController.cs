@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudyBudyAPI.Dtos.CreateEntity;
+using StudyBudyAPI.Dtos.DB;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
@@ -103,6 +104,46 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [HttpPut("updateExam")]
+        public async Task<ActionResult> UpdateExam([FromBody] ExamDto dto)
+        {
+            try
+            {
+                if (!_examRepository.ExamIsExists(dto.IdExam))
+                {
+                    return BadRequest("Такого экзамена нет");
+                }
+
+                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                if (appUser == null)
+                {
+                    return Unauthorized();
+                }
+
+                var newEl = new Exam
+                {
+                    IdExam = dto.IdExam,
+                    Duration = dto.Duration,
+                    NumberTickets = dto.NumberTickets,
+                    DateExam = dto.DateExam,
+                    IdUser = appUser.Id,
+                };
+
+                if (!_examRepository.UpdateExam(newEl))
+                {
+                    return StatusCode(500, "Ошибка изменения экзамена");
+                }
+                return Ok("Экзамен изменен");
+            }
+            catch (Exception e)
+            {
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogInformation($"Ошибка {e}");
+                return StatusCode(500, "Ошибка со стороны сервера");
+            }
+        }
     }
 
 }

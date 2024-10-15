@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudyBudyAPI.Dtos.CreateEntity;
+using StudyBudyAPI.Dtos.DB;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
@@ -95,6 +97,47 @@ namespace StudyBudyAPI.Controllers
                     return StatusCode(500, "Ошибка удаления заметки");
                 }
                 return Ok("Заметка удалена");
+            }
+            catch (Exception e)
+            {
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogInformation($"Ошибка {e}");
+                return StatusCode(500, "Ошибка со стороны сервера");
+            }
+        }
+
+        [HttpPut("updateNote")]
+        public async Task<ActionResult> UpdateNote([FromBody] NoteDto dto)
+        {
+            try
+            {
+                if (!_noteRepository.NoteIsExists(dto.IdNote))
+                {
+                    return BadRequest("Такой заметки нет");
+                }
+                if (!_examRepository.ExamIsExists(dto.IdExam))
+                {
+                    return BadRequest("Такого экзамена нет");
+                }
+                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (appUser == null)
+                {
+                    return Unauthorized();
+                }
+
+                var newEl = new Note
+                {
+                    IdNote = dto.IdNote,
+                    IdExam = dto.IdExam,
+                    Content = dto.Content,
+                };
+
+                if (!_noteRepository.UpdateNote(newEl))
+                {
+                    return StatusCode(500, "Ошибка изменения заметки");
+                }
+                return Ok("Заметка изменена");
             }
             catch (Exception e)
             {

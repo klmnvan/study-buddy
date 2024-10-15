@@ -48,5 +48,11 @@ namespace StudyBudyAPI.Repository
             var saved = _context.SaveChanges();
             return saved > 0 ? true : false; //было ли изменено хотя бы одно значение в базе данных
         }
+
+        public bool UpdateNote(Note el)
+        {
+            _context.Update(el);
+            return Save();
+        }
     }
 }

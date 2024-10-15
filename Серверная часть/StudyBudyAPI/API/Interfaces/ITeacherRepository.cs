@@ -8,5 +8,6 @@ namespace StudyBudyAPI.Interfaces
         public List<Teacher> GetTeacherListUser(Guid idUser);
         public Teacher AddTeacher(Teacher d);
         public bool DeleteTeacher(int IdTeacher);
+        public bool UpdateTeacher(Teacher el);
     }
 }

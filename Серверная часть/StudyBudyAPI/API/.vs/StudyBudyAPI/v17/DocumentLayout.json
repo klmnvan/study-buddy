@@ -1,54 +1,12 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\mcsyan\\Desktop\\N\\\u0443\u0447\u0435\u0431\u0430\\4 \u043A\u0443\u0440\u0441\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0439\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|c:\\users\\mcsyan\\desktop\\n\\\u0443\u0447\u0435\u0431\u0430\\4 \u043A\u0443\u0440\u0441\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0439\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\api\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|solutionrelative:controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|c:\\users\\mcsyan\\desktop\\n\\\u0443\u0447\u0435\u0431\u0430\\4 \u043A\u0443\u0440\u0441\\\u0440\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0439\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\api\\controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|solutionrelative:controllers\\taskcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    }
-  ],
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": [
-        {
-          "DockedWidth": 200,
-          "SelectedChildIndex": 0,
-          "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "TeacherController.cs",
-              "DocumentMoniker": "C:\\Users\\mcsyan\\Desktop\\N\\\u0443\u0447\u0435\u0431\u0430\\4 \u043A\u0443\u0440\u0441\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0439\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Controllers\\TeacherController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TeacherController.cs",
-              "ToolTip": "C:\\Users\\mcsyan\\Desktop\\N\\\u0443\u0447\u0435\u0431\u0430\\4 \u043A\u0443\u0440\u0441\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0439\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Controllers\\TeacherController.cs",
-              "RelativeToolTip": "Controllers\\TeacherController.cs",
-              "ViewState": "AQIAADUAAAAAAAAAAAAwwEQAAAAJAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T21:17:21.431Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "TaskController.cs",
-              "DocumentMoniker": "C:\\Users\\mcsyan\\Desktop\\N\\\u0443\u0447\u0435\u0431\u0430\\4 \u043A\u0443\u0440\u0441\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0439\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Controllers\\TaskController.cs",
-              "RelativeDocumentMoniker": "Controllers\\TaskController.cs",
-              "ToolTip": "C:\\Users\\mcsyan\\Desktop\\N\\\u0443\u0447\u0435\u0431\u0430\\4 \u043A\u0443\u0440\u0441\\\u0420\u0430\u0437\u0440\u0430\u0431\u043E\u0442\u043A\u0430 \u043C\u043E\u0431\u0438\u043B\u044C\u043D\u044B\u0445 \u043F\u0440\u0438\u043B\u043E\u0436\u0435\u043D\u0438\u0439\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Controllers\\TaskController.cs",
-              "RelativeToolTip": "Controllers\\TaskController.cs",
-              "ViewState": "AQIAAFEAAAAAAAAAAAAcwFQAAAAIAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-15T21:16:07.993Z",
-              "EditorCaption": ""
-            }
-          ]
-        }
-      ]
+      "DocumentGroups": []
     }
   ]
 }

@@ -8,6 +8,7 @@ namespace StudyBudyAPI.Interfaces
         public List<Requirement> GetReqListByDisc(int idDisc);
         public Requirement AddRequirement(Requirement r);
         public bool DeleteRequirement(int IdRequirement);
+        public bool UpdateRequirement(Requirement el);
 
     }
 }

@@ -47,5 +47,11 @@ namespace StudyBudyAPI.Repository
             }
             return false;
         }
+
+        public bool UpdateTask(Models.DB.Task el)
+        {
+            _context.Update(el);
+            return Save();
+        }
     }
 }

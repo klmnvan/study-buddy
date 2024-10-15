@@ -8,5 +8,6 @@ namespace StudyBudyAPI.Interfaces
         public List<Discipline> GetDisciplineListUser(Guid idUser); //Получение списка предметов пользователя
         public Discipline AddDisc(Discipline d);
         public bool DeleteDisc(int IdDisc);
+        public bool UpdateDisc(Discipline el);
     }
 }

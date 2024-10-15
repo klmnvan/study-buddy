@@ -8,5 +8,6 @@ namespace StudyBudyAPI.Interfaces
         public List<Note> GetNoteListByExam(int idExam);
         public Note AddNote(Note n);
         public bool DeleteNote(int IdNote);
+        public bool UpdateNote(Note el);
     }
 }

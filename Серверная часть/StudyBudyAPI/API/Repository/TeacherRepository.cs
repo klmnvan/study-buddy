@@ -47,5 +47,11 @@ namespace StudyBudyAPI.Repository
             }
             return false;
         }
+
+        public bool UpdateTeacher(Teacher el)
+        {
+            _context.Update(el);
+            return Save();
+        }
     }
 }

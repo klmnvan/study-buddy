@@ -49,5 +49,10 @@ namespace StudyBudyAPI.Repository
             return saved > 0 ? true : false; //было ли изменено хотя бы одно значение в базе данных
         }
 
+        public bool UpdateDisc(Discipline el)
+        {
+            _context.Update(el);
+            return Save();
+        }
     }
 }

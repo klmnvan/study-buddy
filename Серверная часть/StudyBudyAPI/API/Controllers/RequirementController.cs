@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudyBudyAPI.Dtos.CreateEntity;
+using StudyBudyAPI.Dtos.DB;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
@@ -96,6 +97,50 @@ namespace StudyBudyAPI.Controllers
                     return StatusCode(500, "Ошибка удаления требования");
                 }
                 return Ok("Требование удалено");
+            }
+            catch (Exception e)
+            {
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogInformation($"Ошибка {e}");
+                return StatusCode(500, "Ошибка со стороны сервера");
+            }
+        }
+
+        [HttpPut("updateRequirement")]
+        public async Task<ActionResult> UpdateRequirement([FromBody] RequirementDto dto)
+        {
+            try
+            {
+                if (!_requirementRepository.RequirementIsExists(dto.IdRequirement))
+                {
+                    return BadRequest("Такого требования нет");
+                }
+
+                if (!_disciplineRepository.DisciplineIsExists(dto.IdDiscipline))
+                {
+                    return BadRequest("Такого предмета нет");
+                }
+
+                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+
+                if (appUser == null)
+                {
+                    return Unauthorized();
+                }
+
+                var newEl = new Requirement
+                {
+                    IdRequirement = dto.IdRequirement, 
+                    IdDiscipline = dto.IdDiscipline,    
+                    Content = dto.Content, 
+                };
+
+                if (!_requirementRepository.UpdateRequirement(newEl))
+                {
+                    return StatusCode(500, "Ошибка изменения требования");
+                }
+                return Ok("Требование изменено");
             }
             catch (Exception e)
             {

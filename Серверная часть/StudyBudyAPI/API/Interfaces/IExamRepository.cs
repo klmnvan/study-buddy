@@ -8,5 +8,6 @@ namespace StudyBudyAPI.Interfaces
         public List<Exam> GetExamListUser(Guid idUser); 
         public Exam AddExam(Exam e);
         public bool DeleteExam(int IdExam);
+        public bool UpdateExam(Exam el);
     }
 }
