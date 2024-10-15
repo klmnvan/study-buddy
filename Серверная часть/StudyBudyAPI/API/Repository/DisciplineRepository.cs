@@ -30,5 +30,6 @@ namespace StudyBudyAPI.Repository
             List<Discipline> listD = _context.Disciplines.Select(it => it).Where(it => it.IdUser == idUser).ToList();
             return listD;
         }
+
     }
 }

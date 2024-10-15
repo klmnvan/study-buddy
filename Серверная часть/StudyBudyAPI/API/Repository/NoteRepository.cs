@@ -1,5 +1,6 @@
 ﻿using StudyBudyAPI.Data;
 using StudyBudyAPI.Interfaces;
+using StudyBudyAPI.Models.DB;
 
 namespace StudyBudyAPI.Repository
 {
@@ -12,9 +13,22 @@ namespace StudyBudyAPI.Repository
             _context = context;
         }
 
+        public Note AddNote(Note n)
+        {
+            var result = _context.Notes.Add(n);
+            _context.SaveChanges();
+            return result.Entity;
+        }
+
+        public List<Note> GetNoteListByExam(int idExam)
+        {
+            List<Note> listN = _context.Notes.Select(it => it).Where(it => it.IdExam == idExam).ToList();
+            return listN;
+        }
+
         public bool NoteIsExists(int id)
         {
-            throw new NotImplementedException();
+            return _context.Notes.Any(it => it.IdNote == id);
         }
     }
 }

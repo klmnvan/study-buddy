@@ -9,7 +9,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace StudyBudyAPI.Migrations
 {
     /// <inheritdoc />
-    public partial class start : Migration
+    public partial class identity : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -187,7 +187,8 @@ namespace StudyBudyAPI.Migrations
                     Duration = table.Column<string>(type: "text", nullable: false),
                     NumberTickets = table.Column<int>(type: "integer", nullable: false),
                     DateExam = table.Column<DateOnly>(type: "date", nullable: false),
-                    IdUser = table.Column<Guid>(type: "uuid", nullable: false)
+                    IdUser = table.Column<Guid>(type: "uuid", nullable: false),
+                    Title = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -207,7 +208,7 @@ namespace StudyBudyAPI.Migrations
                     IdTeacher = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     FullName = table.Column<string>(type: "text", nullable: false),
-                    OfficeNumber = table.Column<string>(type: "text", nullable: false),
+                    OfficeNumber = table.Column<int>(type: "integer", nullable: true),
                     IdUser = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
@@ -323,8 +324,8 @@ namespace StudyBudyAPI.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
                 values: new object[,]
                 {
-                    { new Guid("44620187-2cfd-4418-a2c6-950794d86d77"), null, "User", "USER" },
-                    { new Guid("5aa4fea9-c52f-4a01-a052-78d3d4f9d52f"), null, "Admin", "ADMIN" }
+                    { new Guid("0847b59a-5ce8-4e76-a6a1-00d66cfc89d0"), null, "Admin", "ADMIN" },
+                    { new Guid("de5c0aaa-01e9-49fd-b231-859f26364d4f"), null, "User", "USER" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -375,14 +376,38 @@ namespace StudyBudyAPI.Migrations
                 column: "IdUser");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Disciplines_Title",
+                table: "Disciplines",
+                column: "Title",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Exams_IdUser",
                 table: "Exams",
                 column: "IdUser");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Exams_Title",
+                table: "Exams",
+                column: "Title",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Notes_Content",
+                table: "Notes",
+                column: "Content",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Notes_IdExam",
                 table: "Notes",
                 column: "IdExam");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Requirements_Content",
+                table: "Requirements",
+                column: "Content",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Requirements_IdDiscipline",
@@ -398,6 +423,12 @@ namespace StudyBudyAPI.Migrations
                 name: "IX_Tasks_IdUser",
                 table: "Tasks",
                 column: "IdUser");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teachers_FullName",
+                table: "Teachers",
+                column: "FullName",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teachers_IdUser",

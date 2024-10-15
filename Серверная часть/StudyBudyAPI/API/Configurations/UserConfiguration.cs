@@ -15,7 +15,6 @@ namespace StudyBudyAPI.Configurations
             builder.HasMany(u => u.Teachers).WithOne(t => t.User).OnDelete(DeleteBehavior.Cascade).HasForeignKey(t => t.IdUser);
             builder.HasMany(u => u.Exams).WithOne(e => e.User).OnDelete(DeleteBehavior.Cascade).HasForeignKey(e => e.IdUser);
             builder.HasMany(u => u.Disciplines).WithOne(d => d.User).OnDelete(DeleteBehavior.Cascade).HasForeignKey(d => d.IdUser);
-            
         }
     }
 }

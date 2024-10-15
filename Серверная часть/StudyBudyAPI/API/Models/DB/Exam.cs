@@ -9,6 +9,7 @@ namespace StudyBudyAPI.Models.DB
         public int NumberTickets { get; set; } = 0;
         public DateOnly DateExam { get; set; }
         public Guid IdUser { get; set; }
+        public string Title { get; set; }
         //Для связей
 
         [JsonIgnore]

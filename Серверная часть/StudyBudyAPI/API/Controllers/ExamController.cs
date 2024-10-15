@@ -7,26 +7,24 @@ using StudyBudyAPI.Models.DB;
 
 namespace StudyBudyAPI.Controllers
 {
-    [Route("api/discipline")]
+    [Route("api/exam")]
     [ApiController]
-    public class DisciplineController : Controller
+    public class ExamController : Controller
     {
-        private readonly IDisciplineRepository _disciplineRepository;
-        private readonly ITeacherRepository _teacherRepository;
+        private readonly IExamRepository _examRepository;
         private readonly UserManager<AppUser> _userManager;
         private readonly ILogger<DisciplineController> _logger;
 
-        public DisciplineController(IDisciplineRepository disciplineRepository,ITeacherRepository teacherRepository,
+        public ExamController(IExamRepository examRepository, 
             UserManager<AppUser> userManager, ILogger<DisciplineController> logger)
         {
-            _disciplineRepository = disciplineRepository;
-            _teacherRepository = teacherRepository;
+            _examRepository = examRepository;
             _userManager = userManager;
             _logger = logger;
         }
 
-        [HttpGet("getDisciplineUser")]
-        public async Task<ActionResult<List<Discipline>>> GetDisciplinesUser()
+        [HttpGet("getExamsUser")]
+        public async Task<ActionResult<List<Exam>>> GetExamsUser()
         {
             try
             {
@@ -35,7 +33,7 @@ namespace StudyBudyAPI.Controllers
                 {
                     return Unauthorized();
                 }
-                var listEntity = _disciplineRepository.GetDisciplineListUser(appUser.Id);
+                var listEntity = _examRepository.GetExamListUser(appUser.Id);
                 return Ok(listEntity);
             }
             catch (Exception ex)
@@ -44,27 +42,26 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
-        [HttpPost("createDiscipline")]
-        public async Task<ActionResult<Discipline>> CreateDiscipline(CreateDisciplineDto dto)
+        [HttpPost("createExam")]
+        public async Task<ActionResult<Exam>> CreateExam(CreateExamDto dto)
         {
             try
             {
-                if (!(_teacherRepository.TeacherIsExists(dto.IdTeacher) || dto.IdTeacher == null))
-                {
-                    return BadRequest("Такого преподавателя нет");
-                }
+                if (dto.NumberTickets < 0) return BadRequest("Количество билетов не может быть отрицательным");
                 var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
                 if (appUser == null)
                 {
                     return Unauthorized();
                 }
-                var newEntity = new Discipline
+                var newEntity = new Exam
                 {
                     IdUser = appUser.Id,
                     Title = dto.Title,
-                    IdTeacher = dto.IdTeacher
+                    Duration = dto.Duration,
+                    NumberTickets = dto.NumberTickets,
+                    DateExam = dto.DateExam
                 };
-                var createdEntity = _disciplineRepository.AddDisc(newEntity);
+                var createdEntity = _examRepository.AddExam(newEntity);
                 return Ok(createdEntity);
             }
             catch (Exception e)

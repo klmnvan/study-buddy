@@ -219,13 +219,13 @@ namespace StudyBudyAPI.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("5aa4fea9-c52f-4a01-a052-78d3d4f9d52f"),
+                            Id = new Guid("0847b59a-5ce8-4e76-a6a1-00d66cfc89d0"),
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = new Guid("44620187-2cfd-4418-a2c6-950794d86d77"),
+                            Id = new Guid("de5c0aaa-01e9-49fd-b231-859f26364d4f"),
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -255,6 +255,9 @@ namespace StudyBudyAPI.Migrations
 
                     b.HasIndex("IdUser");
 
+                    b.HasIndex("Title")
+                        .IsUnique();
+
                     b.ToTable("Disciplines");
                 });
 
@@ -279,9 +282,16 @@ namespace StudyBudyAPI.Migrations
                     b.Property<int>("NumberTickets")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.HasKey("IdExam");
 
                     b.HasIndex("IdUser");
+
+                    b.HasIndex("Title")
+                        .IsUnique();
 
                     b.ToTable("Exams");
                 });
@@ -302,6 +312,9 @@ namespace StudyBudyAPI.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("IdNote");
+
+                    b.HasIndex("Content")
+                        .IsUnique();
 
                     b.HasIndex("IdExam");
 
@@ -324,6 +337,9 @@ namespace StudyBudyAPI.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("IdRequirement");
+
+                    b.HasIndex("Content")
+                        .IsUnique();
 
                     b.HasIndex("IdDiscipline");
 
@@ -382,11 +398,13 @@ namespace StudyBudyAPI.Migrations
                     b.Property<Guid>("IdUser")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("OfficeNumber")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int?>("OfficeNumber")
+                        .HasColumnType("integer");
 
                     b.HasKey("IdTeacher");
+
+                    b.HasIndex("FullName")
+                        .IsUnique();
 
                     b.HasIndex("IdUser");
 

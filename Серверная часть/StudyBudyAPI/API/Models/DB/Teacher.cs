@@ -6,7 +6,7 @@ namespace StudyBudyAPI.Models.DB
     {
         public int IdTeacher { get; set; }
         public string FullName { get; set; } = string.Empty;
-        public string OfficeNumber { get; set; } = string.Empty;
+        public int? OfficeNumber { get; set; }
         public Guid IdUser { get; set; }
         //Для связей
         [JsonIgnore]

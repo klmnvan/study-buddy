@@ -7,26 +7,24 @@ using StudyBudyAPI.Models.DB;
 
 namespace StudyBudyAPI.Controllers
 {
-    [Route("api/discipline")]
+    [Route("api/teacher")]
     [ApiController]
-    public class DisciplineController : Controller
+    public class TeacherController : Controller
     {
-        private readonly IDisciplineRepository _disciplineRepository;
         private readonly ITeacherRepository _teacherRepository;
         private readonly UserManager<AppUser> _userManager;
-        private readonly ILogger<DisciplineController> _logger;
+        private readonly ILogger<TeacherController> _logger;
 
-        public DisciplineController(IDisciplineRepository disciplineRepository,ITeacherRepository teacherRepository,
-            UserManager<AppUser> userManager, ILogger<DisciplineController> logger)
+        public TeacherController(ITeacherRepository teacherRepository,
+            UserManager<AppUser> userManager, ILogger<TeacherController> logger)
         {
-            _disciplineRepository = disciplineRepository;
             _teacherRepository = teacherRepository;
             _userManager = userManager;
             _logger = logger;
         }
 
-        [HttpGet("getDisciplineUser")]
-        public async Task<ActionResult<List<Discipline>>> GetDisciplinesUser()
+        [HttpGet("getTeachersUser")]
+        public async Task<ActionResult<List<Teacher>>> GetTeachersUser()
         {
             try
             {
@@ -35,7 +33,7 @@ namespace StudyBudyAPI.Controllers
                 {
                     return Unauthorized();
                 }
-                var listEntity = _disciplineRepository.GetDisciplineListUser(appUser.Id);
+                var listEntity = _teacherRepository.GetTeacherListUser(appUser.Id);
                 return Ok(listEntity);
             }
             catch (Exception ex)
@@ -44,27 +42,20 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
-        [HttpPost("createDiscipline")]
-        public async Task<ActionResult<Discipline>> CreateDiscipline(CreateDisciplineDto dto)
+        [HttpPost("createTeacher")]
+        public async Task<ActionResult<Teacher>> CreateTeacher(CreateTeacherDto dto)
         {
             try
             {
-                if (!(_teacherRepository.TeacherIsExists(dto.IdTeacher) || dto.IdTeacher == null))
-                {
-                    return BadRequest("Такого преподавателя нет");
-                }
                 var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
-                if (appUser == null)
-                {
-                    return Unauthorized();
-                }
-                var newEntity = new Discipline
+                if (appUser == null) return Unauthorized();
+                var newEntity = new Teacher
                 {
                     IdUser = appUser.Id,
-                    Title = dto.Title,
-                    IdTeacher = dto.IdTeacher
+                    FullName = dto.FullName,
+                    OfficeNumber = dto.OfficeNumber
                 };
-                var createdEntity = _disciplineRepository.AddDisc(newEntity);
+                var createdEntity = _teacherRepository.AddTeacher(newEntity);
                 return Ok(createdEntity);
             }
             catch (Exception e)
