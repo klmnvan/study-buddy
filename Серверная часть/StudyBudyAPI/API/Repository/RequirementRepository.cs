@@ -20,6 +20,17 @@ namespace StudyBudyAPI.Repository
             return result.Entity;
         }
 
+        public bool DeleteRequirement(int IdRequirement)
+        {
+            Requirement el = _context.Requirements.FirstOrDefault(x => x.IdRequirement == IdRequirement);
+            if (el != null)
+            {
+                _context.Remove(el);
+                return Save();
+            }
+            return false;
+        }
+
         public List<Requirement> GetReqListByDisc(int idDisc)
         {
             List<Requirement> listR = _context.Requirements.Select(it => it).Where(it => it.IdDiscipline == idDisc).ToList();
@@ -29,6 +40,12 @@ namespace StudyBudyAPI.Repository
         public bool RequirementIsExists(int id)
         {
             return _context.Requirements.Any(it => it.IdRequirement == id);
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false; //было ли изменено хотя бы одно значение в базе данных
         }
     }
 }

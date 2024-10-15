@@ -1,4 +1,5 @@
-﻿using StudyBudyAPI.Data;
+﻿using Humanizer;
+using StudyBudyAPI.Data;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.DB;
 
@@ -20,6 +21,17 @@ namespace StudyBudyAPI.Repository
             return result.Entity;
         }
 
+        public bool DeleteDisc(int IdDisc)
+        {
+            Discipline el = _context.Disciplines.FirstOrDefault(x => x.IdDiscipline == IdDisc);
+            if (el != null)
+            {
+                _context.Remove(el);
+                return Save();
+            }
+            return false;
+        }
+
         public bool DisciplineIsExists(int? id)
         {
             return _context.Disciplines.Any(it => it.IdDiscipline == id);
@@ -29,6 +41,12 @@ namespace StudyBudyAPI.Repository
         {
             List<Discipline> listD = _context.Disciplines.Select(it => it).Where(it => it.IdUser == idUser).ToList();
             return listD;
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false; //было ли изменено хотя бы одно значение в базе данных
         }
 
     }

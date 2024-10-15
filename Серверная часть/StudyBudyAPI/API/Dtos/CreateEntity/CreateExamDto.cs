@@ -2,11 +2,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace StudyBudyAPI.Dtos
+namespace StudyBudyAPI.Dtos.CreateEntity
 {
     public class CreateExamDto
     {
-        
+
         [Required]
         [Display(Name = "Название")]
         public string Title { get; set; }

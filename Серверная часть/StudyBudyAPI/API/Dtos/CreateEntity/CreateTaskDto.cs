@@ -3,7 +3,7 @@ using StudyBudyAPI.Service;
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace StudyBudyAPI.Dtos
+namespace StudyBudyAPI.Dtos.CreateEntity
 {
     public class CreateTaskDto
     {

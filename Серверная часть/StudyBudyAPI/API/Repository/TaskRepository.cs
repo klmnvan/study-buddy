@@ -1,5 +1,6 @@
 ﻿using StudyBudyAPI.Data;
 using StudyBudyAPI.Interfaces;
+using StudyBudyAPI.Models.DB;
 
 namespace StudyBudyAPI.Repository
 {
@@ -28,6 +29,23 @@ namespace StudyBudyAPI.Repository
         public bool TaskIsExists(int? id)
         {
             return _context.Tasks.Any(it => it.IdTask == id);
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false; //было ли изменено хотя бы одно значение в базе данных
+        }
+
+        public bool DeleteTask(int IdTask)
+        {
+            Models.DB.Task el = _context.Tasks.FirstOrDefault(x => x.IdTask == IdTask);
+            if (el != null)
+            {
+                _context.Remove(el);
+                return Save();
+            }
+            return false;
         }
     }
 }

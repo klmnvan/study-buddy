@@ -1,34 +1,33 @@
-﻿using Humanizer;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using StudyBudyAPI.Dtos.CreateEntity;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
-using StudyBudyAPI.Repository;
-using System.ComponentModel.DataAnnotations;
+using StudyBudyAPI.Models.DB;
 
 namespace StudyBudyAPI.Controllers
 {
-    [Route("api/task")]
+    [Route("api/note")]
     [ApiController]
-    public class TaskController : Controller
+    public class NoteController : Controller
     {
-        private readonly ITaskRepository _taskRepository;
-        private readonly IDisciplineRepository _disciplineRepository;
+        private readonly INoteRepository _noteRepository;
+        private readonly IExamRepository _examRepository;
         private readonly UserManager<AppUser> _userManager;
         private readonly ILogger<TaskController> _logger;
 
-        public TaskController(ITaskRepository taskRepository, IDisciplineRepository disciplineRepository,
+        public NoteController(INoteRepository noteRepository, IExamRepository examRepository,
             UserManager<AppUser> userManager, ILogger<TaskController> logger)
         {
-            _taskRepository = taskRepository;
-            _disciplineRepository = disciplineRepository;
+            _noteRepository = noteRepository;
+            _examRepository = examRepository;
             _userManager = userManager;
             _logger = logger;
         }
 
-        [HttpGet("getTaskUser")]
-        public async Task<ActionResult<List<Models.DB.Task>>> GetTaskUser()
+        [HttpGet("getNotesExam")]
+        public async Task<ActionResult<List<Note>>> GetNotesExam(
+            [FromQuery(Name = "Id экзамена")] int IdExam)
         {
             try
             {
@@ -37,70 +36,65 @@ namespace StudyBudyAPI.Controllers
                 {
                     return Unauthorized();
                 }
-                var listEntity = _taskRepository.GetTaskListUser(appUser.Id);
+                var listEntity = _noteRepository.GetNoteListByExam(IdExam);
                 return Ok(listEntity);
-            } 
+            }
             catch (Exception ex)
             {
                 return StatusCode(500, ex.Message);
             }
         }
 
-        [HttpPost("createTask")]
-        public async Task<ActionResult<Models.DB.Task>> CreateTask(CreateTaskDto dto)
+        [HttpPost("createNote")]
+        public async Task<ActionResult<Note>> CreateNote(CreateNoteDto dto)
         {
             try
             {
-                if (!(_disciplineRepository.DisciplineIsExists(dto.IdDiscipline) || dto.IdDiscipline == null))
+                if (!_examRepository.ExamIsExists(dto.IdExam))
                 {
-                    return BadRequest("Такого предмета нет");
+                    return BadRequest("Такого экзамена нет");
                 }
                 var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
                 if (appUser == null)
                 {
                     return Unauthorized();
                 }
-                var newTask = new Models.DB.Task
+                var newN = new Note
                 {
-                    Title = dto.Title,
-                    Deadline = dto.Deadline,
-                    IdDiscipline = dto.IdDiscipline,
-                    Description = dto.Description,
-                    IdUser = appUser.Id,
-                    IsCompleted = false
+                    IdExam = dto.IdExam,
+                    Content = dto.Content,
                 };
-                if (dto.IdDiscipline == null) newTask.IdDiscipline = null;
-                var createdTask = _taskRepository.AddTask(newTask);
-                return Ok(createdTask);
+                var createdN = _noteRepository.AddNote(newN);
+                return Ok(createdN);
             }
             catch (Exception e)
             {
                 _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
-                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}"); 
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
                 _logger.LogInformation($"Ошибка {e}");
                 return StatusCode(500, "Ошибка со стороны сервера");
             }
         }
 
-        [HttpDelete("deleteTask")]
-        public async Task<ActionResult> DeleteTask([FromQuery(Name = "Id задачи")] int IdTask)
+        [HttpDelete("deleteNote")]
+        public async Task<ActionResult> DeleteNote([FromQuery(Name = "Id заметки")] int IdNote)
         {
             try
             {
-                if (!_taskRepository.TaskIsExists(IdTask))
+                if (!_noteRepository.NoteIsExists(IdNote))
                 {
-                    return BadRequest("Такой задачи нет");
+                    return BadRequest("Такой заметки нет");
                 }
                 var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
                 if (appUser == null)
                 {
                     return Unauthorized();
                 }
-                if (!_taskRepository.DeleteTask(IdTask))
+                if (!_noteRepository.DeleteNote(IdNote))
                 {
-                    return StatusCode(500, "Ошибка удаления задачи");
+                    return StatusCode(500, "Ошибка удаления заметки");
                 }
-                return Ok("Задача удалена");
+                return Ok("Заметка удалена");
             }
             catch (Exception e)
             {

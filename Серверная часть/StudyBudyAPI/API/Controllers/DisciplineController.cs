@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StudyBudyAPI.Dtos;
+using StudyBudyAPI.Dtos.CreateEntity;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
+using StudyBudyAPI.Repository;
 
 namespace StudyBudyAPI.Controllers
 {
@@ -66,6 +67,35 @@ namespace StudyBudyAPI.Controllers
                 };
                 var createdEntity = _disciplineRepository.AddDisc(newEntity);
                 return Ok(createdEntity);
+            }
+            catch (Exception e)
+            {
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogInformation($"Ошибка {e}");
+                return StatusCode(500, "Ошибка со стороны сервера");
+            }
+        }
+
+        [HttpDelete("deleteDiscipline")]
+        public async Task<ActionResult> DeleteDiscipline([FromQuery(Name = "Id предмета")] int IdDiscipline)
+        {
+            try
+            {
+                if (!_disciplineRepository.DisciplineIsExists(IdDiscipline))
+                {
+                    return BadRequest("Такого предмета нет");
+                }
+                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (appUser == null)
+                {
+                    return Unauthorized();
+                }
+                if (!_disciplineRepository.DeleteDisc(IdDiscipline))
+                {
+                    return StatusCode(500, "Ошибка удаления предмета");
+                }
+                return Ok("Предмет удален");
             }
             catch (Exception e)
             {

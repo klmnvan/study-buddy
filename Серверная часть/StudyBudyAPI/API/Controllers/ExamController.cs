@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StudyBudyAPI.Dtos;
+using StudyBudyAPI.Dtos.CreateEntity;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
+using StudyBudyAPI.Repository;
 
 namespace StudyBudyAPI.Controllers
 {
@@ -63,6 +64,35 @@ namespace StudyBudyAPI.Controllers
                 };
                 var createdEntity = _examRepository.AddExam(newEntity);
                 return Ok(createdEntity);
+            }
+            catch (Exception e)
+            {
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogInformation($"Ошибка {e}");
+                return StatusCode(500, "Ошибка со стороны сервера");
+            }
+        }
+
+        [HttpDelete("deleteExam")]
+        public async Task<ActionResult> DeleteExam([FromQuery(Name = "Id экзамена")] int IdExam)
+        {
+            try
+            {
+                if (!_examRepository.ExamIsExists(IdExam))
+                {
+                    return BadRequest("Такого экзамена нет");
+                }
+                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (appUser == null)
+                {
+                    return Unauthorized();
+                }
+                if (!_examRepository.DeleteExam(IdExam))
+                {
+                    return StatusCode(500, "Ошибка удаления экзамена");
+                }
+                return Ok("Экзамен удален");
             }
             catch (Exception e)
             {

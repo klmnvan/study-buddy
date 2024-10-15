@@ -1,6 +1,7 @@
 ﻿using StudyBudyAPI.Data;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.DB;
+using System.Diagnostics.Metrics;
 
 namespace StudyBudyAPI.Repository
 {
@@ -20,6 +21,17 @@ namespace StudyBudyAPI.Repository
             return result.Entity;
         }
 
+        public bool DeleteNote(int IdNote)
+        {
+            Note note = _context.Notes.FirstOrDefault(x => x.IdNote == IdNote);
+            if(note != null)
+            {
+                _context.Remove(note);
+                return Save();
+            }
+            return false;
+        }
+
         public List<Note> GetNoteListByExam(int idExam)
         {
             List<Note> listN = _context.Notes.Select(it => it).Where(it => it.IdExam == idExam).ToList();
@@ -29,6 +41,12 @@ namespace StudyBudyAPI.Repository
         public bool NoteIsExists(int id)
         {
             return _context.Notes.Any(it => it.IdNote == id);
+        }
+
+        public bool Save()
+        {
+            var saved = _context.SaveChanges();
+            return saved > 0 ? true : false; //было ли изменено хотя бы одно значение в базе данных
         }
     }
 }

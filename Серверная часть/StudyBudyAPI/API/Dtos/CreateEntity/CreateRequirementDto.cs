@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace StudyBudyAPI.Dtos
+namespace StudyBudyAPI.Dtos.CreateEntity
 {
     public class CreateRequirementDto
     {

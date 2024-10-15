@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StudyBudyAPI.Dtos;
+using StudyBudyAPI.Dtos.CreateEntity;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
+using StudyBudyAPI.Repository;
 
 namespace StudyBudyAPI.Controllers
 {
@@ -75,67 +76,26 @@ namespace StudyBudyAPI.Controllers
                 return StatusCode(500, "Ошибка со стороны сервера");
             }
         }
-    }
 
-    [Route("api/note")]
-    [ApiController]
-    public class NoteController : Controller
-    {
-        private readonly INoteRepository _noteRepository;
-        private readonly IExamRepository _examRepository;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly ILogger<TaskController> _logger;
-
-        public NoteController(INoteRepository noteRepository, IExamRepository examRepository,
-            UserManager<AppUser> userManager, ILogger<TaskController> logger)
-        {
-            _noteRepository = noteRepository;
-            _examRepository = examRepository;
-            _userManager = userManager;
-            _logger = logger;
-        }
-
-        [HttpGet("getNotesExam")]
-        public async Task<ActionResult<List<Note>>> GetNotesExam(
-            [FromQuery(Name = "Id экзамена")] int IdExam)
+        [HttpDelete("deleteRequirement")]
+        public async Task<ActionResult> DeleteNote([FromQuery(Name = "Id требования")] int IdRequirement)
         {
             try
             {
-                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
-                if (appUser == null)
+                if (!_requirementRepository.RequirementIsExists(IdRequirement))
                 {
-                    return Unauthorized();
-                }
-                var listEntity = _noteRepository.GetNoteListByExam(IdExam);
-                return Ok(listEntity);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(500, ex.Message);
-            }
-        }
-
-        [HttpPost("createNote")]
-        public async Task<ActionResult<Note>> CreateTask(CreateNoteDto dto)
-        {
-            try
-            {
-                if (!_examRepository.ExamIsExists(dto.IdExam))
-                {
-                    return BadRequest("Такого экзамена нет");
+                    return BadRequest("Такого требования нет");
                 }
                 var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
                 if (appUser == null)
                 {
                     return Unauthorized();
                 }
-                var newN = new Note
+                if (!_requirementRepository.DeleteRequirement(IdRequirement))
                 {
-                    IdExam = dto.IdExam,
-                    Content = dto.Content,
-                };
-                var createdN = _noteRepository.AddNote(newN);
-                return Ok(createdN);
+                    return StatusCode(500, "Ошибка удаления требования");
+                }
+                return Ok("Требование удалено");
             }
             catch (Exception e)
             {

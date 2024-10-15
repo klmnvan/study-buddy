@@ -1,9 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using StudyBudyAPI.Dtos;
+using StudyBudyAPI.Dtos.CreateEntity;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
+using StudyBudyAPI.Repository;
 
 namespace StudyBudyAPI.Controllers
 {
@@ -57,6 +58,35 @@ namespace StudyBudyAPI.Controllers
                 };
                 var createdEntity = _teacherRepository.AddTeacher(newEntity);
                 return Ok(createdEntity);
+            }
+            catch (Exception e)
+            {
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogTrace($"Ошибка {e.GetType}:{e.Message}");
+                _logger.LogInformation($"Ошибка {e}");
+                return StatusCode(500, "Ошибка со стороны сервера");
+            }
+        }
+
+        [HttpDelete("deleteTeacher")]
+        public async Task<ActionResult> DeleteTeacher([FromQuery(Name = "Id преподавателя")] int IdTeacher)
+        {
+            try
+            {
+                if (!_teacherRepository.TeacherIsExists(IdTeacher))
+                {
+                    return BadRequest("Такого преподавателя нет");
+                }
+                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (appUser == null)
+                {
+                    return Unauthorized();
+                }
+                if (!_teacherRepository.DeleteTeacher(IdTeacher))
+                {
+                    return StatusCode(500, "Ошибка удаления преподавателя");
+                }
+                return Ok("Преподаватель удален");
             }
             catch (Exception e)
             {
