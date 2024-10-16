@@ -65,7 +65,11 @@ namespace StudyBudyAPI.Controllers
                 {
                     IdDiscipline = dto.IdDiscipline,
                     Content = dto.Content,
-                };
+                }; 
+                if (_requirementRepository.IsDuplicate(newR))
+                {
+                    return BadRequest("Требование с таким содержанием уже есть");
+                }
                 var createdR = _requirementRepository.AddRequirement(newR);
                 return Ok(createdR);
             }
@@ -135,6 +139,11 @@ namespace StudyBudyAPI.Controllers
                     IdDiscipline = dto.IdDiscipline,    
                     Content = dto.Content, 
                 };
+
+                if (_requirementRepository.IsDuplicate(newEl))
+                {
+                    return BadRequest("Требование с таким содержанием уже есть");
+                }
 
                 if (!_requirementRepository.UpdateRequirement(newEl))
                 {

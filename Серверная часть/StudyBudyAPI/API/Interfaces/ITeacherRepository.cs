@@ -9,5 +9,6 @@ namespace StudyBudyAPI.Interfaces
         public Teacher AddTeacher(Teacher d);
         public bool DeleteTeacher(int IdTeacher);
         public bool UpdateTeacher(Teacher el);
+        public bool IsDuplicate(Teacher el);
     }
 }

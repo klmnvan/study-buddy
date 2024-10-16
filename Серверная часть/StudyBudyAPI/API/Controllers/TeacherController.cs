@@ -56,7 +56,11 @@ namespace StudyBudyAPI.Controllers
                     IdUser = appUser.Id,
                     FullName = dto.FullName,
                     OfficeNumber = dto.OfficeNumber
-                };
+                }; 
+                if (_teacherRepository.IsDuplicate(newEntity))
+                {
+                    return BadRequest("Преподаватель с таким именем уже есть");
+                }
                 var createdEntity = _teacherRepository.AddTeacher(newEntity);
                 return Ok(createdEntity);
             }
@@ -122,6 +126,11 @@ namespace StudyBudyAPI.Controllers
                     OfficeNumber = dto.OfficeNumber,
                     IdUser = appUser.Id
                 };
+
+                if (_teacherRepository.IsDuplicate(newEl))
+                {
+                    return BadRequest("Преподаватель с таким именем уже есть");
+                }
 
                 if (!_teacherRepository.UpdateTeacher(newEl))
                 {

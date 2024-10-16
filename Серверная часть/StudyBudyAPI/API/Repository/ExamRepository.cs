@@ -42,6 +42,11 @@ namespace StudyBudyAPI.Repository
             return listE;
         }
 
+        public bool IsDuplicate(Exam el)
+        {
+            return _context.Exams.Any(it => it.Title == el.Title);
+        }
+
         public bool Save()
         {
             var saved = _context.SaveChanges();

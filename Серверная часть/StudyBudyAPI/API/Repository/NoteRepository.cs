@@ -38,6 +38,11 @@ namespace StudyBudyAPI.Repository
             return listN;
         }
 
+        public bool IsDuplicate(Note el)
+        {
+            return _context.Notes.Any(it => it.Content == el.Content);
+        }
+
         public bool NoteIsExists(int id)
         {
             return _context.Notes.Any(it => it.IdNote == id);

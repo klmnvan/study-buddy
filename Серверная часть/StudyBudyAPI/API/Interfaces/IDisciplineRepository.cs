@@ -9,5 +9,7 @@ namespace StudyBudyAPI.Interfaces
         public Discipline AddDisc(Discipline d);
         public bool DeleteDisc(int IdDisc);
         public bool UpdateDisc(Discipline el);
+
+        public bool IsDuplicate(Discipline el);
     }
 }

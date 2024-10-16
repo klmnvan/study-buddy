@@ -66,6 +66,10 @@ namespace StudyBudyAPI.Controllers
                     Title = dto.Title,
                     IdTeacher = dto.IdTeacher
                 };
+                if (_disciplineRepository.IsDuplicate(newEntity))
+                {
+                    return BadRequest("Предмет с таким названием уже есть");
+                }
                 var createdEntity = _disciplineRepository.AddDisc(newEntity);
                 return Ok(createdEntity);
             }
@@ -136,7 +140,10 @@ namespace StudyBudyAPI.Controllers
                     IdTeacher = dto.IdTeacher,
                     IdUser = appUser.Id,
                 };
-
+                if (_disciplineRepository.IsDuplicate(newEl))
+                {
+                    return BadRequest("Предмет с таким названием уже есть");
+                }
                 if (!_disciplineRepository.UpdateDisc(newEl))
                 {
                     return StatusCode(500, "Ошибка изменения предмета");

@@ -63,6 +63,10 @@ namespace StudyBudyAPI.Controllers
                     NumberTickets = dto.NumberTickets,
                     DateExam = dto.DateExam
                 };
+                if (_examRepository.IsDuplicate(newEntity))
+                {
+                    return BadRequest("Экзамен с таким названием уже есть");
+                }
                 var createdEntity = _examRepository.AddExam(newEntity);
                 return Ok(createdEntity);
             }
@@ -129,6 +133,11 @@ namespace StudyBudyAPI.Controllers
                     DateExam = dto.DateExam,
                     IdUser = appUser.Id,
                 };
+
+                if (_examRepository.IsDuplicate(newEl))
+                {
+                    return BadRequest("Экзамен с таким названием уже есть");
+                }
 
                 if (!_examRepository.UpdateExam(newEl))
                 {

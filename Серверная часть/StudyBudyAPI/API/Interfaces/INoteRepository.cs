@@ -9,5 +9,6 @@ namespace StudyBudyAPI.Interfaces
         public Note AddNote(Note n);
         public bool DeleteNote(int IdNote);
         public bool UpdateNote(Note el);
+        public bool IsDuplicate(Note el);
     }
 }

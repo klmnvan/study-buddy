@@ -9,5 +9,6 @@ namespace StudyBudyAPI.Interfaces
         public Exam AddExam(Exam e);
         public bool DeleteExam(int IdExam);
         public bool UpdateExam(Exam el);
+        public bool IsDuplicate(Exam el);
     }
 }

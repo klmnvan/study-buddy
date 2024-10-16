@@ -37,6 +37,11 @@ namespace StudyBudyAPI.Repository
             return _context.Disciplines.Any(it => it.IdDiscipline == id);
         }
 
+        public bool IsDuplicate(Discipline el)
+        {
+            return _context.Disciplines.Any(it => it.Title == el.Title);
+        }
+
         public List<Discipline> GetDisciplineListUser(Guid idUser)
         {
             List<Discipline> listD = _context.Disciplines.Select(it => it).Where(it => it.IdUser == idUser).ToList();

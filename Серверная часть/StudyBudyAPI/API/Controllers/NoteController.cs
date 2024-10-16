@@ -6,6 +6,7 @@ using StudyBudyAPI.Dtos.DB;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
+using StudyBudyAPI.Repository;
 
 namespace StudyBudyAPI.Controllers
 {
@@ -66,6 +67,10 @@ namespace StudyBudyAPI.Controllers
                     IdExam = dto.IdExam,
                     Content = dto.Content,
                 };
+                if (_noteRepository.IsDuplicate(newN))
+                {
+                    return BadRequest("Заметка с таким содержанием уже есть");
+                }
                 var createdN = _noteRepository.AddNote(newN);
                 return Ok(createdN);
             }
@@ -132,6 +137,11 @@ namespace StudyBudyAPI.Controllers
                     IdExam = dto.IdExam,
                     Content = dto.Content,
                 };
+
+                if (_noteRepository.IsDuplicate(newEl))
+                {
+                    return BadRequest("Заметка с таким содержанием уже есть");
+                }
 
                 if (!_noteRepository.UpdateNote(newEl))
                 {
