@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Mvc.Abstractions;
 using StudyBudyAPI.Repository;
 using Microsoft.Extensions.Options;
 using Microsoft.OpenApi.Any;
+using System.ComponentModel;
 
 namespace StudyBudyAPI
 {
@@ -35,6 +36,7 @@ namespace StudyBudyAPI
             builder.Services.AddSwaggerGen(option =>
             {
                 option.SwaggerDoc("v1", new OpenApiInfo { Title = "StudyBuddy API", Version = "v1" });
+                //option.OperationFilter<SwaggerDefaultValues>();
                 option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     In = ParameterLocation.Header,

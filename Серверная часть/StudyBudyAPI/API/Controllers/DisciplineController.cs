@@ -121,7 +121,7 @@ namespace StudyBudyAPI.Controllers
                     return BadRequest("Такого предмета нет");
                 }
 
-                if (!_teacherRepository.TeacherIsExists(dto.IdTeacher))
+                if (!_teacherRepository.TeacherIsExists(dto.IdTeacher) && dto.IdTeacher != null)
                 {
                     return BadRequest("Такого преподавателя нет");
                 }

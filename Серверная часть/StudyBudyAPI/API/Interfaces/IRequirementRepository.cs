@@ -9,7 +9,7 @@ namespace StudyBudyAPI.Interfaces
         public Requirement AddRequirement(Requirement r);
         public bool DeleteRequirement(int IdRequirement);
         public bool UpdateRequirement(Requirement el);
-        public bool IsDuplicate(Requirement el);
+        public bool IsDuplicate(Requirement el, Guid idUser);
 
     }
 }

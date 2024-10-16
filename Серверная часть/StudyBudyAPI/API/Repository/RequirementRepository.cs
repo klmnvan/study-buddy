@@ -37,9 +37,9 @@ namespace StudyBudyAPI.Repository
             return listR;
         }
 
-        public bool IsDuplicate(Requirement el)
+        public bool IsDuplicate(Requirement el, Guid idUser)
         {
-            return _context.Requirements.Any(it => it.Content == el.Content);
+            return _context.Requirements.Any(it => it.Content == el.Content && it.Discipline.IdUser == idUser);
         }
 
         public bool RequirementIsExists(int id)

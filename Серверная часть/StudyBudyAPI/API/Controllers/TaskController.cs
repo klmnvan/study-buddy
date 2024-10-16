@@ -123,7 +123,7 @@ namespace StudyBudyAPI.Controllers
                     return BadRequest("Такой задачи нет");
                 }
 
-                if (!_disciplineRepository.DisciplineIsExists(dto.IdDiscipline))
+                if (!_disciplineRepository.DisciplineIsExists(dto.IdDiscipline) && dto.IdDiscipline != null)
                 {
                     return BadRequest("Такого предмета нет");
                 }

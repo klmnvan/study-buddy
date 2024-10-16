@@ -66,7 +66,7 @@ namespace StudyBudyAPI.Controllers
                     IdDiscipline = dto.IdDiscipline,
                     Content = dto.Content,
                 }; 
-                if (_requirementRepository.IsDuplicate(newR))
+                if (_requirementRepository.IsDuplicate(newR, appUser.Id))
                 {
                     return BadRequest("Требование с таким содержанием уже есть");
                 }
@@ -140,7 +140,7 @@ namespace StudyBudyAPI.Controllers
                     Content = dto.Content, 
                 };
 
-                if (_requirementRepository.IsDuplicate(newEl))
+                if (_requirementRepository.IsDuplicate(newEl, appUser.Id))
                 {
                     return BadRequest("Требование с таким содержанием уже есть");
                 }

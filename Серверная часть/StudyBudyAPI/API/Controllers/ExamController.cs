@@ -113,6 +113,7 @@ namespace StudyBudyAPI.Controllers
         {
             try
             {
+                if (dto.NumberTickets < 0) return BadRequest("Количество билетов не может быть отрицательным");
                 if (!_examRepository.ExamIsExists(dto.IdExam))
                 {
                     return BadRequest("Такого экзамена нет");
@@ -131,6 +132,7 @@ namespace StudyBudyAPI.Controllers
                     Duration = dto.Duration,
                     NumberTickets = dto.NumberTickets,
                     DateExam = dto.DateExam,
+                    Title = dto.Title,
                     IdUser = appUser.Id,
                 };
 

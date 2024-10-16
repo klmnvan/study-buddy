@@ -44,7 +44,7 @@ namespace StudyBudyAPI.Repository
 
         public bool IsDuplicate(Exam el)
         {
-            return _context.Exams.Any(it => it.Title == el.Title);
+            return _context.Exams.Any(it => (it.Title == el.Title && it.IdUser == el.IdUser && it.IdExam != el.IdExam));
         }
 
         public bool Save()

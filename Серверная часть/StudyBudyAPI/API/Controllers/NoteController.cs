@@ -67,7 +67,7 @@ namespace StudyBudyAPI.Controllers
                     IdExam = dto.IdExam,
                     Content = dto.Content,
                 };
-                if (_noteRepository.IsDuplicate(newN))
+                if (_noteRepository.IsDuplicate(newN, appUser.Id))
                 {
                     return BadRequest("Заметка с таким содержанием уже есть");
                 }
@@ -138,7 +138,7 @@ namespace StudyBudyAPI.Controllers
                     Content = dto.Content,
                 };
 
-                if (_noteRepository.IsDuplicate(newEl))
+                if (_noteRepository.IsDuplicate(newEl, appUser.Id))
                 {
                     return BadRequest("Заметка с таким содержанием уже есть");
                 }

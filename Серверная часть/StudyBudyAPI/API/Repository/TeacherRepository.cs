@@ -56,7 +56,7 @@ namespace StudyBudyAPI.Repository
 
         public bool IsDuplicate(Teacher el)
         {
-            return _context.Teachers.Any(it => it.FullName == el.FullName);
+            return _context.Teachers.Any(it => (it.FullName == el.FullName && it.IdUser == el.IdUser && it.IdTeacher != el.IdTeacher));
         }
     }
 }

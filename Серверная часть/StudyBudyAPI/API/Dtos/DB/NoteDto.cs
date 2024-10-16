@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudyBudyAPI.Dtos.DB
 {
@@ -9,6 +10,7 @@ namespace StudyBudyAPI.Dtos.DB
         [Required]
         public int IdExam { get; set; }
         [Required]
+        [DefaultValue("Заметка")]
         public string Content { get; set; } = string.Empty;
     }
 }

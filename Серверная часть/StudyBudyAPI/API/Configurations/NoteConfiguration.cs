@@ -11,7 +11,6 @@ namespace StudyBudyAPI.Configurations
             builder.HasKey(n => n.IdNote);
             //у одной заметки только 1 экзамен, а у экзаменов множество
             builder.HasOne(n => n.Exam).WithMany(e => e.Notes).OnDelete(DeleteBehavior.Cascade).HasForeignKey(n => n.IdExam);
-            builder.HasIndex(n => n.Content).IsUnique();
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudyBudyAPI.Dtos.Account
 {
@@ -12,6 +13,7 @@ namespace StudyBudyAPI.Dtos.Account
         [Required(ErrorMessage = "Не указан пароль")]
         [Display(Name = "Пароль")]
         [DataType(DataType.Password)]
+        [DefaultValue("12345678")]
         public string Password { get; set; }
     }
 }
