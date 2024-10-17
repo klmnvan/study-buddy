@@ -6,6 +6,7 @@ using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
 using StudyBudyAPI.Repository;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace StudyBudyAPI.Controllers
 {
@@ -25,6 +26,7 @@ namespace StudyBudyAPI.Controllers
             _logger = logger;
         }
 
+        [SwaggerOperation(Summary = "Получение всех экзаменов пользователя")]
         [HttpGet("getExamsUser")]
         public async Task<ActionResult<List<Exam>>> GetExamsUser()
         {
@@ -44,6 +46,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Создание экзамена")]
         [HttpPost("createExam")]
         public async Task<ActionResult<Exam>> CreateExam(CreateExamDto dto)
         {
@@ -79,6 +82,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Удаление экзамена")]
         [HttpDelete("deleteExam")]
         public async Task<ActionResult> DeleteExam([FromQuery(Name = "Id экзамена")] int IdExam)
         {
@@ -108,6 +112,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Изменение экзамена")]
         [HttpPut("updateExam")]
         public async Task<ActionResult> UpdateExam([FromBody] ExamDto dto)
         {

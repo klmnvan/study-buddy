@@ -7,6 +7,7 @@ using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
 using StudyBudyAPI.Repository;
+using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 
 namespace StudyBudyAPI.Controllers
@@ -29,6 +30,7 @@ namespace StudyBudyAPI.Controllers
             _logger = logger;
         }
 
+        [SwaggerOperation(Summary = "Получение всех задач пользователя")]
         [HttpGet("getTaskUser")]
         public async Task<ActionResult<List<Models.DB.Task>>> GetTaskUser()
         {
@@ -48,6 +50,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Создание задачи")]
         [HttpPost("createTask")]
         public async Task<ActionResult<Models.DB.Task>> CreateTask(CreateTaskDto dto)
         {
@@ -84,6 +87,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Удаление задачи")]
         [HttpDelete("deleteTask")]
         public async Task<ActionResult> DeleteTask([FromQuery(Name = "Id задачи")] int IdTask)
         {
@@ -113,6 +117,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Изменение задачи")]
         [HttpPut("updateTask")]
         public async Task<ActionResult> UpdateTask([FromBody] TaskDto dto)
         {

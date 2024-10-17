@@ -6,6 +6,7 @@ using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
 using StudyBudyAPI.Repository;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace StudyBudyAPI.Controllers
 {
@@ -25,6 +26,7 @@ namespace StudyBudyAPI.Controllers
             _logger = logger;
         }
 
+        [SwaggerOperation(Summary = "Получение всех преподавателей пользователя")]
         [HttpGet("getTeachersUser")]
         public async Task<ActionResult<List<Teacher>>> GetTeachersUser()
         {
@@ -44,6 +46,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Создание преподавателя")]
         [HttpPost("createTeacher")]
         public async Task<ActionResult<Teacher>> CreateTeacher(CreateTeacherDto dto)
         {
@@ -73,6 +76,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Удаление преподавателя")]
         [HttpDelete("deleteTeacher")]
         public async Task<ActionResult> DeleteTeacher([FromQuery(Name = "Id преподавателя")] int IdTeacher)
         {
@@ -102,6 +106,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Изменение преподавателя")]
         [HttpPut("updateTeacher")]
         public async Task<ActionResult> UpdateTeacher([FromBody] TeacherDto dto)
         {

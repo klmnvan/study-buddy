@@ -1,0 +1,534 @@
+[
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.AccountController",
+    "Method": "AccountInfo",
+    "RelativePath": "api/account/accountInfo",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "StudyBudyAPI.Dtos.Account.UserInfoDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.AccountController",
+    "Method": "Login",
+    "RelativePath": "api/account/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "loginDto",
+        "Type": "StudyBudyAPI.Dtos.Account.LoginDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.AccountController",
+    "Method": "Register",
+    "RelativePath": "api/account/register",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "registerDto",
+        "Type": "StudyBudyAPI.Dtos.Account.RegisterDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.DisciplineController",
+    "Method": "CreateDiscipline",
+    "RelativePath": "api/discipline/createDiscipline",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.CreateEntity.CreateDisciplineDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyBudyAPI.Models.DB.Discipline",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.DisciplineController",
+    "Method": "DeleteDiscipline",
+    "RelativePath": "api/discipline/deleteDiscipline",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0430",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.DisciplineController",
+    "Method": "GetDisciplinesUser",
+    "RelativePath": "api/discipline/getDisciplineUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[StudyBudyAPI.Models.DB.Discipline, StudyBudyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.DisciplineController",
+    "Method": "UpdateDiscipline",
+    "RelativePath": "api/discipline/updateDiscipline",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.DB.DisciplineDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.ExamController",
+    "Method": "CreateExam",
+    "RelativePath": "api/exam/createExam",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.CreateEntity.CreateExamDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyBudyAPI.Models.DB.Exam",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.ExamController",
+    "Method": "DeleteExam",
+    "RelativePath": "api/exam/deleteExam",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id \u044D\u043A\u0437\u0430\u043C\u0435\u043D\u0430",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.ExamController",
+    "Method": "GetExamsUser",
+    "RelativePath": "api/exam/getExamsUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[StudyBudyAPI.Models.DB.Exam, StudyBudyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.ExamController",
+    "Method": "UpdateExam",
+    "RelativePath": "api/exam/updateExam",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.DB.ExamDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.NoteController",
+    "Method": "CreateNote",
+    "RelativePath": "api/note/createNote",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.CreateEntity.CreateNoteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyBudyAPI.Models.DB.Note",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.NoteController",
+    "Method": "DeleteNote",
+    "RelativePath": "api/note/deleteNote",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id \u0437\u0430\u043C\u0435\u0442\u043A\u0438",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.NoteController",
+    "Method": "GetNotesExam",
+    "RelativePath": "api/note/getNotesExam",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id \u044D\u043A\u0437\u0430\u043C\u0435\u043D\u0430",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[StudyBudyAPI.Models.DB.Note, StudyBudyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.NoteController",
+    "Method": "UpdateNote",
+    "RelativePath": "api/note/updateNote",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.DB.NoteDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.RequirementController",
+    "Method": "CreateTask",
+    "RelativePath": "api/requirement/createRequirement",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.CreateEntity.CreateRequirementDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyBudyAPI.Models.DB.Requirement",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.RequirementController",
+    "Method": "DeleteNote",
+    "RelativePath": "api/requirement/deleteRequirement",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id \u0442\u0440\u0435\u0431\u043E\u0432\u0430\u043D\u0438\u044F",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.RequirementController",
+    "Method": "GetRequirementsDiscipline",
+    "RelativePath": "api/requirement/getRequirementsDiscipline",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044F",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[StudyBudyAPI.Models.DB.Requirement, StudyBudyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.RequirementController",
+    "Method": "UpdateRequirement",
+    "RelativePath": "api/requirement/updateRequirement",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.DB.RequirementDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.TaskController",
+    "Method": "CreateTask",
+    "RelativePath": "api/task/createTask",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.CreateEntity.CreateTaskDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyBudyAPI.Models.DB.Task",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.TaskController",
+    "Method": "DeleteTask",
+    "RelativePath": "api/task/deleteTask",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id \u0437\u0430\u0434\u0430\u0447\u0438",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.TaskController",
+    "Method": "GetTaskUser",
+    "RelativePath": "api/task/getTaskUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[StudyBudyAPI.Models.DB.Task, StudyBudyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.TaskController",
+    "Method": "UpdateTask",
+    "RelativePath": "api/task/updateTask",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.DB.TaskDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.TeacherController",
+    "Method": "CreateTeacher",
+    "RelativePath": "api/teacher/createTeacher",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.CreateEntity.CreateTeacherDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "StudyBudyAPI.Models.DB.Teacher",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.TeacherController",
+    "Method": "DeleteTeacher",
+    "RelativePath": "api/teacher/deleteTeacher",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044F",
+        "Type": "System.Int32",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.TeacherController",
+    "Method": "GetTeachersUser",
+    "RelativePath": "api/teacher/getTeachersUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[StudyBudyAPI.Models.DB.Teacher, StudyBudyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.TeacherController",
+    "Method": "UpdateTeacher",
+    "RelativePath": "api/teacher/updateTeacher",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "StudyBudyAPI.Dtos.DB.TeacherDto",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  }
+]

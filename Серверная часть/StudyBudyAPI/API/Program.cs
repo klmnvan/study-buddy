@@ -35,7 +35,8 @@ namespace StudyBudyAPI
 
             builder.Services.AddSwaggerGen(option =>
             {
-                option.SwaggerDoc("v1", new OpenApiInfo { Title = "StudyBuddy API", Version = "v1" });
+                option.EnableAnnotations();
+                option.SwaggerDoc("v1", new OpenApiInfo { Title = "StudyBuddy API", Version = "v1", Description = "API для системы приложений Study Buddy" });
                 //option.OperationFilter<SwaggerDefaultValues>();
                 option.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {

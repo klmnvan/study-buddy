@@ -6,6 +6,7 @@ using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
 using StudyBudyAPI.Repository;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace StudyBudyAPI.Controllers
 {
@@ -27,6 +28,7 @@ namespace StudyBudyAPI.Controllers
             _logger = logger;
         }
 
+        [SwaggerOperation(Summary = "Получение всех требований к предмету")]
         [HttpGet("getRequirementsDiscipline")]
         public async Task<ActionResult<List<Requirement>>> GetRequirementsDiscipline(
             [FromQuery(Name = "Id преподавателя")] int IdDiscipline)
@@ -47,6 +49,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Создание требования к предмету")]
         [HttpPost("createRequirement")]
         public async Task<ActionResult<Requirement>> CreateTask(CreateRequirementDto dto)
         {
@@ -82,6 +85,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Удаление требования к предмету")]
         [HttpDelete("deleteRequirement")]
         public async Task<ActionResult> DeleteNote([FromQuery(Name = "Id требования")] int IdRequirement)
         {
@@ -111,6 +115,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Изменение требования к предмету")]
         [HttpPut("updateRequirement")]
         public async Task<ActionResult> UpdateRequirement([FromBody] RequirementDto dto)
         {

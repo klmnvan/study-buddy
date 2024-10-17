@@ -8,6 +8,7 @@ using StudyBudyAPI.Dtos.Account;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
+using Swashbuckle.AspNetCore.Annotations;
 using System.Diagnostics;
 
 namespace StudyBudyAPI.Controllers
@@ -32,6 +33,7 @@ namespace StudyBudyAPI.Controllers
             _logger = logger;
         }
 
+        [SwaggerOperation(Summary = "Регистрация в системе")]
         [HttpPost("register")] //аннотация вида http запроса
         [AllowAnonymous]
         public async Task<IActionResult> Register([FromBody] RegisterDto registerDto)
@@ -109,6 +111,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Авторизация в системе")]
         [HttpPost("login")]
         [AllowAnonymous]
         public async Task<IActionResult> Login(LoginDto loginDto)
@@ -139,7 +142,7 @@ namespace StudyBudyAPI.Controllers
             );
         }
 
-        
+        [SwaggerOperation(Summary = "Получение информации об аккаунте")]
         [HttpGet]
         [Route("accountInfo")]
         public async Task<ActionResult<UserInfoDto>> AccountInfo()

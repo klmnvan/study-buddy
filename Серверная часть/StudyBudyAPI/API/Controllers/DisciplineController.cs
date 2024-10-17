@@ -6,6 +6,7 @@ using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
 using StudyBudyAPI.Repository;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace StudyBudyAPI.Controllers
 {
@@ -27,6 +28,7 @@ namespace StudyBudyAPI.Controllers
             _logger = logger;
         }
 
+        [SwaggerOperation(Summary = "Получение всех предметов пользователя")]
         [HttpGet("getDisciplineUser")]
         public async Task<ActionResult<List<Discipline>>> GetDisciplinesUser()
         {
@@ -46,6 +48,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Создание предмета у пользователя")]
         [HttpPost("createDiscipline")]
         public async Task<ActionResult<Discipline>> CreateDiscipline(CreateDisciplineDto dto)
         {
@@ -82,6 +85,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Удаление предмета")]
         [HttpDelete("deleteDiscipline")]
         public async Task<ActionResult> DeleteDiscipline([FromQuery(Name = "Id предмета")] int IdDiscipline)
         {
@@ -111,6 +115,7 @@ namespace StudyBudyAPI.Controllers
             }
         }
 
+        [SwaggerOperation(Summary = "Изменение предмета")]
         [HttpPut("updateDiscipline")]
         public async Task<ActionResult> UpdateDiscipline([FromBody] DisciplineDto dto)
         {
