@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("StudyBudyAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ef27cd5f6f723f13145688c21f9c3f45fe876902")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f89e87ecd7db9f68f46a635fbdb63d43dd727a8d")]
 [assembly: System.Reflection.AssemblyProductAttribute("StudyBudyAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("StudyBudyAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

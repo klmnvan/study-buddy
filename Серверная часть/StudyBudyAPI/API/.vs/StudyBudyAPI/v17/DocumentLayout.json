@@ -49,6 +49,10 @@
           "SelectedChildIndex": 6,
           "Children": [
             {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "TeacherController.cs",
@@ -58,8 +62,7 @@
               "RelativeToolTip": "Controllers\\TeacherController.cs",
               "ViewState": "AgIAAA0AAAAAAAAAAAAAAE4AAAA+AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T10:46:12.883Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-17T10:46:12.883Z"
             },
             {
               "$type": "Document",
@@ -71,8 +74,7 @@
               "RelativeToolTip": "Controllers\\TaskController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACAAAABGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T10:46:01.003Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-17T10:46:01.003Z"
             },
             {
               "$type": "Document",
@@ -84,8 +86,7 @@
               "RelativeToolTip": "Controllers\\RequirementController.cs",
               "ViewState": "AgIAAA4AAAAAAAAAAAAxwB4AAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T10:45:34.323Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-17T10:45:34.323Z"
             },
             {
               "$type": "Document",
@@ -97,8 +98,7 @@
               "RelativeToolTip": "Controllers\\NoteController.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAACEAAABBAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T10:45:18.003Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-17T10:45:18.003Z"
             },
             {
               "$type": "Document",
@@ -110,12 +110,7 @@
               "RelativeToolTip": "Controllers\\ExamController.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAAAAABwAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T10:45:06.706Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+              "WhenOpened": "2024-10-17T10:45:06.706Z"
             },
             {
               "$type": "Document",
@@ -125,7 +120,7 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAxwCoAAAAyAAAAAAAAAA==",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAACoAAAAyAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-17T10:42:29.444Z",
               "EditorCaption": ""
@@ -140,8 +135,7 @@
               "RelativeToolTip": "Controllers\\AccountController.cs",
               "ViewState": "AgIAAIAAAAAAAAAAAAAwwJAAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T10:39:10.771Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-17T10:39:10.771Z"
             },
             {
               "$type": "Document",
@@ -153,8 +147,7 @@
               "RelativeToolTip": "Controllers\\DisciplineController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-17T10:39:10.818Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-17T10:39:10.818Z"
             },
             {
               "$type": "Document",
@@ -166,8 +159,7 @@
               "RelativeToolTip": "appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2024-10-17T10:38:16.711Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-17T10:38:16.711Z"
             }
           ]
         }
