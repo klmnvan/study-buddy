@@ -16,10 +16,10 @@ namespace StudyBudyAPI.Controllers
     {
         private readonly IExamRepository _examRepository;
         private readonly UserManager<AppUser> _userManager;
-        private readonly ILogger<DisciplineController> _logger;
+        private readonly ILogger<ExamController> _logger;
 
         public ExamController(IExamRepository examRepository, 
-            UserManager<AppUser> userManager, ILogger<DisciplineController> logger)
+            UserManager<AppUser> userManager, ILogger<ExamController> logger)
         {
             _examRepository = examRepository;
             _userManager = userManager;
