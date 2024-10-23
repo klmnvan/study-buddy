@@ -58,7 +58,7 @@ namespace StudyBudyAPI.Controllers
 
                 if (createdUser.Succeeded)
                 {
-                    //Добавление роли User к createdUser
+                    //Добавление роли User к createdUserЫ
                     var roleResult = await _userManager.AddToRoleAsync(appUser, "User"); 
                     if (roleResult.Succeeded)
                     {
@@ -98,8 +98,10 @@ namespace StudyBudyAPI.Controllers
                 }
                 else
                 {
+                    
                     var error = createdUser.Errors.FirstOrDefault();
-                    if (error.Code == "DuplicateUserName")
+                    if (error != null)
+                        if (error.Code == "DuplicateUserName")
                         return BadRequest("Такой пользователь уже есть");
                     return StatusCode(500, error);
                 }
@@ -120,7 +122,7 @@ namespace StudyBudyAPI.Controllers
                 return BadRequest(ModelState);
 
             //Поиск пользователя в системе (как схема auth в supabase?)
-            var appUser = await _userManager.FindByNameAsync(loginDto.Email.ToLower());
+            var appUser = await _userManager.FindByEmailAsync(loginDto.Email.ToLower());
             //var appUser = await _userManager.Users.FirstOrDefaultAsync(x => x.Email == loginDto.Email.ToLower());
 
             if (appUser == null) return Unauthorized("Такого пользователя нет в базе");

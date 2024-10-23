@@ -331,3 +331,4 @@ D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\obj\Debug\ne
 D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\obj\Debug\net8.0\Tests.pdb
 D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\obj\Debug\net8.0\Tests.genruntimeconfig.cache
 D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\obj\Debug\net8.0\ref\Tests.dll
+D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Moq.dll
