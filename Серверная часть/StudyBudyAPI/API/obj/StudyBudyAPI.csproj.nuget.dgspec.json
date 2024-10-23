@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {}
+    "E:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {}
   },
   "projects": {
-    "D:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {
+    "E:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
+        "projectUniqueName": "E:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
         "projectName": "StudyBudyAPI",
-        "projectPath": "D:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
+        "projectPath": "E:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
         "packagesPath": "C:\\Users\\mcsyan\\.nuget\\packages\\",
-        "outputPath": "D:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\obj\\",
+        "outputPath": "E:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mcsyan\\AppData\\Roaming\\NuGet\\NuGet.Config",

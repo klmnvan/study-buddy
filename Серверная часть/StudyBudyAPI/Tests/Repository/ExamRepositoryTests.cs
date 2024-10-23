@@ -61,7 +61,6 @@ namespace Tests.Repository
                             new Note() { Content = "Заметка 4" },
                             new Note() { Content = "Заметка 5" },
                         }
-
                     });
                     await databaseContext.SaveChangesAsync();
                 }
@@ -69,16 +68,17 @@ namespace Tests.Repository
             return databaseContext;
         }
 
+        //Тестирование получения списка экзаменов пользователей
         [Fact]
         public async void ExamRepository_GetExamsUser_ReturnsExamsUser()
         {
             //Arrange
             var dbContext = await GetDatabaseContext();
-            var pokemonRepository = new ExamRepository(dbContext);
+            var repository = new ExamRepository(dbContext);
             var user = dbContext.Users.Select(it => it).Where(it => it.Email == "markmarkovich@mail.ru").FirstOrDefault();
 
             //Act
-            var result = pokemonRepository.GetExamListUser(user.IdUser);
+            var result = repository.GetExamListUser(user.IdUser);
 
             //Assert
             result.Should().NotBeNull();

@@ -161,7 +161,10 @@ namespace StudyBudyAPI
             if (app.Environment.IsDevelopment())
             {
                 app.UseSwagger();
-                app.UseSwaggerUI();
+                app.UseSwaggerUI(options =>
+                {
+                    options.SwaggerEndpoint("./v1/swagger.json", "v1"); //Относительный путь до пользовательского интерфейса
+                });
             }
 
             app.UseHttpsRedirection();
@@ -169,7 +172,12 @@ namespace StudyBudyAPI
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.MapControllers(); 
+            app.MapControllers();
+
+            //на всякий случай
+            /*app.MapControllerRoute(
+                name: "default",
+                pattern: "{controller=Home}/{action=Index}/{id?}");*/
 
             app.Run();
         }

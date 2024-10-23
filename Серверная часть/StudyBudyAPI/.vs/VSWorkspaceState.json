@@ -1,7 +1,9 @@
 {
   "ExpandedNodes": [
-    ""
+    "",
+    "\\API",
+    "\\API\\Controllers"
   ],
-  "SelectedNode": "\\StudyBudyAPI.sln",
+  "SelectedNode": "\\API\\Controllers\\AccountController.cs",
   "PreviewInSolutionExplorer": false
 }
