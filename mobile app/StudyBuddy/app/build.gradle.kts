@@ -94,4 +94,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.2.2")
     implementation("io.coil-kt:coil-svg:2.2.2")
 
+    // coroutines
+    // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 }

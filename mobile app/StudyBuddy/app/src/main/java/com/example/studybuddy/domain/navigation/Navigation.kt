@@ -4,6 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.studybuddy.view.screens.auth.Auth
+import com.example.studybuddy.view.screens.splash.Splash
 
 @Composable
 fun Navigation() {
@@ -12,8 +14,12 @@ fun Navigation() {
         navController = controller,
         startDestination = NavigationRoutes.SPLASH) {
 
-        composable(NavigationRoutes.SPLASH){
-            //Splash(controller)
+        composable(NavigationRoutes.SPLASH) {
+            Splash(controller)
+        }
+
+        composable(NavigationRoutes.AUTH){
+            Auth(controller)
         }
     }
 }
