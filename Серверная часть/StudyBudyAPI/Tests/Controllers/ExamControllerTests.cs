@@ -1,5 +1,6 @@
 ﻿using FluentAssertions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -8,9 +9,9 @@ using Microsoft.Extensions.Options;
 using Moq;
 using StudyBudyAPI.Controllers;
 using StudyBudyAPI.Data;
+using StudyBudyAPI.Dtos.Account;
 using StudyBudyAPI.Dtos.CreateEntity;
 using StudyBudyAPI.Dtos.DB;
-using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
 using StudyBudyAPI.Models.DB;
 using StudyBudyAPI.Repository;
@@ -132,11 +133,14 @@ namespace Tests.Controllers
         [Fact]
         public async Task ExamControllerTests_GetExamsUser_ReturnOKAsync()
         {
-            //Arrange
-            var controller = new ExamController(_examRepository, _userManager, _logger);
-
             //Act
             var result = await controller.GetExamsUser();
+
+            if (result is ActionResult<List<Exam>> okResult)
+            {
+                var resultDto = okResult.Result;
+                Assert.NotNull(resultDto);
+            }
 
             //Assert
             result.Should().NotBeNull();
@@ -161,9 +165,33 @@ namespace Tests.Controllers
             var countExamsAfter = _examRepository.GetExamListUser(idUser).Count;
 
             //Assert
+            if (result is ActionResult<Exam> okResult)
+            {
+                var resultDto = okResult.Result;
+                Assert.NotNull(resultDto);
+            }
+
             Assert.True(countExamsBefore < countExamsAfter);
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<ActionResult<Exam>>();
+        }
+
+        [Fact]
+        public async Task ExamControllerTests_CreateDuplicateExam_ReturnBadRequest()
+        {
+            //Arrange
+            var duplicateExam = new CreateExamDto
+            {
+                Title = "1 Экзамен",
+                DateExam = new DateOnly(2024, 11, 1),
+                Duration = "1 часа",
+                NumberTickets = 24
+            };
+
+            //Act
+            var result = await controller.CreateExam(duplicateExam);
+            Assert.True(result.Result is BadRequestObjectResult);
+
         }
 
         [Fact]
@@ -199,13 +227,10 @@ namespace Tests.Controllers
             updatedExam.NumberTickets = 100; //Изменили количество билетов
 
             //Act
-            //Exam examBefore = _examRepository.GetExamListUser(idUser).First(); //Получили экзамен, который будем изменять
-            //_examRepository.Save();
             var result = await controller.UpdateExam(updatedExam);
-            //Exam examAfter = _examRepository.GetExamListUser(idUser).FirstOrDefault(it => it.IdExam == 1);
+            
 
             //Assert
-            //Assert.NotEqual(examBefore, examAfter);
             result.Should().NotBeNull();
             result.Should().BeAssignableTo<ActionResult>();
         }
