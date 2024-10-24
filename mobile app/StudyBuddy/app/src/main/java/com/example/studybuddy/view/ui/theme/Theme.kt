@@ -20,7 +20,7 @@ object StudyBuddyTheme {
         @ReadOnlyComposable
         @Composable
         get() = LocalTypography.current
-    val colors: ColorScheme
+    val colors: ColorPalette
         @ReadOnlyComposable
         @Composable
         get() = LocalColors.current
@@ -33,16 +33,18 @@ fun StudyBuddyTheme(
     content: @Composable () -> Unit
 ) {
     val colors = when (themeMode) {
-        ThemeMode.Dark -> LightColorScheme
+        ThemeMode.Dark -> baseLightPalette
     }
     CompositionLocalProvider(
-        LocalColors provides colors,
-        LocalTypography provides typography
+        LocalTypography provides typography,
+        LocalColors provides colors
     ){
         content()
     }
 }
 
 sealed class ThemeMode(val title: String) {
+
     data object Dark: ThemeMode(title = "Light")
+
 }
