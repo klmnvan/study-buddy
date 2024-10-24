@@ -2,7 +2,7 @@
   {
     "ContainingType": "StudyBudyAPI.Controllers.AccountController",
     "Method": "AccountInfo",
-    "RelativePath": "api/account/accountInfo",
+    "RelativePath": "api/Account/accountInfo",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -22,7 +22,7 @@
   {
     "ContainingType": "StudyBudyAPI.Controllers.AccountController",
     "Method": "Login",
-    "RelativePath": "api/account/login",
+    "RelativePath": "api/Account/login",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -38,7 +38,7 @@
   {
     "ContainingType": "StudyBudyAPI.Controllers.AccountController",
     "Method": "Register",
-    "RelativePath": "api/account/register",
+    "RelativePath": "api/Account/register",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -54,7 +54,7 @@
   {
     "ContainingType": "StudyBudyAPI.Controllers.DisciplineController",
     "Method": "CreateDiscipline",
-    "RelativePath": "api/discipline/createDiscipline",
+    "RelativePath": "api/Discipline/createDiscipline",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -80,7 +80,7 @@
   {
     "ContainingType": "StudyBudyAPI.Controllers.DisciplineController",
     "Method": "DeleteDiscipline",
-    "RelativePath": "api/discipline/deleteDiscipline",
+    "RelativePath": "api/Discipline/deleteDiscipline",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -96,7 +96,7 @@
   {
     "ContainingType": "StudyBudyAPI.Controllers.DisciplineController",
     "Method": "GetDisciplinesUser",
-    "RelativePath": "api/discipline/getDisciplineUser",
+    "RelativePath": "api/Discipline/getDisciplineUser",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -116,7 +116,7 @@
   {
     "ContainingType": "StudyBudyAPI.Controllers.DisciplineController",
     "Method": "UpdateDiscipline",
-    "RelativePath": "api/discipline/updateDiscipline",
+    "RelativePath": "api/Discipline/updateDiscipline",
     "HttpMethod": "PUT",
     "IsController": true,
     "Order": 0,

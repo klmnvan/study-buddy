@@ -29,20 +29,17 @@ namespace Tests.Controllers
 {
     public class AccountControllerTests
     {
-        private readonly Microsoft.AspNetCore.Identity.UserManager<AppUser> _userManager;
         private readonly ITokenService _tokenService;
         private readonly StudyBuddyDbContext _context;
         private readonly IMapper _mapper;
-        private readonly SignInManager<AppUser> _signInManager;
         private readonly ILogger<AccountController> _logger;
         private Guid idUser;
 
         public AccountControllerTests()
         {
-            _mapper = A.Fake<IMapper>();
-            _logger = A.Fake<ILogger<AccountController>>();
-            _tokenService = A.Fake<ITokenService>();
-            _signInManager = A.Fake<SignInManager<AppUser>>();
+            _mapper = new Mock<IMapper>().Object;
+            _logger = new Mock<ILogger<AccountController>>().Object;
+            _tokenService = new Mock<ITokenService>().Object;
             _context = GetDatabaseContext().Result;
         }
 
@@ -71,7 +68,7 @@ namespace Tests.Controllers
                         Email = "markmarkovich1@mail.ru"
                     });
                 await databaseContext.SaveChangesAsync();
-         
+
             }
             return databaseContext;
         }
@@ -111,7 +108,11 @@ namespace Tests.Controllers
                 .Setup(um => um.FindByEmailAsync(dto.Email)).
                 ReturnsAsync(new AppUser { UserName = dto.Email, Email = dto.Email });
 
-            var controller = new AccountController(userManagerMock.Object, _tokenService, _context, _signInManager, _logger);
+            var signInManager = new Mock<SignInManager<AppUser>>(
+                userManagerMock.Object, Mock.Of<IHttpContextAccessor>(),
+                Mock.Of<IUserClaimsPrincipalFactory<AppUser>>(), null, null, null, null);
+
+            var controller = new AccountController(userManagerMock.Object, _tokenService, _context, signInManager.Object, _logger);
 
             //Act
             var result = await controller.Register(dto);
@@ -133,7 +134,7 @@ namespace Tests.Controllers
             };
 
             //Mocks
-            var userManagerMock = new Mock<Microsoft.AspNetCore.Identity.UserManager<AppUser>>(
+            var userManagerMock = new Mock<UserManager<AppUser>>(
                 new Mock<Microsoft.AspNetCore.Identity.IUserStore<AppUser>>().Object,
                 new Mock<IOptions<IdentityOptions>>().Object,
                 new Mock<IPasswordHasher<AppUser>>().Object,
@@ -142,20 +143,20 @@ namespace Tests.Controllers
                 new Mock<ILookupNormalizer>().Object,
                 new Mock<IdentityErrorDescriber>().Object,
                 new Mock<IServiceProvider>().Object,
-                new Mock<ILogger<Microsoft.AspNetCore.Identity.UserManager<AppUser>>>().Object);
+                new Mock<ILogger<UserManager<AppUser>>>().Object);
             userManagerMock
                 .Setup(userManager => userManager
                 .CreateAsync(It.IsAny<AppUser>(), It.IsAny<string>()))
-                .Returns(System.Threading.Tasks.Task.FromResult(Microsoft.AspNetCore.Identity.IdentityResult.Success));
+                .Returns(System.Threading.Tasks.Task.FromResult(IdentityResult.Success));
             userManagerMock
                 .Setup(um => um.AddToRoleAsync(It.IsAny<AppUser>(), It.IsAny<string>()))
-                .Returns(System.Threading.Tasks.Task.FromResult(Microsoft.AspNetCore.Identity.IdentityResult.Success));
+                .Returns(System.Threading.Tasks.Task.FromResult(IdentityResult.Success));
             userManagerMock
                 .Setup(um => um.FindByEmailAsync(dto.Email)).
                 ReturnsAsync(new AppUser { UserName = dto.Email, Email = dto.Email, Id = idUser });
 
             var signInManager = new Mock<SignInManager<AppUser>>(
-                userManagerMock.Object, Mock.Of<IHttpContextAccessor>(), 
+                userManagerMock.Object, Mock.Of<IHttpContextAccessor>(),
                 Mock.Of<IUserClaimsPrincipalFactory<AppUser>>(), null, null, null, null);
 
             signInManager
@@ -177,8 +178,8 @@ namespace Tests.Controllers
         public async Task AccountControllerTests_AccountInfo_ReturnOKAsync()
         {
             //Mocks
-            var userManagerMock = new Mock<Microsoft.AspNetCore.Identity.UserManager<AppUser>>(
-                new Mock<Microsoft.AspNetCore.Identity.IUserStore<AppUser>>().Object,
+            var userManagerMock = new Mock<UserManager<AppUser>>(
+                new Mock<IUserStore<AppUser>>().Object,
                 new Mock<IOptions<IdentityOptions>>().Object,
                 new Mock<IPasswordHasher<AppUser>>().Object,
                 new IUserValidator<AppUser>[0],
@@ -186,7 +187,7 @@ namespace Tests.Controllers
                 new Mock<ILookupNormalizer>().Object,
                 new Mock<IdentityErrorDescriber>().Object,
                 new Mock<IServiceProvider>().Object,
-                new Mock<ILogger<Microsoft.AspNetCore.Identity.UserManager<AppUser>>>().Object);
+                new Mock<ILogger<UserManager<AppUser>>>().Object);
             userManagerMock
                 .Setup(um => um.FindByNameAsync("markmarkovich1@mail.ru")).
                 ReturnsAsync(new AppUser { UserName = "markmarkovich1@mail.ru", Email = "markmarkovich1@mail.ru", Id = idUser });

@@ -674,3 +674,10 @@ E:\4_course_mobilka\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\
 E:\4_course_mobilka\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Microsoft.Owin.Security.Cookies.dll
 E:\4_course_mobilka\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Microsoft.Owin.Security.OAuth.dll
 E:\4_course_mobilka\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Owin.dll
+D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Microsoft.AspNet.Identity.Core.dll
+D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Microsoft.AspNet.Identity.Owin.dll
+D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Microsoft.Owin.dll
+D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Microsoft.Owin.Security.dll
+D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Microsoft.Owin.Security.Cookies.dll
+D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Microsoft.Owin.Security.OAuth.dll
+D:\klim\StudyBuddy\Серверная часть\StudyBudyAPI\Tests\bin\Debug\net8.0\Owin.dll

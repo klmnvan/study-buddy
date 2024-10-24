@@ -1,52 +1,62 @@
-﻿using AutoMapper;
-using FakeItEasy;
-using FluentAssertions;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Moq;
 using StudyBudyAPI.Controllers;
-using StudyBudyAPI.Dtos.DB;
+using StudyBudyAPI.Data;
 using StudyBudyAPI.Interfaces;
 using StudyBudyAPI.Models.Account;
+using StudyBudyAPI.Models.DB;
 using StudyBudyAPI.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Task = System.Threading.Tasks.Task;
+
 
 namespace Tests.Controllers
 {
     public class ExamControllerTests
     {
         private readonly IExamRepository _examRepository;
-        private readonly UserManager<AppUser> _userManager;
-        private readonly IMapper _mapper;
         private readonly ILogger<ExamController> _logger;
+        private Guid idUser;
 
         public ExamControllerTests()
         {
-            _examRepository = A.Fake<IExamRepository>();
-            _userManager = A.Fake<UserManager<AppUser>>();
-            _mapper = A.Fake<IMapper>();
-            _logger = A.Fake<ILogger<ExamController>>();
+            _examRepository = new ExamRepository(GetDatabaseContext().Result);
+            _logger = new Mock<ILogger<ExamController>>().Object;
         }
 
-        [Fact]
-        public void ExamControllerTests_GetExams_ReturnOK()
+        private async Task<StudyBuddyDbContext> GetDatabaseContext()
         {
-            //Arrange
-            var exams = A.Fake<ICollection<ExamDto>>();
-            var examList = A.Fake<List<ExamDto>>();
-            A.CallTo(() => _mapper.Map<List<ExamDto>>(exams)).Returns(examList);
-            var controller = new ExamController(_examRepository, _userManager, _logger);
+            var options = new DbContextOptionsBuilder<StudyBuddyDbContext>()
+                    .UseInMemoryDatabase(databaseName: Guid.NewGuid().ToString())
+                    .Options;
+            var databaseContext = new StudyBuddyDbContext(options);
+            databaseContext.Database.EnsureCreated();
 
-            //Act
-            var result = controller.GetExamsUser();
+            //Заполняем базу данных 
+            if (await databaseContext.Users.CountAsync() <= 0)
+            {
+                idUser = Guid.NewGuid();
+                databaseContext.Users.Add(
+                    new User()
+                    {
+                        AppUser = new AppUser()
+                        {
+                            Id = idUser
+                        },
+                        IdUser = idUser,
+                        Nickname = "Марк",
+                        Email = "markmarkovich1@mail.ru"
+                    });
+                await databaseContext.SaveChangesAsync();
 
-            //Assert
-            result.Should().NotBeNull();
-            result.Should().BeOfType(typeof(OkObjectResult));
+            }
+            return databaseContext;
+        }
+
+        public async Task ExamControllerTests_GetExamsUser_ReturnOKAsync()
+        {
+
         }
     }
 }

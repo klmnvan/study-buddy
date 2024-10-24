@@ -28,8 +28,6 @@ namespace StudyBudyAPI
             {
                 options.JsonSerializerOptions.Converters.Add(new DateOnlyJsonConverter());
             }); 
-            
-            //builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             builder.Services.AddEndpointsApiExplorer();
 
@@ -85,7 +83,6 @@ namespace StudyBudyAPI
 
             builder.Services.AddIdentity<AppUser, Role>(options =>
             {
-                //options.SignIn.RequireConfirmedAccount = false;
                 options.Password.RequiredLength = 8;
                 options.Password.RequireDigit = false;
                 options.Password.RequireNonAlphanumeric = false;
@@ -158,8 +155,9 @@ namespace StudyBudyAPI
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
-            if (app.Environment.IsDevelopment())
+            if (app.Environment.IsDevelopment() || app.Environment.IsProduction())
             {
+                app.UseDeveloperExceptionPage();
                 app.UseSwagger();
                 app.UseSwaggerUI(options =>
                 {
@@ -174,7 +172,6 @@ namespace StudyBudyAPI
 
             app.MapControllers();
 
-            //на всякий случай
             /*app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Home}/{action=Index}/{id?}");*/
