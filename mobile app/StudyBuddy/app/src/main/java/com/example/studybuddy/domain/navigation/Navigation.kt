@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.example.studybuddy.view.screens.auth.Auth
 import com.example.studybuddy.view.screens.login.Login
+import com.example.studybuddy.view.screens.register.Register
 import com.example.studybuddy.view.screens.splash.Splash
 
 @Composable
@@ -13,7 +14,7 @@ fun Navigation() {
     val controller = rememberNavController()
     NavHost(
         navController = controller,
-        startDestination = NavigationRoutes.SPLASH) {
+        startDestination = NavigationRoutes.AUTH) {
 
         composable(NavigationRoutes.SPLASH) {
             Splash(controller)
@@ -25,6 +26,10 @@ fun Navigation() {
 
         composable(NavigationRoutes.LOGIN){
             Login(controller)
+        }
+
+        composable(NavigationRoutes.REGIST){
+            Register(controller)
         }
     }
 }

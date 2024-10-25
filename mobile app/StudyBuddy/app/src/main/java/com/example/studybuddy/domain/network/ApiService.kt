@@ -9,6 +9,7 @@ import io.ktor.client.plugins.logging.Logging
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
+/** Интерфейс, в котором описаны все методы для запросов к API и создаётся объект ApiServiceImpl */
 interface ApiService {
 
     //тут будут запросы к API

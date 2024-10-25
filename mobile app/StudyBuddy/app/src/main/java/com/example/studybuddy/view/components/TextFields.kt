@@ -1,7 +1,5 @@
 package com.example.studybuddy.view.components
 
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,7 +27,7 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldAuth(value: String, input: (String) -> Unit, placeholder: String){
+fun TextFieldAuthEmail(value: String, input: (String) -> Unit, placeholder: String){
     OutlinedTextField(
         value = value,
         onValueChange = { input(it) },
@@ -48,6 +46,35 @@ fun TextFieldAuth(value: String, input: (String) -> Unit, placeholder: String){
         leadingIcon = {
             Icon(
                 imageVector = ImageVector.vectorResource(R.drawable.icon_email),
+                contentDescription = "",
+                modifier = Modifier.size(24.dp),
+                tint = StudyBuddyTheme.colors.textTitle
+            )
+        },
+    )
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun TextFieldAuthNickname(value: String, input: (String) -> Unit, placeholder: String){
+    OutlinedTextField(
+        value = value,
+        onValueChange = { input(it) },
+        textStyle = StudyBuddyTheme.typography.exstralight.copy(color = StudyBuddyTheme.colors.textTitle, fontSize = 16.sp),
+        modifier = Modifier
+            .fillMaxWidth(),
+        placeholder = { Text(text = placeholder, style = StudyBuddyTheme.typography.exstralight.copy(color = StudyBuddyTheme.colors.primary, fontSize = 16.sp)) },
+        singleLine = true,
+        shape = RoundedCornerShape(5.dp),
+        colors = TextFieldDefaults.outlinedTextFieldColors(
+            unfocusedBorderColor = Color.Transparent,
+            focusedBorderColor = Color.Transparent,
+            containerColor = StudyBuddyTheme.colors.containerPrimary,
+            cursorColor = StudyBuddyTheme.colors.containerPrimary
+        ),
+        leadingIcon = {
+            Icon(
+                imageVector = ImageVector.vectorResource(R.drawable.icon_user),
                 contentDescription = "",
                 modifier = Modifier.size(24.dp),
                 tint = StudyBuddyTheme.colors.textTitle

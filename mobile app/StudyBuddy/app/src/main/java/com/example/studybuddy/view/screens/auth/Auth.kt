@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -34,53 +35,51 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 @Composable
 fun Auth(controller: NavHostController) {
 
-    Box(modifier = Modifier.fillMaxSize().background(StudyBuddyTheme.colors.background)
+    Column(modifier = Modifier.fillMaxSize().background(StudyBuddyTheme.colors.background)
+        .verticalScroll(rememberScrollState())
         .padding(vertical = 40.dp, horizontal = 24.dp)
-        .verticalScroll(rememberScrollState()
-    )) {
-        Column {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Image(painter = painterResource(R.drawable.mini_logo), contentDescription = null, modifier = Modifier.size(32.dp))
-                SpacerWidth(12.dp)
-                Text(
-                    text = buildAnnotatedString {
-                        withStyle(SpanStyle(color = StudyBuddyTheme.colors.secondary)) {
-                            append("Study  ")
-                        }
-                        withStyle(SpanStyle(color = StudyBuddyTheme.colors.textTitle)) {
-                            append("Buddy")
-                        }
-                    },
-                    style = StudyBuddyTheme.typography.bold16,
-                    fontSize = 16.sp
-                )
-            }
-            SpacerHeight(40.dp)
-            TextTitle("Умное планирование учёбы", 32.sp, StudyBuddyTheme.colors.textTitle)
-            SpacerHeight(12.dp)
-            TextDesc("Здесь ты сможешь узнавать расписание, готовится к экзаменам, отслеживать дедлайны и добавлять информацию о дисциплинах",
-                16.sp, StudyBuddyTheme.colors.primary)
-            SpacerHeight(120.dp)
-            Column(verticalArrangement = Arrangement.Center) {
-                ButtonFillMaxWidth("войти", StudyBuddyTheme.colors.primary, true) {
-                    controller.navigate(NavigationRoutes.LOGIN) {
-                        popUpTo(NavigationRoutes.AUTH) {
-                            inclusive = true
-                        }
+    ) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Image(painter = painterResource(R.drawable.mini_logo), contentDescription = null, modifier = Modifier.size(32.dp))
+            SpacerWidth(12.dp)
+            Text(
+                text = buildAnnotatedString {
+                    withStyle(SpanStyle(color = StudyBuddyTheme.colors.secondary)) {
+                        append("Study  ")
                     }
-                }
-                SpacerHeight(16.dp)
-                ButtonFillMaxWidth("СОЗДАТЬ ПРОФИЛЬ", StudyBuddyTheme.colors.secondary, true) {
-                    controller.navigate(NavigationRoutes.REGIST) {
-                        popUpTo(NavigationRoutes.AUTH) {
-                            inclusive = true
-                        }
+                    withStyle(SpanStyle(color = StudyBuddyTheme.colors.textTitle)) {
+                        append("Buddy")
                     }
-                }
-            }
-
+                },
+                style = StudyBuddyTheme.typography.bold16,
+                fontSize = 16.sp
+            )
         }
-
+        SpacerHeight(40.dp)
+        TextTitle("Умное планирование учёбы", 32.sp, StudyBuddyTheme.colors.textTitle)
+        SpacerHeight(12.dp)
+        TextDesc("Здесь ты сможешь узнавать расписание, готовится к экзаменам, отслеживать дедлайны и добавлять информацию о дисциплинах",
+            16.sp, StudyBuddyTheme.colors.primary)
+        Spacer(modifier = Modifier.weight(0.4f))
+        SpacerHeight(12.dp)
+        Column(verticalArrangement = Arrangement.Center) {
+            ButtonFillMaxWidth("войти", StudyBuddyTheme.colors.primary, true) {
+                controller.navigate(NavigationRoutes.LOGIN) {
+                    popUpTo(NavigationRoutes.AUTH) {
+                        inclusive = true
+                    }
+                }
+            }
+            SpacerHeight(16.dp)
+            ButtonFillMaxWidth("СОЗДАТЬ ПРОФИЛЬ", StudyBuddyTheme.colors.secondary, true) {
+                controller.navigate(NavigationRoutes.REGIST) {
+                    popUpTo(NavigationRoutes.AUTH) {
+                        inclusive = true
+                    }
+                }
+            }
+        }
+        Spacer(modifier = Modifier.weight(1f))
     }
 
 

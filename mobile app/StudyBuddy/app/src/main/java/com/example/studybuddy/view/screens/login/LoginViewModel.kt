@@ -8,7 +8,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.studybuddy.domain.network.ApiServiceImpl
-import com.example.studybuddy.data.screens.LoginSt
+import com.example.studybuddy.data.states.LoginSt
+import com.example.studybuddy.domain.navigation.NavigationRoutes
+import com.example.studybuddy.domain.verification.AuthVerification.isEmailValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -35,16 +37,37 @@ class LoginViewModel @Inject constructor(
 
     fun signIn() {
         if(stateValue.email != "" && stateValue.password != "") {
-            viewModelScope.launch {
-                val response = service.signIn(stateValue.email, stateValue.password)
-                if(response.error == "") {
-                    Toast.makeText(context, "${response.user?.token}", Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
-                    Log.e("error signIn",response.error)
+            if(stateValue.email.isEmailValid()) {
+                viewModelScope.launch {
+                    val response = service.signIn(stateValue.email, stateValue.password)
+                    if(response.error == "") {
+                        Toast.makeText(context, "${response.user?.token}", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                        Log.e("error signIn",response.error)
+                    }
                 }
+            }
+            else Toast.makeText(context, "Неверный формат почты", Toast.LENGTH_SHORT).show()
+        }
+        else Toast.makeText(context, "Не все поля заполнены", Toast.LENGTH_SHORT).show()
+    }
+
+    fun goBack(controller: NavHostController) {
+        controller.navigate(NavigationRoutes.AUTH) {
+            popUpTo(NavigationRoutes.LOGIN) {
+                inclusive = true
             }
         }
     }
+
+    fun goRegist(controller: NavHostController) {
+        controller.navigate(NavigationRoutes.REGIST) {
+            popUpTo(NavigationRoutes.LOGIN) {
+                inclusive = true
+            }
+        }
+    }
+
 
 }

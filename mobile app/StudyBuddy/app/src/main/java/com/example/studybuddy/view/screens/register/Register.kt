@@ -1,4 +1,4 @@
-package com.example.studybuddy.view.screens.login
+package com.example.studybuddy.view.screens.register
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -25,12 +25,13 @@ import com.example.studybuddy.view.components.IconBack
 import com.example.studybuddy.view.components.SpacerHeight
 import com.example.studybuddy.view.components.TextDesc
 import com.example.studybuddy.view.components.TextFieldAuthEmail
+import com.example.studybuddy.view.components.TextFieldAuthNickname
 import com.example.studybuddy.view.components.TextFieldAuthPassword
 import com.example.studybuddy.view.components.TextTitle
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @Composable
-fun Login(controller: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
+fun Register(controller: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
 
     val state = viewModel.state.collectAsState()
     viewModel.context = LocalContext.current
@@ -40,21 +41,26 @@ fun Login(controller: NavHostController, viewModel: LoginViewModel = hiltViewMod
             IconBack { viewModel.goBack(controller) }
             Spacer(modifier = Modifier.weight(0.6f))
             Column (modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-                TextTitle("Авторизация", 40.sp, StudyBuddyTheme.colors.textTitle)
+                TextTitle("Регистрация", 40.sp, StudyBuddyTheme.colors.textTitle)
                 SpacerHeight(12.dp)
-                TextDesc("Войдите в свой профиль", 16.sp, StudyBuddyTheme.colors.primary)
+                TextDesc("Создайте свой профиль", 16.sp, StudyBuddyTheme.colors.primary)
             }
             SpacerHeight(60.dp)
+            TextFieldAuthNickname(state.value.nickname, { viewModel.stateValue = state.value.copy(nickname = it) }, "nickname")
+            SpacerHeight(16.dp)
             TextFieldAuthEmail(state.value.email, { viewModel.stateValue = state.value.copy(email = it) }, "user@mail.ru")
             SpacerHeight(16.dp)
             TextFieldAuthPassword(state.value.password, { viewModel.stateValue = state.value.copy(password = it) }, "********")
+            SpacerHeight(16.dp)
+            TextFieldAuthPassword(state.value.confirmPassword, { viewModel.stateValue = state.value.copy(confirmPassword = it) }, "********")
             SpacerHeight(40.dp)
-            ButtonFillMaxWidth("войти", StudyBuddyTheme.colors.primary, true) {
-                viewModel.signIn()
+            ButtonFillMaxWidth("СОЗДАТЬ ПРОФИЛЬ", StudyBuddyTheme.colors.primary, true) {
+                //viewModel.signIn()
             }
             Spacer(modifier = Modifier.weight(1f))
             SpacerHeight(20.dp)
-            DoubleText("У вас нет профиля? ", "Создайте") { viewModel.goRegist(controller) }
+            DoubleText("Уже есть профиль? ", "Авторизуйтесь") { viewModel.goLogin(controller) }
         }
     }
+
 }

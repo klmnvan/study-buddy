@@ -1,8 +1,5 @@
-package com.example.studybuddy.data.screens
+package com.example.studybuddy.data.states
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class LoginSt(
     var email: String = "user@example.com",
     var password: String = "12345678",

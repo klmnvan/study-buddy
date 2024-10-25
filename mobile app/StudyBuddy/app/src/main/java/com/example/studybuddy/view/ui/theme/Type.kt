@@ -14,6 +14,7 @@ data class Typography(
     val bold16: TextStyle,
     val regular: TextStyle,
     val exstralight: TextStyle,
+    val light: TextStyle,
 )
 
 val Geologica = FontFamily(
@@ -40,6 +41,10 @@ val typography = Typography(
     ),
     exstralight = TextStyle(
         fontWeight = FontWeight.ExtraLight,
+        fontFamily = Geologica
+    ),
+    light = TextStyle(
+        fontWeight = FontWeight.Light,
         fontFamily = Geologica
     ),
 )
