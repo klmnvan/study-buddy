@@ -8,3 +8,4 @@ data class LoginResp(
     val user: UserDto? = null,
     val error: String = "",
 )
+

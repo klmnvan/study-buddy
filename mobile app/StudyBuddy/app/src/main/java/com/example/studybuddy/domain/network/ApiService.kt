@@ -20,7 +20,7 @@ interface ApiService {
                 client = HttpClient(Android){
                     expectSuccess = true
                     install(Logging) {
-                        level = LogLevel.BODY
+                        level = LogLevel.ALL
                     }
                     install(ContentNegotiation){
                         json(
