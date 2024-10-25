@@ -1,6 +1,5 @@
 package com.example.studybuddy.view.ui.theme
 
-import androidx.compose.material3.Typography
 import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.text.TextStyle
@@ -13,6 +12,8 @@ import com.example.studybuddy.R
 @Immutable
 data class Typography(
     val bold16: TextStyle,
+    val regular: TextStyle,
+    val exstralight: TextStyle,
 )
 
 val Geologica = FontFamily(
@@ -32,7 +33,15 @@ val typography = Typography(
         fontWeight = FontWeight.Bold,
         fontFamily = Geologica,
         fontSize = 16.sp
-    )
+    ),
+    regular = TextStyle(
+        fontWeight = FontWeight.Normal,
+        fontFamily = Geologica
+    ),
+    exstralight = TextStyle(
+        fontWeight = FontWeight.ExtraLight,
+        fontFamily = Geologica
+    ),
 )
 
 val LocalTypography = staticCompositionLocalOf { typography }

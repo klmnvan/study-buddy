@@ -1,6 +1,5 @@
 package com.example.studybuddy.view.ui.theme
 
-import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
@@ -22,7 +21,6 @@ data class ColorPalette(
     val textButton: Color,
     val containerPrimary: Color,
     val containerSecondary: Color,
-
 )
 
 val baseLightPalette = ColorPalette(
