@@ -13,7 +13,7 @@ fun Navigation() {
     val controller = rememberNavController()
     NavHost(
         navController = controller,
-        startDestination = NavigationRoutes.LOGIN) {
+        startDestination = NavigationRoutes.SPLASH) {
 
         composable(NavigationRoutes.SPLASH) {
             Splash(controller)
