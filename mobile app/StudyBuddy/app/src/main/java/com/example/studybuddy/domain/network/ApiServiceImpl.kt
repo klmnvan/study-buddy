@@ -2,8 +2,10 @@ package com.example.studybuddy.domain.network
 
 import android.util.Log
 import com.example.studybuddy.data.dto.LoginDto
+import com.example.studybuddy.data.dto.RegisterDto
 import com.example.studybuddy.data.dto.UserDto
 import com.example.studybuddy.data.responses.LoginResp
+import com.example.studybuddy.data.responses.RegisterResp
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
@@ -42,6 +44,38 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
         catch (e: Exception) {
             Log.d("Error ${e.message}", e.message.toString())
             LoginResp(error = e.message.toString())
+        }
+    }
+
+    override suspend fun signUp(
+        email: String,
+        password: String,
+        passwordConf: String,
+        nickname: String
+    ): RegisterResp {
+        return try {
+            val response = client.post {
+                url(HttpRoutes.REGISTER)
+                contentType(ContentType.Application.Json)
+                setBody(RegisterDto(nickname,email, password, passwordConf))
+            }
+            val responseBody = response.body<UserDto>()
+            RegisterResp(user = responseBody)
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return RegisterResp(error = errorMessage)
+            }
+            RegisterResp(error = e.response.body<String>())
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            RegisterResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            RegisterResp(error = e.message.toString())
         }
     }
 

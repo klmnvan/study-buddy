@@ -1,6 +1,7 @@
 package com.example.studybuddy.domain.network
 
 import com.example.studybuddy.data.responses.LoginResp
+import com.example.studybuddy.data.responses.RegisterResp
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -14,6 +15,7 @@ interface ApiService {
 
     //тут будут запросы к API
     suspend fun signIn(email: String, password: String): LoginResp
+    suspend fun signUp(email: String, password: String, passwordConf: String, nickname: String): RegisterResp
 
     companion object {
         fun create(): ApiServiceImpl {

@@ -9,8 +9,9 @@ object AuthVerification {
         return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
     }
 
-    fun String.isPasswordValid () : Boolean {
-        return !TextUtils.isEmpty(this) && this.length >= 8
+    fun String.isNicknameValid () : Boolean {
+        val regex = Regex("^[a-zA-Zа-яА-ЯёЁ\\s]+\$"); //Никнейм может состоять только из симолов латиницы или кирилицы и пробелов
+        return regex.matches(this)
     }
 
 }
