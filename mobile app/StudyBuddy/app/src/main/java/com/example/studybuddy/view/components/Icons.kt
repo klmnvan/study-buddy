@@ -15,11 +15,22 @@ import com.example.studybuddy.R
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @Composable
-fun IconBack(onClick: () -> Unit) {
+fun ButtonBack(onClick: () -> Unit) {
     Icon(imageVector = ImageVector.vectorResource(R.drawable.arrow_left),
         contentDescription = null,
         tint = StudyBuddyTheme.colors.textButton,
         modifier = Modifier.background(StudyBuddyTheme.colors.secondary, RoundedCornerShape(20)).padding(10.dp).size(8.dp).clickable {
+            onClick()
+        }
+    )
+}
+
+@Composable
+fun ButtonAdd(onClick: () -> Unit) {
+    Icon(imageVector = ImageVector.vectorResource(R.drawable.icon_plus),
+        contentDescription = null,
+        tint = StudyBuddyTheme.colors.textButton,
+        modifier = Modifier.background(StudyBuddyTheme.colors.secondary, RoundedCornerShape(10)).padding(16.dp).size(20.dp).clickable {
             onClick()
         }
     )

@@ -8,13 +8,14 @@ import com.example.studybuddy.view.screens.auth.Auth
 import com.example.studybuddy.view.screens.login.Login
 import com.example.studybuddy.view.screens.register.Register
 import com.example.studybuddy.view.screens.splash.Splash
+import com.example.studybuddy.view.screens.tasks.Tasks
 
 @Composable
 fun Navigation() {
     val controller = rememberNavController()
     NavHost(
         navController = controller,
-        startDestination = NavigationRoutes.AUTH) {
+        startDestination = NavigationRoutes.TASKS) {
 
         composable(NavigationRoutes.SPLASH) {
             Splash(controller)
@@ -31,5 +32,10 @@ fun Navigation() {
         composable(NavigationRoutes.REGIST){
             Register(controller)
         }
+
+        composable(NavigationRoutes.TASKS){
+            Tasks(controller)
+        }
+
     }
 }

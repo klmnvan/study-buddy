@@ -5,5 +5,5 @@ object NavigationRoutes {
     val AUTH = "auth"
     val LOGIN = "login"
     val REGIST = "regist"
-    val HOME = "home"
+    val TASKS = "tasks"
 }

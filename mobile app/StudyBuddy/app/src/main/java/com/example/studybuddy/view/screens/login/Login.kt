@@ -21,7 +21,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.studybuddy.view.components.ButtonFillMaxWidth
 import com.example.studybuddy.view.components.DoubleText
-import com.example.studybuddy.view.components.IconBack
+import com.example.studybuddy.view.components.ButtonBack
 import com.example.studybuddy.view.components.SpacerHeight
 import com.example.studybuddy.view.components.TextDesc
 import com.example.studybuddy.view.components.TextFieldAuthEmail
@@ -37,7 +37,7 @@ fun Login(controller: NavHostController, viewModel: LoginViewModel = hiltViewMod
 
     Box(modifier = Modifier.fillMaxSize().background(StudyBuddyTheme.colors.background)) {
         Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(vertical = 40.dp, horizontal = 24.dp), verticalArrangement = Arrangement.Center) {
-            IconBack { viewModel.goBack(controller) }
+            ButtonBack { viewModel.goBack(controller) }
             Spacer(modifier = Modifier.weight(0.6f))
             Column (modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                 TextTitle("Авторизация", 40.sp, StudyBuddyTheme.colors.textTitle)
