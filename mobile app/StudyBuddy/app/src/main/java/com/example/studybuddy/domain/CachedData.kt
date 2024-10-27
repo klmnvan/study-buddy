@@ -1,4 +1,4 @@
-package com.example.studybuddy.domain.repository
+package com.example.studybuddy.domain
 
 import android.content.Context
 import android.content.SharedPreferences

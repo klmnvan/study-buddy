@@ -4,4 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.android) apply false
     id ("com.google.dagger.hilt.android") version "2.48" apply false
     id ("org.jetbrains.kotlin.plugin.serialization") version "1.8.20"
+
+    //попытка перехода на kps
+    //id("com.google.devtools.ksp") version "1.8.10-1.0.9" apply false
 }

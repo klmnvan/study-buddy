@@ -96,4 +96,13 @@ dependencies {
 
     // coroutines
     // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
+
+    //Room
+    val room_version = "2.4.0"
+    implementation("androidx.room:room-runtime:$room_version")
+    kapt("androidx.room:room-compiler:$room_version")
+    implementation ("androidx.room:room-ktx:$room_version")
+    implementation(libs.hilt.navigation.compose)
+
+
 }

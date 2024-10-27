@@ -5,7 +5,7 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.ui.platform.LocalContext
 import com.example.studybuddy.domain.navigation.Navigation
-import com.example.studybuddy.domain.repository.CachedData
+import com.example.studybuddy.domain.CachedData
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import dagger.hilt.android.AndroidEntryPoint
 
