@@ -8,10 +8,12 @@ import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.responses.GetTasksResp
 import com.example.studybuddy.data.responses.LoginResp
 import com.example.studybuddy.data.responses.RegisterResp
+import com.example.studybuddy.domain.room.dao.TaskDao
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.ServerResponseException
+import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
 import io.ktor.client.request.setBody
@@ -20,10 +22,15 @@ import io.ktor.client.utils.EmptyContent.headers
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 
-/** Реализация интерфейса, в котором описаны все методы для запросов к API */
-class ApiServiceImpl(private val client: HttpClient): ApiService {
+/** Реализация интерфейса, в котором описаны все методы для запросов к API + их кэшировние в локальную базу данных Room*/
+class ApiServiceImpl(
+    private val client: HttpClient,
+    private val tasksDao: TaskDao,
+    ): ApiService {
 
     override suspend fun signIn(email: String, password: String): LoginResp {
         return try {
@@ -86,14 +93,16 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
 
     override suspend fun getTasks(token: String): GetTasksResp {
         return try {
-            val response = client.post {
-                url(HttpRoutes.REGISTER)
+            val response = client.get {
+                url(HttpRoutes.GET_TASKS)
                 contentType(ContentType.Application.Json)
                 headers {
                     append(HttpHeaders.Authorization, "Bearer ${token}")
                 }
             }
             val responseBody = response.body<List<TaskEnt>>()
+            tasksDao.deleteAllTask()
+            tasksDao.insertTask(responseBody)
             GetTasksResp(listTask = responseBody)
         }
         catch (e: ClientRequestException) {
@@ -112,5 +121,19 @@ class ApiServiceImpl(private val client: HttpClient): ApiService {
             GetTasksResp(error = e.message.toString())
         }
     }
+
+    fun getAllTasks(): Flow<List<TaskEnt>> = flow {
+        try {
+            tasksDao.getAllTasks().collect {
+                tasks ->
+                emit(tasks) //С помощью emit в главный поток передаются данные,
+            }
+        } catch (e: Exception) {
+            Log.d("error flow", e.message.toString())
+            emit(listOf())
+        }
+    }
+
+
 
 }

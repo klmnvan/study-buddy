@@ -20,8 +20,6 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 @Composable
 fun Splash(controller: NavHostController, viewModel: SplashViewModel = hiltViewModel()) {
 
-    viewModel.context = LocalContext.current
-
     LaunchedEffect(Unit) {
         viewModel.launch(controller)
     }

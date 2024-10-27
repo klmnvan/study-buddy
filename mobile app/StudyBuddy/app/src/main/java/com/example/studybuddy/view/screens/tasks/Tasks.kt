@@ -22,6 +22,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -38,6 +39,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.studybuddy.R
+import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.view.components.ButtonAdd
 import com.example.studybuddy.view.components.SpacerHeight
 import com.example.studybuddy.view.components.SpacerWidth
@@ -49,7 +51,6 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 fun Tasks(controller: NavHostController, viewModel: TasksViewModel = hiltViewModel()) {
 
     val state = viewModel.state.collectAsState()
-    viewModel.context = LocalContext.current
 
     Box(modifier = Modifier.fillMaxSize().background(StudyBuddyTheme.colors.background)) {
         Column(
@@ -67,16 +68,16 @@ fun Tasks(controller: NavHostController, viewModel: TasksViewModel = hiltViewMod
                 }
             }
             SpacerHeight(8.dp)
-            PageSection("Не готовы", listOf("бла бла", "что-то"))
+            PageSection("Не готовы", state.value.tasks.filter { !it.isCompleted }.toList())
             SpacerHeight(16.dp)
-            PageSection("Готовы", listOf("что то готовое", "что-то готовое 2"))
+            PageSection("Готовы", state.value.tasks.filter { it.isCompleted }.toList())
         }
     }
 }
 
 @Composable
-fun PageSection(title: String, listItem: List<String>) {
-    var expanded by remember { mutableStateOf(false) }
+fun PageSection(title: String, listItem: List<TaskEnt>) {
+    var expanded by remember { mutableStateOf(true) }
     Row(
         modifier = Modifier.clickable(
             interactionSource = remember { MutableInteractionSource() },

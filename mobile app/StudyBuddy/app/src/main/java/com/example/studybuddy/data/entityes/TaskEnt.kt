@@ -13,6 +13,6 @@ data class TaskEnt(
     val deadline: String,
     val description: String,
     val title: String,
-    val idDiscipline: Int,
+    val idDiscipline: Int?,
     val isCompleted: Boolean,
 )

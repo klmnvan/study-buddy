@@ -12,6 +12,7 @@ import com.example.studybuddy.data.states.LoginSt
 import com.example.studybuddy.domain.navigation.NavigationRoutes
 import com.example.studybuddy.domain.verification.AuthVerification.isEmailValid
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -20,7 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
-    private val service: ApiServiceImpl
+    private val service: ApiServiceImpl,
+    @ApplicationContext private val context: Context
 ): ViewModel() {
 
     private val _state = MutableStateFlow(LoginSt())
@@ -31,9 +33,6 @@ class LoginViewModel @Inject constructor(
         set(value) {
             _state.value = value
         }
-
-    @SuppressLint("StaticFieldLeak")
-    lateinit var context: Context
 
     fun signIn() {
         if(stateValue.email != "" && stateValue.password != "") {

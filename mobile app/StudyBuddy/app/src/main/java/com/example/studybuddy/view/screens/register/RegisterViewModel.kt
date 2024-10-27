@@ -13,6 +13,7 @@ import com.example.studybuddy.domain.network.ApiServiceImpl
 import com.example.studybuddy.domain.verification.AuthVerification.isEmailValid
 import com.example.studybuddy.domain.verification.AuthVerification.isNicknameValid
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +22,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class RegisterViewModel @Inject constructor(
-    private val service: ApiServiceImpl
+    private val service: ApiServiceImpl,
+    @ApplicationContext private val context: Context
 ): ViewModel() {
 
     private val _state = MutableStateFlow(RegisterSt())
@@ -32,9 +34,6 @@ class RegisterViewModel @Inject constructor(
         set(value) {
             _state.value = value
         }
-
-    @SuppressLint("StaticFieldLeak")
-    lateinit var context: Context
 
     fun goBack(controller: NavHostController) {
         controller.navigate(NavigationRoutes.AUTH) {

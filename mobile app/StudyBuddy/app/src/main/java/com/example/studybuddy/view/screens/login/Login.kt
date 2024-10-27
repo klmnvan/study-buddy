@@ -33,7 +33,6 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 fun Login(controller: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
 
     val state = viewModel.state.collectAsState()
-    viewModel.context = LocalContext.current
 
     Box(modifier = Modifier.fillMaxSize().background(StudyBuddyTheme.colors.background)) {
         Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(vertical = 40.dp, horizontal = 24.dp), verticalArrangement = Arrangement.Center) {
