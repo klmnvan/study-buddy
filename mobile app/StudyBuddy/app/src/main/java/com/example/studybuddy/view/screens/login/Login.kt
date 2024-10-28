@@ -49,7 +49,7 @@ fun Login(controller: NavHostController, viewModel: LoginViewModel = hiltViewMod
             TextFieldAuthPassword(state.value.password, { viewModel.stateValue = state.value.copy(password = it) }, "********")
             SpacerHeight(40.dp)
             ButtonFillMaxWidth("войти", StudyBuddyTheme.colors.primary, true) {
-                viewModel.signIn()
+                viewModel.signIn(controller)
             }
             Spacer(modifier = Modifier.weight(1f))
             SpacerHeight(20.dp)

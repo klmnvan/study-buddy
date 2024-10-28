@@ -5,7 +5,6 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.studybuddy.data.entityes.DisciplineEnt
-import com.example.studybuddy.data.entityes.TaskEnt
 import kotlinx.coroutines.flow.Flow
 
 @Dao

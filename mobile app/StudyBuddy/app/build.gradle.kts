@@ -85,6 +85,8 @@ dependencies {
 
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.0")
 
+    implementation("eu.bambooapps:compose-material3-pullrefresh:1.0.0")
+
     // hilt
     implementation("com.google.dagger:hilt-android:2.48")
     kapt("com.google.dagger:hilt-compiler:2.48")
