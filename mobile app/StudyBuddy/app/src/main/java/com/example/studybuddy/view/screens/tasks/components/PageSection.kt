@@ -51,14 +51,11 @@ import com.example.studybuddy.domain.converters.ConvertDate
 import com.example.studybuddy.view.components.ButtonSmall
 import com.example.studybuddy.view.components.SpacerHeight
 import com.example.studybuddy.view.components.SpacerWidth
-import com.example.studybuddy.view.components.TextBold
-import com.example.studybuddy.view.components.TextDesc
+import com.example.studybuddy.view.components.TextLight
 import com.example.studybuddy.view.components.TextExtraLight
 import com.example.studybuddy.view.components.TextTitle
 import com.example.studybuddy.view.screens.tasks.TasksViewModel
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
-import java.text.SimpleDateFormat
-import java.util.Locale
 
 
 @Composable
@@ -74,7 +71,7 @@ fun PageSection(title: String, listItem: List<TaskEnt>, viewModel: TasksViewMode
             verticalAlignment = Alignment.CenterVertically
         ) {
             Box {
-                TextDesc(title, 20.sp, StudyBuddyTheme.colors.primary)
+                TextLight(title, 20.sp, StudyBuddyTheme.colors.primary)
             }
             SpacerWidth(12.dp)
             Icon(

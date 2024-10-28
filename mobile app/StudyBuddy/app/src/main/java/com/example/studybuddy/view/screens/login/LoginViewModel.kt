@@ -41,7 +41,7 @@ class LoginViewModel @Inject constructor(
                 viewModelScope.launch {
                     val response = service.signIn(stateValue.email, stateValue.password)
                     if(response.error == "") {
-                        Toast.makeText(context, "${response.user?.token}", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "${response.user?.token}", Toast.LENGTH_SHORT).show()
                         controller.navigate(NavigationRoutes.TASKS) {
                             popUpTo(NavigationRoutes.LOGIN) {
                                 inclusive = true

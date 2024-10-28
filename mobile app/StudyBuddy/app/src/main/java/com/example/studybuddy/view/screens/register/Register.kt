@@ -14,7 +14,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -23,7 +22,7 @@ import com.example.studybuddy.view.components.ButtonFillMaxWidth
 import com.example.studybuddy.view.components.DoubleText
 import com.example.studybuddy.view.components.ButtonBack
 import com.example.studybuddy.view.components.SpacerHeight
-import com.example.studybuddy.view.components.TextDesc
+import com.example.studybuddy.view.components.TextLight
 import com.example.studybuddy.view.components.TextFieldAuthEmail
 import com.example.studybuddy.view.components.TextFieldAuthNickname
 import com.example.studybuddy.view.components.TextFieldAuthPassword
@@ -42,7 +41,7 @@ fun Register(controller: NavHostController, viewModel: RegisterViewModel = hiltV
             Column (modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
                 TextTitle("Регистрация", 40.sp, StudyBuddyTheme.colors.textTitle)
                 SpacerHeight(12.dp)
-                TextDesc("Создайте свой профиль", 16.sp, StudyBuddyTheme.colors.primary)
+                TextLight("Создайте свой профиль", 16.sp, StudyBuddyTheme.colors.primary)
             }
             SpacerHeight(60.dp)
             TextFieldAuthNickname(state.value.nickname, { viewModel.stateValue = state.value.copy(nickname = it) }, "nickname")

@@ -22,7 +22,8 @@ fun StudyBuddyTheme(
     content: @Composable () -> Unit
 ) {
     val colors = when (themeMode) {
-        ThemeMode.Dark -> baseLightPalette
+        ThemeMode.Dark -> darkPalette
+        ThemeMode.Light -> baseLightPalette
     }
     CompositionLocalProvider(
         LocalTypography provides typography,
@@ -34,6 +35,7 @@ fun StudyBuddyTheme(
 
 sealed class ThemeMode(val title: String) {
 
-    data object Dark: ThemeMode(title = "Light")
+    data object Dark: ThemeMode(title = "Dark")
+    data object Light: ThemeMode(title = "Light")
 
 }

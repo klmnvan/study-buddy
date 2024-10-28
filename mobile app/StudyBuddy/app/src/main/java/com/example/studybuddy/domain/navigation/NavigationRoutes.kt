@@ -6,4 +6,7 @@ object NavigationRoutes {
     val LOGIN = "login"
     val REGIST = "regist"
     val TASKS = "tasks"
+    val DISCIPLINES = "disciplines"
+    val EXAMS = "exams"
+    val SCHEDULES = "schedules"
 }

@@ -21,7 +21,7 @@ fun TextTitle(text: String, fontSize: TextUnit, color: Color) {
 }
 
 @Composable
-fun TextDesc(text: String, fontSize: TextUnit, color: Color) {
+fun TextLight(text: String, fontSize: TextUnit, color: Color) {
     Text(text = text, style = StudyBuddyTheme.typography.light, fontSize = fontSize, color = color)
 }
 

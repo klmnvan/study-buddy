@@ -27,7 +27,7 @@ import com.example.studybuddy.domain.navigation.NavigationRoutes
 import com.example.studybuddy.view.components.ButtonFillMaxWidth
 import com.example.studybuddy.view.components.SpacerHeight
 import com.example.studybuddy.view.components.SpacerWidth
-import com.example.studybuddy.view.components.TextDesc
+import com.example.studybuddy.view.components.TextLight
 import com.example.studybuddy.view.components.TextTitle
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
@@ -46,7 +46,7 @@ fun Auth(controller: NavHostController) {
                     withStyle(SpanStyle(color = StudyBuddyTheme.colors.secondary)) {
                         append("Study  ")
                     }
-                    withStyle(SpanStyle(color = StudyBuddyTheme.colors.textTitle)) {
+                    withStyle(SpanStyle(color = StudyBuddyTheme.colors.primary)) {
                         append("Buddy")
                     }
                 },
@@ -57,7 +57,7 @@ fun Auth(controller: NavHostController) {
         SpacerHeight(40.dp)
         TextTitle("Умное планирование учёбы", 32.sp, StudyBuddyTheme.colors.textTitle)
         SpacerHeight(12.dp)
-        TextDesc("Здесь ты сможешь узнавать расписание, готовится к экзаменам, отслеживать дедлайны и добавлять информацию о дисциплинах",
+        TextLight("Здесь ты сможешь узнавать расписание, готовится к экзаменам, отслеживать дедлайны и добавлять информацию о дисциплинах",
             16.sp, StudyBuddyTheme.colors.primary)
         Spacer(modifier = Modifier.weight(0.4f))
         SpacerHeight(12.dp)
