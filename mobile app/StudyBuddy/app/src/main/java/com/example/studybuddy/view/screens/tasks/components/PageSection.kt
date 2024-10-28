@@ -47,6 +47,7 @@ import androidx.compose.ui.window.Dialog
 import com.example.studybuddy.R
 import com.example.studybuddy.data.entityes.DisciplineEnt
 import com.example.studybuddy.data.entityes.TaskEnt
+import com.example.studybuddy.domain.converters.ConvertDate
 import com.example.studybuddy.view.components.ButtonSmall
 import com.example.studybuddy.view.components.SpacerHeight
 import com.example.studybuddy.view.components.SpacerWidth
@@ -56,6 +57,8 @@ import com.example.studybuddy.view.components.TextExtraLight
 import com.example.studybuddy.view.components.TextTitle
 import com.example.studybuddy.view.screens.tasks.TasksViewModel
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
+import java.text.SimpleDateFormat
+import java.util.Locale
 
 
 @Composable
@@ -102,43 +105,46 @@ fun PageSection(title: String, listItem: List<TaskEnt>, viewModel: TasksViewMode
 fun TaskComponent(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<DisciplineEnt>) {
     var showDialog by remember { mutableStateOf(false) }
     Column(modifier = Modifier.fillMaxWidth().shadow(elevation = 4.dp, shape = RoundedCornerShape(5), spotColor = Color(Black.value)).background(StudyBuddyTheme.colors.primary, RoundedCornerShape(5.dp)).padding(start = 10.dp)
-        .background(StudyBuddyTheme.colors.containerDefault, RoundedCornerShape(0.dp, 5.dp, 5.dp, 0.dp))
-        .padding(bottom = 16.dp, top = 20.dp, start = 10.dp, end = 20.dp)) {
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            Column {
-                TextBold(el.title.toUpperCase(), 12.sp, StudyBuddyTheme.colors.textTitle)
-                SpacerHeight(4.dp)
-                TextExtraLight(disciplines.firstOrNull{el.idDiscipline == it.idDiscipline}?.title ?: "Предмет не указан", 12.sp, StudyBuddyTheme.colors.textTitle)
+        .background(StudyBuddyTheme.colors.containerDefault, RoundedCornerShape(0.dp, 5.dp, 5.dp, 0.dp))) {
+        Column(modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp, top = 20.dp, start = 10.dp, end = 20.dp)) {
+
+            Row(modifier = Modifier.fillMaxWidth()) {
+                Column(modifier = Modifier.weight(1f)) {
+                    Text(text = el.title.toUpperCase(),
+                        style = StudyBuddyTheme.typography.bold, fontSize = 12.sp, color = StudyBuddyTheme.colors.textTitle, maxLines = 2)
+                    SpacerHeight(4.dp)
+                    TextExtraLight(disciplines.firstOrNull{el.idDiscipline == it.idDiscipline}?.title ?: "Предмет не указан", 12.sp, StudyBuddyTheme.colors.textTitle)
+                }
+                SpacerWidth(16.dp)
+                Checkbox(checked = el.isCompleted, onCheckedChange = {
+                    showDialog = true
+                }, modifier = Modifier.size(20.dp).clip(RoundedCornerShape(5.dp)),
+                    colors = CheckboxDefaults.colors(
+                        checkedColor = StudyBuddyTheme.colors.secondary,
+                        disabledCheckedColor = StudyBuddyTheme.colors.secondary,
+                        disabledUncheckedColor = StudyBuddyTheme.colors.secondary,
+                        checkmarkColor = StudyBuddyTheme.colors.containerDefault,
+                        disabledIndeterminateColor = StudyBuddyTheme.colors.secondary,
+                        uncheckedColor = StudyBuddyTheme.colors.secondary
+                    ))
             }
-            SpacerWidth(16.dp)
-            Checkbox(checked = el.isCompleted, onCheckedChange = {
-                showDialog = true
-            }, modifier = Modifier.size(20.dp).clip(RoundedCornerShape(5.dp)),
-                colors = CheckboxDefaults.colors(
-                    checkedColor = StudyBuddyTheme.colors.secondary,
-                    disabledCheckedColor = StudyBuddyTheme.colors.secondary,
-                    disabledUncheckedColor = StudyBuddyTheme.colors.secondary,
-                    checkmarkColor = StudyBuddyTheme.colors.containerDefault,
-                    disabledIndeterminateColor = StudyBuddyTheme.colors.secondary,
-                    uncheckedColor = StudyBuddyTheme.colors.secondary
-                ))
-        }
-        SpacerHeight(24.dp)
-        Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
-            Row(verticalAlignment = Alignment.CenterVertically) {
-                Icon(imageVector = ImageVector.vectorResource(R.drawable.icon_clock),
-                    contentDescription = null,
-                    tint = StudyBuddyTheme.colors.secondary,
-                    modifier = Modifier.size(20.dp)
-                )
-                SpacerWidth(8.dp)
-                TextTitle(el.deadline, 12.sp, StudyBuddyTheme.colors.textTitle)
-            }
-            SpacerWidth(16.dp)
-            ButtonSmall("Детали", StudyBuddyTheme.colors.primary) {
+            SpacerHeight(24.dp)
+            Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Icon(imageVector = ImageVector.vectorResource(R.drawable.icon_clock),
+                        contentDescription = null,
+                        tint = StudyBuddyTheme.colors.secondary,
+                        modifier = Modifier.size(20.dp)
+                    )
+                    SpacerWidth(8.dp)
+                    TextTitle(ConvertDate(el.deadline), 12.sp, StudyBuddyTheme.colors.textTitle)
+                }
+                SpacerWidth(16.dp)
+                ButtonSmall("Детали", StudyBuddyTheme.colors.primary) {
+
+                }
 
             }
-
         }
     }
     SpacerHeight(16.dp)

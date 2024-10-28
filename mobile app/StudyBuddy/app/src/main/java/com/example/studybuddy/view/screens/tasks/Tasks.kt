@@ -52,10 +52,10 @@ fun Tasks(controller: NavHostController, viewModel: TasksViewModel = hiltViewMod
                 }
             }
             SpacerHeight(8.dp)
-            PageSection("Не готовы", state.value.tasks.filter { it.isCompleted }, viewModel, expandedStates[0], state.value.disciplines) {
+            PageSection("Не готовы", state.value.tasks.filter { !it.isCompleted }, viewModel, expandedStates[0], state.value.disciplines) {
                 expandedStates[0] = it
             }
-            PageSection("Готовы", state.value.tasks.filter { !it.isCompleted }, viewModel, expandedStates[1], state.value.disciplines) {
+            PageSection("Готовы", state.value.tasks.filter { it.isCompleted }, viewModel, expandedStates[1], state.value.disciplines) {
                 expandedStates[1] = it
             }
         }
