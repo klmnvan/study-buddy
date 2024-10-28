@@ -11,10 +11,10 @@ import com.example.studybuddy.R
 
 @Immutable
 data class Typography(
-    val bold16: TextStyle,
+    val bold: TextStyle,
     val regular: TextStyle,
     val exstralight: TextStyle,
-    val light: TextStyle,
+    val light: TextStyle
 )
 
 val Geologica = FontFamily(
@@ -30,7 +30,7 @@ val Geologica = FontFamily(
 )
 
 val typography = Typography(
-    bold16 = TextStyle(
+    bold = TextStyle(
         fontWeight = FontWeight.Bold,
         fontFamily = Geologica,
         fontSize = 16.sp
@@ -46,7 +46,7 @@ val typography = Typography(
     light = TextStyle(
         fontWeight = FontWeight.Light,
         fontFamily = Geologica
-    ),
+    )
 )
 
 val LocalTypography = staticCompositionLocalOf { typography }

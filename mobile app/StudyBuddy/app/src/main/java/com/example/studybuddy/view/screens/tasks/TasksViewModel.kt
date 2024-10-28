@@ -9,8 +9,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.states.TasksSt
+import com.example.studybuddy.domain.CachedData
 import com.example.studybuddy.domain.network.ApiServiceImpl
 import com.example.studybuddy.domain.room.dao.TaskDao
+import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -25,7 +27,7 @@ import javax.inject.Inject
 class TasksViewModel @Inject constructor(
     private val service: ApiServiceImpl,
     @ApplicationContext private val context: Context,
-    private val tasksDao: TaskDao,
+    private val database: StudyBuddyDatabase,
 ) : ViewModel()  {
 
     private val _state = MutableStateFlow(TasksSt())
@@ -38,16 +40,22 @@ class TasksViewModel @Inject constructor(
         }
 
 
-    init {
-        getTasksFromDb()
+    fun launch() {
+        updateValueFromDB()
         fetchTasks()
     }
 
-    fun getTasksFromDb() {
+    fun updateValueFromDB() {
         viewModelScope.launch(Dispatchers.IO) {
-            tasksDao.getAllTasks().collect {
+            database.taskDao.getAllTasks().collect {
                 stateValue = _state.value.copy(tasks = it)
                 Log.e("tasks", "Задачи, сохраненные в room: $it")
+            }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            database.disciplineDao.getAllDiscs().collect {
+                stateValue = _state.value.copy(disciplines = it)
+                Log.e("disciplines", "Предметы, сохраненные в room: $it")
             }
         }
     }
@@ -55,17 +63,35 @@ class TasksViewModel @Inject constructor(
 
     fun fetchTasks() {
         viewModelScope.launch(Dispatchers.Main) {
-            val response = service.getTasks("eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlckBleGFtcGxlLmNvbSIsImdpdmVuX25hbWUiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZSI6IlVzZXIiLCJ1bmlxdWVfbmFtZSI6InVzZXJAZXhhbXBsZS5jb20iLCJuYW1laWQiOiI0ZTFlYjc4Mi1iOWIzLTQ3ZWItYjg0Yy05MDhhZTQzZWY2YTciLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJuYmYiOjE3Mjk5ODI1NTQsImV4cCI6MTczMDU4NzM1NCwiaWF0IjoxNzI5OTgyNTU0LCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.y_xPEutXTnLgylLtGDgB5nLPmuSXB9bK3b4dOJj3vnb9SrD5cAWPE_ci1tnJ1SZqRlSu_fysHGKTHllpvvvZpg")
+            val response = service.getTasks(CachedData.tokenUser)
             if(response.error == "") {
-                if(!stateValue.tasks.equals(response.listTask)) {
-                    getTasksFromDb()
+                if(!stateValue.tasks.equals(response.listTask) || !stateValue.disciplines.equals(response.listDisc)) {
+                    updateValueFromDB()
                 }
                 Log.e("tasks", "Задачи, полученные из API: " + response.listTask.toString())
+                Log.e("disc", "Предметы, полученные из API: " + response.listDisc.toString())
             } else {
+                Toast.makeText(context, "Данные не актуальны", Toast.LENGTH_SHORT).show()
                 Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
                 Log.e("error fetchTasks", response.error)
             }
         }
     }
+
+    fun updateTask(el: TaskEnt) {
+        Log.e("tasks", el.toString())
+        viewModelScope.launch(Dispatchers.Main) {
+            val response = service.updateTask(CachedData.tokenUser, el)
+            if(response.error == "") {
+                updateValueFromDB()
+                Log.e("tasks", "Я изменил задачу и обновил базу")
+            } else {
+                Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                Log.e("error updateTask", response.error)
+            }
+        }
+    }
+
 
 }

@@ -21,6 +21,7 @@ data class ColorPalette(
     val textButton: Color,
     val containerPrimary: Color,
     val containerSecondary: Color,
+    val containerDefault: Color
 )
 
 val baseLightPalette = ColorPalette(
@@ -31,7 +32,8 @@ val baseLightPalette = ColorPalette(
     textDesc = Green,
     textButton = Cream,
     containerPrimary = Green20,
-    containerSecondary = Orange20
+    containerSecondary = Orange20,
+    containerDefault = White
 )
 
 val LocalColors = staticCompositionLocalOf { baseLightPalette }

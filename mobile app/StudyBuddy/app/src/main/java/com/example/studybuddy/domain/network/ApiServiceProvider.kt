@@ -2,8 +2,10 @@ package com.example.studybuddy.domain.network
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.RoomDatabase
+import com.example.studybuddy.domain.room.dao.DisciplineDao
 import com.example.studybuddy.domain.room.dao.TaskDao
-import com.example.studybuddy.domain.room.database.TasksDatabase
+import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -47,18 +49,13 @@ class ApiServiceProvider {
         context: Context
     ) = Room.databaseBuilder(
         context,
-        TasksDatabase::class.java,
+        StudyBuddyDatabase::class.java,
         "tasks"
     ).allowMainThreadQueries().build()
 
     @Provides
-    fun provideDao(db: TasksDatabase): TaskDao {
-        return db.taskDao
-    }
-
-    @Provides
-    fun provideService(client: HttpClient, taskDao: TaskDao): ApiServiceImpl {
-        return ApiServiceImpl(client, taskDao)
+    fun provideService(client: HttpClient, database: StudyBuddyDatabase): ApiServiceImpl {
+        return ApiServiceImpl(client, database)
     }
 
 }

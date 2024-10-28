@@ -36,3 +36,25 @@ fun ButtonFillMaxWidth(text: String, color: Color, enabled: Boolean = true, onCl
         )
     }
 }
+
+@Composable
+fun ButtonSmall(text: String, color: Color, onClick: () -> Unit) {
+    Button(
+        onClick = { onClick() },
+        colors = ButtonDefaults.buttonColors(
+            contentColor = StudyBuddyTheme.colors.textButton,
+            containerColor = color,
+            disabledContainerColor = color,
+            disabledContentColor = StudyBuddyTheme.colors.textButton
+        ),
+        shape = RoundedCornerShape(5.dp)
+    ) {
+        Text(
+            text = text,
+            modifier = Modifier.padding(vertical = 4.dp, horizontal = 8.dp),
+            color = StudyBuddyTheme.colors.textButton,
+            style = StudyBuddyTheme.typography.regular,
+            fontSize = 12.sp
+        )
+    }
+}

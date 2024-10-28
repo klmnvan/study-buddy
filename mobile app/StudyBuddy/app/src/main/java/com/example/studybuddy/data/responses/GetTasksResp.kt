@@ -5,5 +5,6 @@ import com.example.studybuddy.data.entityes.TaskEnt
 
 data class GetTasksResp (
     val listTask: List<TaskEnt> = listOf(),
+    val listDisc: List<DisciplineEnt> = listOf(),
     val error: String = "",
 )

@@ -7,4 +7,6 @@ object HttpRoutes {
     const val REGISTER = "$BASE_URL/account/register"
     const val INFORMATION = "$BASE_URL/account/accountInfo"
     const val GET_TASKS = "$BASE_URL/task/getTaskUSer"
+    const val GET_DISCIPLINES = "$BASE_URL/discipline/getDisciplineUser"
+    const val UPDATE_TASK = "$BASE_URL/task/updateTask"
 }

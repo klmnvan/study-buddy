@@ -26,6 +26,16 @@ fun TextDesc(text: String, fontSize: TextUnit, color: Color) {
 }
 
 @Composable
+fun TextBold(text: String, fontSize: TextUnit, color: Color) {
+    Text(text = text, style = StudyBuddyTheme.typography.bold, fontSize = fontSize, color = color)
+}
+
+@Composable
+fun TextExtraLight(text: String, fontSize: TextUnit, color: Color) {
+    Text(text = text, style = StudyBuddyTheme.typography.exstralight, fontSize = fontSize, color = color)
+}
+
+@Composable
 fun DoubleText(firstPart: String, secondPart: String, onClick: () -> Unit) {
     Text(
         text = buildAnnotatedString {
@@ -43,7 +53,7 @@ fun DoubleText(firstPart: String, secondPart: String, onClick: () -> Unit) {
             },
         textAlign = TextAlign.Center,
         fontSize = 14.sp,
-        style = StudyBuddyTheme.typography.bold16
+        style = StudyBuddyTheme.typography.bold
     )
 }
 

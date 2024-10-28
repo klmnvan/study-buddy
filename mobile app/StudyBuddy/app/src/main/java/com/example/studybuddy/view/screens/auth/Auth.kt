@@ -3,7 +3,6 @@ package com.example.studybuddy.view.screens.auth
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -51,7 +50,7 @@ fun Auth(controller: NavHostController) {
                         append("Buddy")
                     }
                 },
-                style = StudyBuddyTheme.typography.bold16,
+                style = StudyBuddyTheme.typography.bold,
                 fontSize = 16.sp
             )
         }

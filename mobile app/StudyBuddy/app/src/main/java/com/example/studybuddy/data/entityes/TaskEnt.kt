@@ -7,7 +7,7 @@ import kotlinx.serialization.Serializable
 @Serializable
 @Entity(tableName = "tasks")
 data class TaskEnt(
-    @PrimaryKey()
+    @PrimaryKey
     val idTask: Int,
     val idUser: String,
     val deadline: String,

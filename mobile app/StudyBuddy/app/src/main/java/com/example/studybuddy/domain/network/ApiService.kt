@@ -1,5 +1,7 @@
 package com.example.studybuddy.domain.network
 
+import com.example.studybuddy.data.entityes.TaskEnt
+import com.example.studybuddy.data.responses.DefaultResp
 import com.example.studybuddy.data.responses.GetTasksResp
 import com.example.studybuddy.data.responses.LoginResp
 import com.example.studybuddy.data.responses.RegisterResp
@@ -17,5 +19,6 @@ interface ApiService {
     suspend fun signIn(email: String, password: String): LoginResp
     suspend fun signUp(email: String, password: String, passwordConf: String, nickname: String): RegisterResp
     suspend fun getTasks(token: String): GetTasksResp
+    suspend fun updateTask(token: String, task: TaskEnt): DefaultResp
 
 }
