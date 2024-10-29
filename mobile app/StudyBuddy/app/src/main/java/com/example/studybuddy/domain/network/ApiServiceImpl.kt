@@ -6,8 +6,10 @@ import com.example.studybuddy.data.dto.LoginDto
 import com.example.studybuddy.data.dto.RegisterDto
 import com.example.studybuddy.data.dto.UserDto
 import com.example.studybuddy.data.entityes.DisciplineEnt
+import com.example.studybuddy.data.entityes.ExamEnt
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.responses.DefaultResp
+import com.example.studybuddy.data.responses.GetExamsResp
 import com.example.studybuddy.data.responses.GetTasksResp
 import com.example.studybuddy.data.responses.LoginResp
 import com.example.studybuddy.data.responses.RegisterResp
@@ -136,6 +138,37 @@ class ApiServiceImpl(
         catch (e: Exception) {
             Log.d("Error ${e.message}", e.message.toString())
             GetTasksResp(error = e.message.toString())
+        }
+    }
+
+    override suspend fun getExams(token: String): GetExamsResp {
+        return try {
+            val exams = client.get {
+                url(HttpRoutes.GET_EXAMS)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            val body = exams.body<List<ExamEnt>>()
+            database.examDao.deleteAllExams()
+            database.examDao.insertExam(body)
+            GetExamsResp(listExams = body)
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return GetExamsResp(error = errorMessage)
+            }
+            GetExamsResp(error = e.response.body<String>())
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            GetExamsResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            GetExamsResp(error = e.message.toString())
         }
     }
 

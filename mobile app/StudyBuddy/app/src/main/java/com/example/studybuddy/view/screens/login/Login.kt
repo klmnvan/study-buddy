@@ -18,14 +18,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.studybuddy.view.components.ButtonFillMaxWidth
-import com.example.studybuddy.view.components.DoubleText
-import com.example.studybuddy.view.components.ButtonBack
-import com.example.studybuddy.view.components.SpacerHeight
-import com.example.studybuddy.view.components.TextLight
-import com.example.studybuddy.view.components.TextFieldAuthEmail
-import com.example.studybuddy.view.components.TextFieldAuthPassword
-import com.example.studybuddy.view.components.TextTitle
+import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
+import com.example.studybuddy.view.generalcomponents.texts.DoubleText
+import com.example.studybuddy.view.generalcomponents.icons.ButtonBack
+import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
+import com.example.studybuddy.view.generalcomponents.texts.TextLight
+import com.example.studybuddy.view.generalcomponents.textfields.TextFieldAuthEmail
+import com.example.studybuddy.view.generalcomponents.textfields.TextFieldAuthPassword
+import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @Composable

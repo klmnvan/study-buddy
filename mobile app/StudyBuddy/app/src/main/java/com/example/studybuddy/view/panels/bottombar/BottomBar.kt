@@ -6,12 +6,9 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Icon
-import androidx.compose.material3.NavigationBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -23,8 +20,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.studybuddy.view.components.SpacerHeight
-import com.example.studybuddy.view.components.TextExtraLight
+import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
+import com.example.studybuddy.view.generalcomponents.texts.TextExtraLight
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @Composable

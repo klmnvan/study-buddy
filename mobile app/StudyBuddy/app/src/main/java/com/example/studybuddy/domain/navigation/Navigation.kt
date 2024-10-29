@@ -2,16 +2,16 @@ package com.example.studybuddy.domain.navigation
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn
-import androidx.compose.animation.slideIn
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
-import androidx.compose.ui.unit.IntOffset
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.studybuddy.view.screens.auth.Auth
+import com.example.studybuddy.view.screens.disciplines.Disciplines
+import com.example.studybuddy.view.screens.exams.Exams
 import com.example.studybuddy.view.screens.login.Login
 import com.example.studybuddy.view.screens.register.Register
 import com.example.studybuddy.view.screens.splash.Splash
@@ -22,7 +22,7 @@ import com.example.studybuddy.view.screens.tasks.Tasks
 fun Navigation(controller: NavHostController, barsIsVisible: MutableState<Boolean>, pullToRefreshState: PullToRefreshState) {
     NavHost(
         navController = controller,
-        startDestination = NavigationRoutes.SPLASH,
+        startDestination = NavigationRoutes.TASKS,
         enterTransition = { fadeIn(animationSpec = tween(durationMillis = 0)) } ) {
 
         composable(NavigationRoutes.SPLASH) {
@@ -48,11 +48,11 @@ fun Navigation(controller: NavHostController, barsIsVisible: MutableState<Boolea
         }
 
         composable(NavigationRoutes.DISCIPLINES) {
-            //Tasks(controller)
+            Disciplines(controller, pullToRefreshState)
         }
 
         composable(NavigationRoutes.EXAMS) {
-            //Tasks(controller)
+            Exams(controller, pullToRefreshState)
         }
 
         composable(NavigationRoutes.SCHEDULES) {

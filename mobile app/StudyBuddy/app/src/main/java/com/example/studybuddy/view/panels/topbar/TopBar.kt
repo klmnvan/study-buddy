@@ -1,6 +1,5 @@
 package com.example.studybuddy.view.panels.topbar
 
-import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
@@ -11,10 +10,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.remember
@@ -32,9 +28,8 @@ import com.example.studybuddy.R
 import com.example.studybuddy.domain.CachedData
 import com.example.studybuddy.domain.CachedData.themes
 import com.example.studybuddy.domain.navigation.NavigationRoutes
-import com.example.studybuddy.view.components.SpacerHeight
-import com.example.studybuddy.view.components.SpacerWidth
-import com.example.studybuddy.view.components.TextLight
+import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
+import com.example.studybuddy.view.generalcomponents.texts.TextLight
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import com.example.studybuddy.view.ui.theme.ThemeMode
 
@@ -68,7 +63,10 @@ fun TopBar(controller: NavHostController, currentThemeMode: MutableState<ThemeMo
             }
             Spacer(modifier = Modifier.weight(1f))
             val gradientForBrushIcon = Brush.verticalGradient(
-                listOf(StudyBuddyTheme.colors.secondary, StudyBuddyTheme.colors.primary))
+                0.2f to StudyBuddyTheme.colors.primary,
+                0.8f to StudyBuddyTheme.colors.secondary,
+                startY = -20.0f,
+                endY = 120.0f )
             Icon(imageVector = ImageVector.vectorResource(R.drawable.icon_brush),
                 contentDescription = null,
                 tint = StudyBuddyTheme.colors.containerDefault,

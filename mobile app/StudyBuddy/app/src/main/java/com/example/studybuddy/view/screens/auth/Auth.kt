@@ -24,11 +24,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.studybuddy.R
 import com.example.studybuddy.domain.navigation.NavigationRoutes
-import com.example.studybuddy.view.components.ButtonFillMaxWidth
-import com.example.studybuddy.view.components.SpacerHeight
-import com.example.studybuddy.view.components.SpacerWidth
-import com.example.studybuddy.view.components.TextLight
-import com.example.studybuddy.view.components.TextTitle
+import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
+import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
+import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
+import com.example.studybuddy.view.generalcomponents.texts.TextLight
+import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @Composable

@@ -1,4 +1,4 @@
-package com.example.studybuddy.view.components
+package com.example.studybuddy.view.generalcomponents.pullrefresh
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize

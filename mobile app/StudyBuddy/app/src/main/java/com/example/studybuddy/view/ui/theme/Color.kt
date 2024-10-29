@@ -4,16 +4,16 @@ import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 
 val Cream = Color(0xFFFDFAF4)
-val DarkBack = Color(0xFF121212)
+val DarkBack = Color(0xFF2F2C2B)
 val DarkCont = Color(0xFF242424)
 val White = Color(0xFFFFFFFF)
 val White40 = Color(0x66FFFFFF)
 val Orange = Color(0xFFEE9D5B)
+val Orange2 = Color(0xFFFA9442)
 val Gray = Color(0xFFB4B8C0)
-val Orange20 = Color(0x33EE9D5B)
 val Dark_Green = Color(0xFF4D544C)
 val Green = Color(0xFF899C6F)
-val Green20 = Color(0x33899C6F)
+val Green2 = Color(0xFF89A95E)
 
 data class ColorPalette(
     val background: Color,
@@ -35,21 +35,21 @@ val baseLightPalette = ColorPalette(
     textTitle = Dark_Green,
     textDesc = Green,
     textButton = White,
-    containerPrimary = Green20,
-    containerSecondary = Orange20,
+    containerPrimary = Green.copy(alpha = 0.2f),
+    containerSecondary = Orange.copy(alpha = 0.2f),
     containerDefault = White,
     unselectItem = Gray
 )
 
 val darkPalette = ColorPalette(
     background = DarkBack,
-    primary = Green,
-    secondary = Orange,
+    primary = Green2,
+    secondary = Orange2,
     textTitle = White,
-    textDesc = Green,
+    textDesc = Green2,
     textButton = White,
-    containerPrimary = Green20,
-    containerSecondary = Orange20,
+    containerPrimary = Green2.copy(alpha = 0.2f),
+    containerSecondary = Orange2.copy(alpha = 0.2f),
     containerDefault = DarkCont,
     unselectItem = White40
 )

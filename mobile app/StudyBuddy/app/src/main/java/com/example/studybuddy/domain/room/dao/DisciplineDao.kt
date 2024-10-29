@@ -20,3 +20,4 @@ interface DisciplineDao {
     fun getAllDiscs(): Flow<List<DisciplineEnt>>
 
 }
+

@@ -1,4 +1,4 @@
-package com.example.studybuddy.view.components
+package com.example.studybuddy.view.generalcomponents.icons
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,25 +17,12 @@ import com.example.studybuddy.R
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @Composable
-fun ButtonBack(onClick: () -> Unit) {
-    Icon(imageVector = ImageVector.vectorResource(R.drawable.arrow_left),
-        contentDescription = null,
-        tint = StudyBuddyTheme.colors.textButton,
-        modifier = Modifier.background(StudyBuddyTheme.colors.secondary, RoundedCornerShape(20)).padding(10.dp).size(8.dp).clickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication = null
-        ) {
-            onClick()
-        }
-    )
-}
-
-@Composable
 fun ButtonAdd(onClick: () -> Unit) {
     Icon(imageVector = ImageVector.vectorResource(R.drawable.icon_plus),
         contentDescription = null,
         tint = StudyBuddyTheme.colors.textButton,
-        modifier = Modifier.background(StudyBuddyTheme.colors.secondary, RoundedCornerShape(10)).padding(16.dp).size(20.dp).clickable(
+        modifier = Modifier.background(StudyBuddyTheme.colors.secondary, RoundedCornerShape(10))
+            .padding(16.dp).size(20.dp).clickable(
             interactionSource = remember { MutableInteractionSource() },
             indication = null
         ) {

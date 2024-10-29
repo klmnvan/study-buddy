@@ -1,4 +1,4 @@
-package com.example.studybuddy.view.screens.tasks
+package com.example.studybuddy.view.screens.exams
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
@@ -24,22 +24,24 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.studybuddy.domain.converters.StringToLocalDate
 import com.example.studybuddy.view.generalcomponents.icons.ButtonAdd
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
-import com.example.studybuddy.view.screens.tasks.components.PageSectionTask
+import com.example.studybuddy.view.screens.exams.components.PageSectionExam
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import kotlinx.coroutines.delay
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState, viewModel: TasksViewModel = hiltViewModel()) {
+fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState, viewModel: ExamsViewModel = hiltViewModel()) {
 
     val state = viewModel.state.collectAsState()
 
     if (pullToRefreshState.isRefreshing) {
         LaunchedEffect(true) {
-            viewModel.fetchTasks()
+            viewModel.fetch()
             delay(1000)
             pullToRefreshState.endRefresh()
         }
@@ -56,19 +58,20 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                TextTitle("Задания", 32.sp, StudyBuddyTheme.colors.textTitle)
+                TextTitle("Экзамены", 32.sp, StudyBuddyTheme.colors.textTitle)
                 Spacer(modifier = Modifier.weight(1f))
                 ButtonAdd {
 
                 }
             }
             SpacerHeight(8.dp)
-            PageSectionTask("Не готовы", state.value.tasks.filter { !it.isCompleted }, viewModel, expandedStates[0], state.value.disciplines) {
+            PageSectionExam ("Предстоящие", state.value.exams.filter { StringToLocalDate(it.dateExam)!! > LocalDate.now() }, expandedStates[0]) {
                 expandedStates[0] = it
             }
-            PageSectionTask("Готовы", state.value.tasks.filter { it.isCompleted }, viewModel, expandedStates[1], state.value.disciplines) {
+            PageSectionExam ("Прошедшие", state.value.exams.filter { StringToLocalDate(it.dateExam)!! < LocalDate.now() }, expandedStates[1]) {
                 expandedStates[1] = it
             }
         }
     }
+
 }

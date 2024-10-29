@@ -8,3 +8,4 @@ data class GetTasksResp (
     val listDisc: List<DisciplineEnt> = listOf(),
     val error: String = "",
 )
+
