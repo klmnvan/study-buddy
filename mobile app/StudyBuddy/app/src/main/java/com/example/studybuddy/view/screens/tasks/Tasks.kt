@@ -49,7 +49,7 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
 
     val state = viewModel.state.collectAsState()
     val showTask = remember {
-        mutableStateOf(Pair(false, TaskEnt(0, "","","","",null, false)))
+        mutableStateOf(Pair(false, 0))
     }
 
     if (pullToRefreshState.isRefreshing) {
@@ -87,12 +87,12 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                 }
                 SpacerHeight(8.dp)
                 PageSectionTask("Не готовы", state.value.tasks.filter { !it.isCompleted }, viewModel, expandedStates[0], state.value.disciplines, {
-                    showTask.value = Pair(true, it)
+                    showTask.value = Pair(true, it.idTask)
                 }) {
                     expandedStates[0] = it
                 }
                 PageSectionTask("Готовы", state.value.tasks.filter { it.isCompleted }, viewModel, expandedStates[1], state.value.disciplines, {
-                    showTask.value = Pair(true, it)
+                    showTask.value = Pair(true, it.idTask)
                 }) {
                     expandedStates[1] = it
                 }
@@ -102,19 +102,19 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                 Column {
                     Row(modifier = Modifier.fillMaxWidth()) {
                         ButtonBack {
-                            showTask.value = Pair(false, state.value.tasks.first())
+                            showTask.value = Pair(false, 0)
                         }
                         SpacerWidth(width = 12.dp)
                         TextTitle(text = "Детали", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
                     }
                     SpacerHeight(20.dp)
-                    ShowTaskItem(el = showTask.value.second)
+                    ShowTaskItem(el = state.value.tasks.first { it.idTask == showTask.value.second })
                     SpacerHeight(height = 24.dp)
                     Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
                         Row(modifier = Modifier.weight(1f)) {
                             ButtonFillMaxWidth("УДАЛИТЬ", StudyBuddyTheme.colors.primary, true) {
-                                viewModel.deleteTask(showTask.value.second) {
-                                    if(it) showTask.value = Pair(false, TaskEnt(0, "","","","",null, false))
+                                viewModel.deleteTask(state.value.tasks.first { it.idTask == showTask.value.second }) {
+                                    if(it) showTask.value = Pair(false, 0)
                                 }
                             }
                         }
