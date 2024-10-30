@@ -6,7 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.studybuddy.data.states.ExamsSt
-import com.example.studybuddy.domain.CachedData
+import com.example.studybuddy.domain.UserRepository
 import com.example.studybuddy.domain.network.ApiServiceImpl
 import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -50,7 +50,7 @@ class ExamsViewModel @Inject constructor(
 
     fun fetch() {
         viewModelScope.launch(Dispatchers.Main) {
-            val response = service.getExams(CachedData.tokenUser)
+            val response = service.getExams(UserRepository.token)
             if(response.error == "") {
                 if(!stateValue.exams.equals(response.listExams)) {
                     updateValues()

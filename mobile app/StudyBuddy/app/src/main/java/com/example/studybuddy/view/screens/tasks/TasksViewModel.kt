@@ -1,22 +1,18 @@
 package com.example.studybuddy.view.screens.tasks
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
-import androidx.compose.runtime.LaunchedEffect
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.states.TasksSt
-import com.example.studybuddy.domain.CachedData
+import com.example.studybuddy.domain.UserRepository
 import com.example.studybuddy.domain.network.ApiServiceImpl
-import com.example.studybuddy.domain.room.dao.TaskDao
 import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -63,7 +59,7 @@ class TasksViewModel @Inject constructor(
 
     fun fetchTasks() {
         viewModelScope.launch(Dispatchers.Main) {
-            val response = service.getTasks(CachedData.tokenUser)
+            val response = service.getTasks(UserRepository.token)
             if(response.error == "") {
                 if(!stateValue.tasks.equals(response.listTask) || !stateValue.disciplines.equals(response.listDisc)) {
                     updateValueFromDB()
@@ -81,7 +77,7 @@ class TasksViewModel @Inject constructor(
     fun updateTask(el: TaskEnt) {
         Log.e("tasks", el.toString())
         viewModelScope.launch(Dispatchers.Main) {
-            val response = service.updateTask(CachedData.tokenUser, el)
+            val response = service.updateTask(UserRepository.token, el)
             if(response.error == "") {
                 updateValueFromDB()
                 Log.e("tasks", "Я изменил задачу и обновил базу")

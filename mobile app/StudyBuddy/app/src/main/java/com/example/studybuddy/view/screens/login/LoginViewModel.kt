@@ -1,6 +1,5 @@
 package com.example.studybuddy.view.screens.login
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import android.widget.Toast
@@ -9,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.studybuddy.domain.network.ApiServiceImpl
 import com.example.studybuddy.data.states.LoginSt
-import com.example.studybuddy.domain.CachedData
+import com.example.studybuddy.domain.UserRepository
 import com.example.studybuddy.domain.navigation.NavigationRoutes
 import com.example.studybuddy.domain.verification.AuthVerification.isEmailValid
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -47,7 +46,7 @@ class LoginViewModel @Inject constructor(
                                 inclusive = true
                             }
                         }
-                        CachedData.tokenUser = response.user?.token ?: CachedData.tokenUser
+                        UserRepository.token = response.user?.token ?: UserRepository.token
                     } else {
                         Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
                         Log.e("error signIn",response.error)

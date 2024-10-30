@@ -25,8 +25,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
 import com.example.studybuddy.R
-import com.example.studybuddy.domain.CachedData
-import com.example.studybuddy.domain.CachedData.themes
+import com.example.studybuddy.domain.UserRepository
+import com.example.studybuddy.domain.UserRepository.themes
 import com.example.studybuddy.domain.navigation.NavigationRoutes
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.texts.TextLight
@@ -74,8 +74,8 @@ fun TopBar(controller: NavHostController, currentThemeMode: MutableState<ThemeMo
                     interactionSource = remember { MutableInteractionSource() },
                     indication = null
                 ) {
-                    currentThemeMode.value = themes.first { theme -> theme.title != CachedData.theme }
-                    CachedData.theme = currentThemeMode.value.title
+                    currentThemeMode.value = themes.first { theme -> theme.title != UserRepository.theme }
+                    UserRepository.theme = currentThemeMode.value.title
                 }.padding(8.dp).size(12.dp)
             )
         }

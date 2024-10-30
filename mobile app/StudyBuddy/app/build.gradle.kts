@@ -106,5 +106,11 @@ dependencies {
     implementation ("androidx.room:room-ktx:$room_version")
     implementation(libs.hilt.navigation.compose)
 
+    //jwt token decode
+    implementation ("io.jsonwebtoken:jjwt-api:0.12.6")
+    runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.12.6")
+    implementation ("com.auth0.android:jwtdecode:2.0.2")
+    runtimeOnly ("io.jsonwebtoken:jjwt-gson:0.12.6")
+
 
 }

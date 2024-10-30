@@ -12,7 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
 import com.example.studybuddy.domain.navigation.Navigation
-import com.example.studybuddy.domain.CachedData
+import com.example.studybuddy.domain.UserRepository
 import com.example.studybuddy.view.generalcomponents.pullrefresh.CustomPullToRefreshContainer
 import com.example.studybuddy.view.panels.bottombar.BottomBar
 import com.example.studybuddy.view.panels.topbar.TopBar
@@ -26,11 +26,11 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            CachedData.init(LocalContext.current)
+            UserRepository.init(LocalContext.current)
             val controller = rememberNavController()
             val barsIsVisible = remember { mutableStateOf(false) }
             val pullToRefreshState = rememberPullToRefreshState()
-            val currentThemeMode = remember { mutableStateOf(CachedData.themes.first { it.title == CachedData.theme }) }
+            val currentThemeMode = remember { mutableStateOf(UserRepository.themes.first { it.title == UserRepository.theme }) }
             StudyBuddyTheme(themeMode = currentThemeMode.value) {
                 Scaffold(
                     topBar = {

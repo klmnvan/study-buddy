@@ -2,9 +2,15 @@ package com.example.studybuddy.domain
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.util.Log
 import com.example.studybuddy.view.ui.theme.ThemeMode
+import org.json.JSONObject
+import java.time.Instant
+import java.time.ZoneId
+import java.util.Base64
+import java.util.Date
 
-object CachedData {
+object UserRepository {
 
     var tokenUser: String = "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlckBleGFtcGxlLmNvbSIsImdpdmVuX25hbWUiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZSI6IlVzZXIiLCJ1bmlxdWVfbmFtZSI6InVzZXJAZXhhbXBsZS5jb20iLCJuYW1laWQiOiI0ZTFlYjc4Mi1iOWIzLTQ3ZWItYjg0Yy05MDhhZTQzZWY2YTciLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJuYmYiOjE3Mjk5ODI1NTQsImV4cCI6MTczMDU4NzM1NCwiaWF0IjoxNzI5OTgyNTU0LCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.y_xPEutXTnLgylLtGDgB5nLPmuSXB9bK3b4dOJj3vnb9SrD5cAWPE_ci1tnJ1SZqRlSu_fysHGKTHllpvvvZpg"
 
@@ -16,23 +22,43 @@ object CachedData {
         spAct = context.getSharedPreferences("root", Context.MODE_PRIVATE)
     }
 
-    /*fun checkToken() {
-        if (CurrentUser.token != ""){
-            val mDecode = decodeToken(CurrentUser.token)
+    fun tokenIsValid(): Boolean {
+        if (token != "") {
+            val mDecode = decodeToken(token)
             val exp = JSONObject(mDecode).getString("exp")
             val localDate = utcToLocalDateTime(exp.toLong())
             val now = Date()
-            if (localDate.before(now)) {
+            return if (localDate.before(now)) {
                 Log.d("token", "истек")
-                act = 0
+                false
             } else {
                 Log.d("token", "не истек")
+                true
             }
         } else {
             Log.d("token", "отсутствует")
-            act = 0
+            return false
         }
-    }*/
+    }
+
+    fun utcToLocalDateTime(utcSeconds: Long): Date {
+        val instant = Instant.ofEpochSecond(utcSeconds)
+        val zonedDateTime = instant.atZone(ZoneId.of("UTC"))
+        return Date.from(zonedDateTime.toInstant())
+    }
+
+    private fun decodeToken(jwt: String): String {
+        val parts = jwt.split(".")
+        return try {
+            val charset = charset("UTF-8")
+            val header = String(Base64.getUrlDecoder().decode(parts[0].toByteArray(charset)), charset)
+            val payload = String(Base64.getUrlDecoder().decode(parts[1].toByteArray(charset)), charset)
+            "$header"
+            "$payload"
+        } catch (e: Exception) {
+            "Error parsing JWT: $e"
+        }
+    }
 
     var token: String
         get() = spAct.getString("token", "eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1lIjoidXNlckBleGFtcGxlLmNvbSIsImdpdmVuX25hbWUiOiJ1c2VyQGV4YW1wbGUuY29tIiwicm9sZSI6IlVzZXIiLCJ1bmlxdWVfbmFtZSI6InVzZXJAZXhhbXBsZS5jb20iLCJuYW1laWQiOiI0ZTFlYjc4Mi1iOWIzLTQ3ZWItYjg0Yy05MDhhZTQzZWY2YTciLCJlbWFpbCI6InVzZXJAZXhhbXBsZS5jb20iLCJuYmYiOjE3Mjk5ODI1NTQsImV4cCI6MTczMDU4NzM1NCwiaWF0IjoxNzI5OTgyNTU0LCJpc3MiOiJJc3N1ZXIiLCJhdWQiOiJBdWRpZW5jZSJ9.y_xPEutXTnLgylLtGDgB5nLPmuSXB9bK3b4dOJj3vnb9SrD5cAWPE_ci1tnJ1SZqRlSu_fysHGKTHllpvvvZpg")!!

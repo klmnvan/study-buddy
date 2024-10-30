@@ -22,7 +22,7 @@ import com.example.studybuddy.view.screens.tasks.Tasks
 fun Navigation(controller: NavHostController, barsIsVisible: MutableState<Boolean>, pullToRefreshState: PullToRefreshState) {
     NavHost(
         navController = controller,
-        startDestination = NavigationRoutes.TASKS,
+        startDestination = NavigationRoutes.SPLASH,
         enterTransition = { fadeIn(animationSpec = tween(durationMillis = 0)) } ) {
 
         composable(NavigationRoutes.SPLASH) {
