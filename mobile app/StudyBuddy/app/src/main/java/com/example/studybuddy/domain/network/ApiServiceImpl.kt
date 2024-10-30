@@ -20,6 +20,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.ServerResponseException
+import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.headers
 import io.ktor.client.request.post
@@ -184,6 +185,37 @@ class ApiServiceImpl(
             }
             if(response.status.isSuccess()) {
                 database.taskDao.updateTask(task)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun deleteTask(token: String, task: TaskEnt): DefaultResp {
+        return try {
+            val response = client.delete {
+                url(HttpRoutes.DELETE_TASK + "?Id задачи=${task.idTask}")
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            if(response.status.isSuccess()) {
+                database.taskDao.deleteTask(task)
             }
             DefaultResp()
         }

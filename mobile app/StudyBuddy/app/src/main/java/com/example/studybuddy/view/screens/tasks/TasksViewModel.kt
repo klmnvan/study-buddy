@@ -89,5 +89,22 @@ class TasksViewModel @Inject constructor(
         }
     }
 
+    fun deleteTask(el: TaskEnt, success: (Boolean) -> Unit) {
+        Log.e("tasks", el.toString())
+        viewModelScope.launch(Dispatchers.Main) {
+            val response = service.deleteTask(UserRepository.token, el)
+            if(response.error == "") {
+                success(true)
+                updateValueFromDB()
+                Log.e("tasks", "Я удалил задачу и обновил базу")
+            } else {
+                success(false)
+                Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                Log.e("error deleteTask", response.error)
+            }
+        }
+    }
+
 
 }

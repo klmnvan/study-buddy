@@ -48,9 +48,6 @@ fun TaskListItem(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<Disci
     var showDialog by remember { mutableStateOf(false) }
     Column(modifier = Modifier
         .fillMaxWidth()
-        .clickable {
-            onClick(el)
-        }
         .shadow(
             elevation = 4.dp, shape = RoundedCornerShape(5), spotColor = Color(
                 Black.value
@@ -102,7 +99,7 @@ fun TaskListItem(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<Disci
                 }
                 SpacerWidth(16.dp)
                 ButtonSmall("Детали", StudyBuddyTheme.colors.primary) {
-
+                    onClick(el)
                 }
 
             }

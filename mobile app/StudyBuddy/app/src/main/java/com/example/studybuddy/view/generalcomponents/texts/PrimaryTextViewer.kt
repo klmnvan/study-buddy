@@ -32,7 +32,7 @@ fun PrimaryTextViewer(text: String) {
 fun DateTextViewer(date: String) {
     Box(modifier = Modifier
         .background(StudyBuddyTheme.colors.containerSecondary, RoundedCornerShape(5.dp))
-        .padding(12.dp)) {
+        .padding(8.dp)) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Icon(imageVector = ImageVector.vectorResource(R.drawable.icon_clock),
                 contentDescription = null,

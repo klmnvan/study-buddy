@@ -4,10 +4,13 @@ import android.util.Log
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
@@ -28,8 +31,10 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.domain.navigation.NavigationRoutes
+import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.icons.ButtonAdd
 import com.example.studybuddy.view.generalcomponents.icons.ButtonBack
+import com.example.studybuddy.view.generalcomponents.icons.ButtonModify
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
@@ -95,7 +100,7 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
             else {
                 SpacerHeight(height = 16.dp)
                 Column {
-                    Row {
+                    Row(modifier = Modifier.fillMaxWidth()) {
                         ButtonBack {
                             showTask.value = Pair(false, state.value.tasks.first())
                         }
@@ -104,6 +109,20 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                     }
                     SpacerHeight(20.dp)
                     ShowTaskItem(el = showTask.value.second)
+                    SpacerHeight(height = 24.dp)
+                    Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+                        Row(modifier = Modifier.weight(1f)) {
+                            ButtonFillMaxWidth("УДАЛИТЬ", StudyBuddyTheme.colors.primary, true) {
+                                viewModel.deleteTask(showTask.value.second) {
+                                    if(it) showTask.value = Pair(false, TaskEnt(0, "","","","",null, false))
+                                }
+                            }
+                        }
+                        SpacerWidth(12.dp)
+                        ButtonModify {
+
+                        }
+                    }
                 }
 
             }

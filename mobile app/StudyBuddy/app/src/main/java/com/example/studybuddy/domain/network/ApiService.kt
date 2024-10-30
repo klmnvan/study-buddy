@@ -22,5 +22,6 @@ interface ApiService {
     suspend fun getTasks(token: String): GetTasksResp
     suspend fun getExams(token: String): GetExamsResp
     suspend fun updateTask(token: String, task: TaskEnt): DefaultResp
+    suspend fun deleteTask(token: String, task: TaskEnt): DefaultResp
 
 }

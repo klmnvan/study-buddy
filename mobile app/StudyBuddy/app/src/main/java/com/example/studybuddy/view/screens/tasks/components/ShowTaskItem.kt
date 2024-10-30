@@ -13,6 +13,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studybuddy.data.entityes.TaskEnt
+import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.texts.DateTextViewer
 import com.example.studybuddy.view.generalcomponents.texts.TextExtraLight
@@ -39,7 +40,7 @@ fun ShowTaskItem(el: TaskEnt) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 16.dp, top = 10.dp)
+                .padding(bottom = 24.dp, top = 10.dp)
                 .padding(horizontal = 20.dp)
         ) {
             TextTitle(text = el.title, fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
@@ -49,7 +50,6 @@ fun ShowTaskItem(el: TaskEnt) {
             TextTitle(text = "Описание", fontSize = 18.sp, color = StudyBuddyTheme.colors.textTitle)
             SpacerHeight(height = 8.dp)
             TextExtraLight(text = el.description, fontSize = 12.sp, color = StudyBuddyTheme.colors.textTitle)
-
         }
     }
 }
