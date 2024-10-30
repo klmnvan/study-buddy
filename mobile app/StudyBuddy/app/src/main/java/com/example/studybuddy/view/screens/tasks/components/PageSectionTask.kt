@@ -32,7 +32,7 @@ import com.example.studybuddy.view.screens.tasks.TasksViewModel
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @Composable
-fun PageSectionTask(title: String, listItem: List<TaskEnt>, viewModel: TasksViewModel, expandedValue: Boolean, disciplines: List<DisciplineEnt>, expanded: (Boolean) -> Unit) {
+fun PageSectionTask(title: String, listItem: List<TaskEnt>, viewModel: TasksViewModel, expandedValue: Boolean, disciplines: List<DisciplineEnt>, onClickItem: (el: TaskEnt) -> Unit, expanded: (Boolean) -> Unit) {
     Column {
         Row(
             modifier = Modifier.clickable(
@@ -64,7 +64,7 @@ fun PageSectionTask(title: String, listItem: List<TaskEnt>, viewModel: TasksView
             Column {
                 Spacer(modifier = Modifier.height(8.dp))
                 listItem.forEach { task ->
-                    TaskItem(task, viewModel, disciplines)
+                    TaskListItem(task, viewModel, disciplines, onClickItem)
                 }
             }
         }

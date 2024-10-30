@@ -8,5 +8,5 @@ object NavigationRoutes {
     val TASKS = "tasks"
     val DISCIPLINES = "disciplines"
     val EXAMS = "exams"
-    val SCHEDULES = "schedules"
+    val SCHEDULE = "schedule"
 }

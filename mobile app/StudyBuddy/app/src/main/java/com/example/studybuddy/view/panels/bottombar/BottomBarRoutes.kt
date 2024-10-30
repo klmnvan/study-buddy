@@ -27,7 +27,7 @@ sealed class BottomBarRoutes(
     )
 
     object ScheduleScreen : BottomBarRoutes(
-        route = NavigationRoutes.SCHEDULES,
+        route = NavigationRoutes.SCHEDULE,
         title = "Расписание",
         resourceId = R.drawable.schedule_icon
     )

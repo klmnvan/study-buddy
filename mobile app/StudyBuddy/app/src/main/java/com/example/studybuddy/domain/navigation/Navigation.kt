@@ -14,6 +14,7 @@ import com.example.studybuddy.view.screens.disciplines.Disciplines
 import com.example.studybuddy.view.screens.exams.Exams
 import com.example.studybuddy.view.screens.login.Login
 import com.example.studybuddy.view.screens.register.Register
+import com.example.studybuddy.view.screens.schedule.Schedule
 import com.example.studybuddy.view.screens.splash.Splash
 import com.example.studybuddy.view.screens.tasks.Tasks
 
@@ -22,7 +23,7 @@ import com.example.studybuddy.view.screens.tasks.Tasks
 fun Navigation(controller: NavHostController, barsIsVisible: MutableState<Boolean>, pullToRefreshState: PullToRefreshState) {
     NavHost(
         navController = controller,
-        startDestination = NavigationRoutes.SPLASH,
+        startDestination = NavigationRoutes.TASKS,
         enterTransition = { fadeIn(animationSpec = tween(durationMillis = 0)) } ) {
 
         composable(NavigationRoutes.SPLASH) {
@@ -49,14 +50,17 @@ fun Navigation(controller: NavHostController, barsIsVisible: MutableState<Boolea
 
         composable(NavigationRoutes.DISCIPLINES) {
             Disciplines(controller, pullToRefreshState)
+            barsIsVisible.value = true
         }
 
         composable(NavigationRoutes.EXAMS) {
             Exams(controller, pullToRefreshState)
+            barsIsVisible.value = true
         }
 
-        composable(NavigationRoutes.SCHEDULES) {
-            //Tasks(controller)
+        composable(NavigationRoutes.SCHEDULE) {
+            Schedule(controller, pullToRefreshState)
+            barsIsVisible.value = true
         }
 
     }

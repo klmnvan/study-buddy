@@ -1,6 +1,7 @@
 package com.example.studybuddy.view.screens.tasks.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -43,13 +44,27 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 
 @Composable
-fun TaskItem(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<DisciplineEnt>) {
+fun TaskListItem(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<DisciplineEnt>, onClick: (el: TaskEnt) -> Unit) {
     var showDialog by remember { mutableStateOf(false) }
-    Column(modifier = Modifier.fillMaxWidth().shadow(elevation = 4.dp, shape = RoundedCornerShape(5), spotColor = Color(
-        Black.value)
-    ).background(StudyBuddyTheme.colors.primary, RoundedCornerShape(5.dp)).padding(start = 10.dp)
-        .background(StudyBuddyTheme.colors.containerDefault, RoundedCornerShape(0.dp, 5.dp, 5.dp, 0.dp))) {
-        Column(modifier = Modifier.fillMaxWidth().padding(bottom = 16.dp, top = 20.dp, start = 10.dp, end = 20.dp)) {
+    Column(modifier = Modifier
+        .fillMaxWidth()
+        .clickable {
+            onClick(el)
+        }
+        .shadow(
+            elevation = 4.dp, shape = RoundedCornerShape(5), spotColor = Color(
+                Black.value
+            )
+        )
+        .background(StudyBuddyTheme.colors.primary, RoundedCornerShape(5.dp))
+        .padding(start = 10.dp)
+        .background(
+            StudyBuddyTheme.colors.containerDefault,
+            RoundedCornerShape(0.dp, 5.dp, 5.dp, 0.dp)
+        )) {
+        Column(modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 16.dp, top = 20.dp, start = 10.dp, end = 20.dp)) {
 
             Row(modifier = Modifier.fillMaxWidth()) {
                 Column(modifier = Modifier.weight(1f)) {
@@ -62,7 +77,9 @@ fun TaskItem(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<Disciplin
                 SpacerWidth(16.dp)
                 Checkbox(checked = el.isCompleted, onCheckedChange = {
                     showDialog = true
-                }, modifier = Modifier.size(20.dp).clip(RoundedCornerShape(5.dp)),
+                }, modifier = Modifier
+                    .size(20.dp)
+                    .clip(RoundedCornerShape(5.dp)),
                     colors = CheckboxDefaults.colors(
                         checkedColor = StudyBuddyTheme.colors.secondary,
                         disabledCheckedColor = StudyBuddyTheme.colors.secondary,
@@ -101,3 +118,4 @@ fun TaskItem(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<Disciplin
         }
     }
 }
+

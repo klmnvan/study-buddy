@@ -10,3 +10,4 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 fun TextBold(text: String, fontSize: TextUnit, color: Color) {
     Text(text = text, style = StudyBuddyTheme.typography.bold, fontSize = fontSize, color = color)
 }
+
