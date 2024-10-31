@@ -13,8 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SplashViewModel @Inject constructor(
-    @ApplicationContext private val context: Context) : ViewModel() {
+class SplashViewModel @Inject constructor() : ViewModel() {
 
     fun launch(navController: NavHostController) {
         viewModelScope.launch {

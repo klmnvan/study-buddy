@@ -35,7 +35,6 @@ class TasksViewModel @Inject constructor(
             _state.value = value
         }
 
-
     fun launch() {
         updateValueFromDB()
         fetchTasks()
@@ -55,7 +54,6 @@ class TasksViewModel @Inject constructor(
             }
         }
     }
-
 
     fun fetchTasks() {
         viewModelScope.launch(Dispatchers.Main) {

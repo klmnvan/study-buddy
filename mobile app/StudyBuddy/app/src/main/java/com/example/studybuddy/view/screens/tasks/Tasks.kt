@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -31,7 +30,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.domain.navigation.NavigationRoutes
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
@@ -41,7 +39,6 @@ import com.example.studybuddy.view.generalcomponents.icons.ButtonModify
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
-import com.example.studybuddy.view.screens.tasks.components.DropDownMenu
 import com.example.studybuddy.view.screens.tasks.components.ModifyTaskItem
 import com.example.studybuddy.view.screens.tasks.components.PageSectionTask
 import com.example.studybuddy.view.screens.tasks.components.ShowTaskItem
@@ -156,10 +153,7 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                         TextTitle(text = "Редактирование", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
                     }
                     SpacerHeight(20.dp)
-                    DropDownMenu(updatedTask.value.title, state.value.disciplines, "Предмет") {
-                        updatedTask.value = updatedTask.value.copy(idDiscipline = it)
-                    }
-                    ModifyTaskItem(el = updatedTask)
+                    ModifyTaskItem(updatedTask, state)
                     SpacerHeight(height = 24.dp)
                     Column(modifier = Modifier
                         .fillMaxWidth()

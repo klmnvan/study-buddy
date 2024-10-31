@@ -1,9 +1,6 @@
 package com.example.studybuddy.view.screens.tasks.components
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,12 +10,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.CheckboxDefaults
-import androidx.compose.material3.DropdownMenu
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MenuDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -46,7 +38,6 @@ import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.texts.TextExtraLight
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
-import com.example.studybuddy.view.generalcomponents.texts.TextBold
 import com.example.studybuddy.view.screens.tasks.TasksViewModel
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
@@ -121,42 +112,6 @@ fun TaskListItem(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<Disci
                 viewModel.updateTask(el.copy(isCompleted = !el.isCompleted)) {
 
                 }
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@SuppressLint("RememberReturnType")
-@Composable
-fun DropDownMenu(
-    value: String, list: List<DisciplineEnt>, placeholder: String, input: (Int) -> Unit){
-    var expanded by remember { mutableStateOf(false) }
-    Column(modifier = Modifier.fillMaxWidth()) {
-        Row(modifier = Modifier.fillMaxWidth().clickable(
-            interactionSource = remember { MutableInteractionSource() },
-            indication = null
-        ) {
-            expanded = !expanded
-        },) {
-            TextBold(text = "$placeholder: ", fontSize = 12.sp, color = StudyBuddyTheme.colors.textTitle)
-            TextExtraLight(text = if(value == "") "Не выбрано" else value, fontSize = 12.sp, color = StudyBuddyTheme.colors.textTitle)
-        }
-        SpacerHeight(8.dp)
-        DropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false },
-        ) {
-            list.forEach { item ->
-                DropdownMenuItem(
-                    text = { Text(item.title) },
-                    onClick = {
-                        input(item.idDiscipline)
-                        expanded = false
-                    },
-                    contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
-                    colors = MenuDefaults.itemColors(Black)
-                )
             }
         }
     }

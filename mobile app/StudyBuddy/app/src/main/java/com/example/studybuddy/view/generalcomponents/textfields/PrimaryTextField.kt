@@ -15,13 +15,13 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PrimaryTextField(value: String, placeholder: String, lineCount: Int, input: (String) -> Unit){
+fun PrimaryTextField(value: String, placeholder: String, lineCount: Int, input: (String) -> Unit) {
     OutlinedTextField(
         value = value,
         onValueChange = { input(it) },
         textStyle = StudyBuddyTheme.typography.exstralight.copy(
             color = StudyBuddyTheme.colors.textTitle,
-            fontSize = 16.sp
+            fontSize = 12.sp
         ),
         modifier = Modifier
             .fillMaxWidth(),
