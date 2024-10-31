@@ -3,6 +3,7 @@ package com.example.studybuddy.view.screens.tasks.components
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -16,6 +17,8 @@ import androidx.compose.ui.unit.sp
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
+import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
+import com.example.studybuddy.view.generalcomponents.textfields.PrimaryTextField
 import com.example.studybuddy.view.generalcomponents.texts.DateTextViewer
 import com.example.studybuddy.view.generalcomponents.texts.TextExtraLight
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
@@ -51,6 +54,46 @@ fun ShowTaskItem(el: TaskEnt) {
             TextTitle(text = "Описание", fontSize = 18.sp, color = StudyBuddyTheme.colors.textTitle)
             SpacerHeight(height = 8.dp)
             TextExtraLight(text = el.description, fontSize = 12.sp, color = StudyBuddyTheme.colors.textTitle)
+        }
+    }
+}
+
+@Composable
+fun ModifyTaskItem(el: MutableState<TaskEnt>) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(
+                elevation = 4.dp, shape = RoundedCornerShape(5), spotColor = Color(
+                    Color.Black.value
+                )
+            )
+            .background(StudyBuddyTheme.colors.primary, RoundedCornerShape(5.dp))
+            .padding(top = 10.dp)
+            .background(
+                StudyBuddyTheme.colors.containerDefault,
+                RoundedCornerShape(0.dp, 0.dp, 5.dp, 5.dp)
+            )
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp, top = 10.dp)
+                .padding(horizontal = 20.dp)
+        ) {
+            TextTitle(text = "Заголовок", fontSize = 18.sp, color = StudyBuddyTheme.colors.textTitle)
+            SpacerHeight(height = 4.dp)
+            PrimaryTextField(value = el.value.title, placeholder = "Название задачи", 1) {
+                el.value = el.value.copy(title = it)
+            }
+            SpacerHeight(height = 12.dp)
+            SpacerHeight(height = 12.dp)
+            TextTitle(text = "Описание", fontSize = 18.sp, color = StudyBuddyTheme.colors.textTitle)
+            SpacerHeight(height = 4.dp)
+            PrimaryTextField(value = el.value.description, placeholder = "Описание задачи", 6) {
+                el.value = el.value.copy(description = it)
+            }
+            SpacerHeight(height = 8.dp)
         }
     }
 }

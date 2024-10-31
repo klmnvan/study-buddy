@@ -19,9 +19,11 @@ import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -32,12 +34,15 @@ import androidx.navigation.NavHostController
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.domain.navigation.NavigationRoutes
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
+import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
 import com.example.studybuddy.view.generalcomponents.icons.ButtonAdd
 import com.example.studybuddy.view.generalcomponents.icons.ButtonBack
 import com.example.studybuddy.view.generalcomponents.icons.ButtonModify
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
+import com.example.studybuddy.view.screens.tasks.components.DropDownMenu
+import com.example.studybuddy.view.screens.tasks.components.ModifyTaskItem
 import com.example.studybuddy.view.screens.tasks.components.PageSectionTask
 import com.example.studybuddy.view.screens.tasks.components.ShowTaskItem
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
@@ -49,7 +54,7 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
 
     val state = viewModel.state.collectAsState()
     val showTask = remember {
-        mutableStateOf(Pair(false, 0))
+        mutableStateOf(Pair(1, 0))
     }
 
     if (pullToRefreshState.isRefreshing) {
@@ -74,7 +79,7 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
             .padding(horizontal = 24.dp)
             .padding(top = 60.dp, bottom = 100.dp)) {
             Log.d("view", showTask.value.first.toString())
-            if(!showTask.value.first) {
+            if(showTask.value.first == 1) {
                 val expandedStates = remember { mutableStateListOf(true, true) }
                 Row(
                     modifier = Modifier.fillMaxWidth(),
@@ -87,22 +92,22 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                 }
                 SpacerHeight(8.dp)
                 PageSectionTask("Не готовы", state.value.tasks.filter { !it.isCompleted }, viewModel, expandedStates[0], state.value.disciplines, {
-                    showTask.value = Pair(true, it.idTask)
+                    showTask.value = Pair(2, it.idTask)
                 }) {
                     expandedStates[0] = it
                 }
                 PageSectionTask("Готовы", state.value.tasks.filter { it.isCompleted }, viewModel, expandedStates[1], state.value.disciplines, {
-                    showTask.value = Pair(true, it.idTask)
+                    showTask.value = Pair(2, it.idTask)
                 }) {
                     expandedStates[1] = it
                 }
             }
-            else {
+            if(showTask.value.first == 2) {
                 SpacerHeight(height = 16.dp)
                 Column {
                     Row(modifier = Modifier.fillMaxWidth()) {
                         ButtonBack {
-                            showTask.value = Pair(false, 0)
+                            showTask.value = Pair(1, 0)
                         }
                         SpacerWidth(width = 12.dp)
                         TextTitle(text = "Детали", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
@@ -110,21 +115,70 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                     SpacerHeight(20.dp)
                     ShowTaskItem(el = state.value.tasks.first { it.idTask == showTask.value.second })
                     SpacerHeight(height = 24.dp)
-                    Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+                    Row(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min)) {
                         Row(modifier = Modifier.weight(1f)) {
+                            var showDialog by remember { mutableStateOf(false) }
                             ButtonFillMaxWidth("УДАЛИТЬ", StudyBuddyTheme.colors.primary, true) {
-                                viewModel.deleteTask(state.value.tasks.first { it.idTask == showTask.value.second }) {
-                                    if(it) showTask.value = Pair(false, 0)
+                                showDialog = true
+                            }
+                            if (showDialog) {
+                                ShowFragment("Подтвердите", "Вы точно хотите удалить эту задачу без возможности возвращаения?") {
+                                    showDialog = false
+                                    if(it) {
+                                        viewModel.deleteTask(state.value.tasks.first { it.idTask == showTask.value.second }) {
+                                            if(it) showTask.value = Pair(1, 0)
+                                        }
+                                    }
                                 }
                             }
                         }
                         SpacerWidth(12.dp)
                         ButtonModify {
-
+                            showTask.value = Pair(3,  showTask.value.second)
                         }
                     }
                 }
 
+            }
+            if(showTask.value.first == 3) {
+                val updatedTask = remember {
+                    mutableStateOf(state.value.tasks.first { it.idTask == showTask.value.second })
+                }
+                SpacerHeight(height = 16.dp)
+                Column {
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        ButtonBack {
+                            showTask.value = Pair(2, showTask.value.second)
+                        }
+                        SpacerWidth(width = 12.dp)
+                        TextTitle(text = "Редактирование", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
+                    }
+                    SpacerHeight(20.dp)
+                    DropDownMenu(updatedTask.value.title, state.value.disciplines, "Предмет") {
+                        updatedTask.value = updatedTask.value.copy(idDiscipline = it)
+                    }
+                    ModifyTaskItem(el = updatedTask)
+                    SpacerHeight(height = 24.dp)
+                    Column(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min)) {
+                        ButtonFillMaxWidth("СОХРАНИТЬ", StudyBuddyTheme.colors.secondary, true) {
+                            viewModel.updateTask(updatedTask.value) {
+                                if(it) showTask.value = Pair(1, 0)
+                            }
+                        }
+                        SpacerHeight(12.dp)
+                        ButtonFillMaxWidth("СПИСОК ПРЕДМЕТОВ", StudyBuddyTheme.colors.primary, true) {
+                            controller.navigate(NavigationRoutes.DISCIPLINES) {
+                                popUpTo(NavigationRoutes.TASKS) {
+                                    inclusive = true
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }

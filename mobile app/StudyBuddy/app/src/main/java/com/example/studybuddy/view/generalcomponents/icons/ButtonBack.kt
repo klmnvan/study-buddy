@@ -21,7 +21,7 @@ fun ButtonBack(onClick: () -> Unit) {
     Icon(imageVector = ImageVector.vectorResource(R.drawable.arrow_left),
         contentDescription = null,
         tint = StudyBuddyTheme.colors.textButton,
-        modifier = Modifier.background(StudyBuddyTheme.colors.secondary, RoundedCornerShape(20)).padding(10.dp).size(8.dp).clickable(
+        modifier = Modifier.background(StudyBuddyTheme.colors.secondary, RoundedCornerShape(20)).padding(10.dp).size(12.dp).clickable(
             interactionSource = remember { MutableInteractionSource() },
             indication = null
         ) {
