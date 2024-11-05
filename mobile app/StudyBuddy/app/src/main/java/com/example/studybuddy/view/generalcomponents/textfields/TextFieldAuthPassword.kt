@@ -33,10 +33,10 @@ fun TextFieldAuthPassword(value: String, input: (String) -> Unit, placeholder: S
     OutlinedTextField(
         value = value,
         onValueChange = { input(it) },
-        textStyle = StudyBuddyTheme.typography.exstralight.copy(color = StudyBuddyTheme.colors.textTitle, fontSize = 16.sp),
+        textStyle = StudyBuddyTheme.typography.extralight.copy(color = StudyBuddyTheme.colors.textTitle, fontSize = 16.sp),
         visualTransformation = visualTransformation,
         modifier = Modifier.fillMaxWidth(),
-        placeholder = { Text(text = placeholder, style = StudyBuddyTheme.typography.exstralight.copy(color = StudyBuddyTheme.colors.primary, fontSize = 16.sp)) },
+        placeholder = { Text(text = placeholder, style = StudyBuddyTheme.typography.extralight.copy(color = StudyBuddyTheme.colors.primary, fontSize = 16.sp)) },
         singleLine = true,
         shape = RoundedCornerShape(5.dp),
         colors = TextFieldDefaults.outlinedTextFieldColors(

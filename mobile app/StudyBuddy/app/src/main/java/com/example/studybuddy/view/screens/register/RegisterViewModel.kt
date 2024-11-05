@@ -8,7 +8,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.studybuddy.data.states.RegisterSt
-import com.example.studybuddy.domain.navigation.NavigationRoutes
+import com.example.studybuddy.view.navigation.NavigationRoutes
 import com.example.studybuddy.domain.network.ApiServiceImpl
 import com.example.studybuddy.domain.verification.AuthVerification.isEmailValid
 import com.example.studybuddy.domain.verification.AuthVerification.isNicknameValid

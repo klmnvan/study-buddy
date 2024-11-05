@@ -1,5 +1,6 @@
 package com.example.studybuddy.view.generalcomponents.buttons
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -11,6 +12,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
+import java.text.SimpleDateFormat
+import java.util.Date
 
 @Composable
 fun ButtonSmall(text: String, color: Color, onClick: () -> Unit) {

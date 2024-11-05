@@ -62,6 +62,7 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.protolite.well.known.types)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -111,6 +112,5 @@ dependencies {
     runtimeOnly ("io.jsonwebtoken:jjwt-impl:0.12.6")
     implementation ("com.auth0.android:jwtdecode:2.0.2")
     runtimeOnly ("io.jsonwebtoken:jjwt-gson:0.12.6")
-
 
 }

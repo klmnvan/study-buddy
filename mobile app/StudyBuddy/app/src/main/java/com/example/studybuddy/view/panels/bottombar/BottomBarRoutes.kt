@@ -1,7 +1,7 @@
 package com.example.studybuddy.view.panels.bottombar
 
 import com.example.studybuddy.R
-import com.example.studybuddy.domain.navigation.NavigationRoutes
+import com.example.studybuddy.view.navigation.NavigationRoutes
 
 sealed class BottomBarRoutes(
     val route: String,

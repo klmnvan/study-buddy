@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -16,11 +17,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.states.TasksSt
+import com.example.studybuddy.view.generalcomponents.buttons.ButtonDatePicker
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.textfields.PrimaryTextField
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModifyTaskItem(updatedTask: MutableState<TaskEnt>, state: State<TasksSt>) {
     Box(
@@ -62,6 +65,10 @@ fun ModifyTaskItem(updatedTask: MutableState<TaskEnt>, state: State<TasksSt>) {
                 if (it == 0) updatedTask.value = updatedTask.value.copy(idDiscipline = null)
             }
             SpacerHeight(height = 12.dp)
+            ButtonDatePicker("Сдать до: ", updatedTask.value.deadline) {
+                updatedTask.value = updatedTask.value.copy(deadline = it)
+            }
+            SpacerHeight(height = 12.dp)
             TextTitle(text = "Описание", fontSize = 18.sp, color = StudyBuddyTheme.colors.textTitle)
             SpacerHeight(height = 4.dp)
             PrimaryTextField(
@@ -74,4 +81,9 @@ fun ModifyTaskItem(updatedTask: MutableState<TaskEnt>, state: State<TasksSt>) {
             SpacerHeight(height = 8.dp)
         }
     }
+}
+
+@Composable
+fun DateSelector() {
+
 }

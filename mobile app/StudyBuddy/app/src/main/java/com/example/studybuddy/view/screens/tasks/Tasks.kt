@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
-import com.example.studybuddy.domain.navigation.NavigationRoutes
+import com.example.studybuddy.view.navigation.NavigationRoutes
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
 import com.example.studybuddy.view.generalcomponents.icons.ButtonAdd

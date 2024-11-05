@@ -1,4 +1,4 @@
-package com.example.studybuddy.domain.navigation
+package com.example.studybuddy.view.navigation
 
 object NavigationRoutes {
     val SPLASH = "splash"

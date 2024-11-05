@@ -24,7 +24,7 @@ fun TextFieldAuthNickname(value: String, input: (String) -> Unit, placeholder: S
     OutlinedTextField(
         value = value,
         onValueChange = { input(it) },
-        textStyle = StudyBuddyTheme.typography.exstralight.copy(
+        textStyle = StudyBuddyTheme.typography.extralight.copy(
             color = StudyBuddyTheme.colors.textTitle,
             fontSize = 16.sp
         ),
@@ -33,7 +33,7 @@ fun TextFieldAuthNickname(value: String, input: (String) -> Unit, placeholder: S
         placeholder = {
             Text(
                 text = placeholder,
-                style = StudyBuddyTheme.typography.exstralight.copy(
+                style = StudyBuddyTheme.typography.extralight.copy(
                     color = StudyBuddyTheme.colors.primary,
                     fontSize = 16.sp
                 )

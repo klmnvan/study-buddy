@@ -1,4 +1,4 @@
-package com.example.studybuddy.domain.navigation
+package com.example.studybuddy.view.navigation
 
 import androidx.compose.animation.core.tween
 import androidx.compose.animation.fadeIn

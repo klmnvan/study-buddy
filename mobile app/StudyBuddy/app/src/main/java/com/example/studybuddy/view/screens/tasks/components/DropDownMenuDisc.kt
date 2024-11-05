@@ -7,7 +7,6 @@ import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -29,9 +28,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
-import androidx.compose.ui.input.pointer.motionEventSpy
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -55,7 +52,7 @@ fun DropDownMenuDisc(
     Column {
         Box(
             modifier = Modifier.fillMaxWidth()
-                .background(StudyBuddyTheme.colors.containerPrimary, RoundedCornerShape(5.dp, 5.dp, 0.dp, 0.dp))
+                .background(StudyBuddyTheme.colors.containerPrimary, RoundedCornerShape(5.dp, 5.dp, 5.dp, 5.dp))
                 .padding(vertical = 20.dp, horizontal = 12.dp)
         ) {
             Row(
@@ -75,7 +72,7 @@ fun DropDownMenuDisc(
                 Text(
                     text = value,
                     modifier = Modifier.weight(1f),
-                    style = StudyBuddyTheme.typography.exstralight,
+                    style = StudyBuddyTheme.typography.extralight,
                     fontSize = 12.sp,
                     maxLines = 1,
                     color = StudyBuddyTheme.colors.textTitle,
@@ -89,7 +86,7 @@ fun DropDownMenuDisc(
                 )
             }
         }
-        HorizontalDivider(color = StudyBuddyTheme.colors.textTitle, thickness = 1.dp)
+        //HorizontalDivider(color = StudyBuddyTheme.colors.textTitle, thickness = 1.dp)
         DropdownMenu(
             expanded = expanded,
             onDismissRequest = { expanded = false },

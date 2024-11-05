@@ -11,7 +11,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.rememberNavController
-import com.example.studybuddy.domain.navigation.Navigation
+import com.example.studybuddy.view.navigation.Navigation
 import com.example.studybuddy.domain.UserRepository
 import com.example.studybuddy.view.generalcomponents.pullrefresh.CustomPullToRefreshContainer
 import com.example.studybuddy.view.panels.bottombar.BottomBar

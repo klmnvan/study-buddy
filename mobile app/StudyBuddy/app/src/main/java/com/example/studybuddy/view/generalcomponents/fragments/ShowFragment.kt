@@ -40,7 +40,7 @@ fun ShowFragment(title: String, desc: String, onDismissRequest: (Boolean) -> Uni
                     style = StudyBuddyTheme.typography.regular, fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle, textAlign = TextAlign.Center)
                 SpacerHeight(16.dp)
                 Text(text = desc,
-                    style = StudyBuddyTheme.typography.exstralight, fontSize = 12.sp, color = StudyBuddyTheme.colors.textTitle, textAlign = TextAlign.Center)
+                    style = StudyBuddyTheme.typography.extralight, fontSize = 12.sp, color = StudyBuddyTheme.colors.textTitle, textAlign = TextAlign.Center)
                 SpacerHeight(20.dp)
                 Row {
                     ButtonSmall("Да, хочу", StudyBuddyTheme.colors.primary) {

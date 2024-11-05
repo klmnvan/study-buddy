@@ -9,11 +9,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import com.example.studybuddy.R
 
-@Immutable
 data class Typography(
     val bold: TextStyle,
     val regular: TextStyle,
-    val exstralight: TextStyle,
+    val extralight: TextStyle,
     val light: TextStyle
 )
 
@@ -39,7 +38,7 @@ val typography = Typography(
         fontWeight = FontWeight.Normal,
         fontFamily = Geologica
     ),
-    exstralight = TextStyle(
+    extralight = TextStyle(
         fontWeight = FontWeight.ExtraLight,
         fontFamily = Geologica
     ),

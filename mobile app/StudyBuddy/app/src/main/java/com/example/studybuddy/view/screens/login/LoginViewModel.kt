@@ -9,7 +9,7 @@ import androidx.navigation.NavHostController
 import com.example.studybuddy.domain.network.ApiServiceImpl
 import com.example.studybuddy.data.states.LoginSt
 import com.example.studybuddy.domain.UserRepository
-import com.example.studybuddy.domain.navigation.NavigationRoutes
+import com.example.studybuddy.view.navigation.NavigationRoutes
 import com.example.studybuddy.domain.verification.AuthVerification.isEmailValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext

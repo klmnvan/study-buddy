@@ -10,7 +10,7 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 fun TextExtraLight(text: String, fontSize: TextUnit, color: Color) {
     Text(
         text = text,
-        style = StudyBuddyTheme.typography.exstralight,
+        style = StudyBuddyTheme.typography.extralight,
         fontSize = fontSize,
         color = color
     )

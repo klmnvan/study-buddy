@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
 import com.example.studybuddy.domain.UserRepository
-import com.example.studybuddy.domain.navigation.NavigationRoutes
+import com.example.studybuddy.view.navigation.NavigationRoutes
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
