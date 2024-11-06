@@ -109,12 +109,39 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                                 }
                             }
                             SpacerHeight(12.dp)
-                            ButtonFillMaxWidth("СПИСОК ПРЕДМЕТОВ", StudyBuddyTheme.colors.primary, true) {
-                                controller.navigate(NavigationRoutes.DISCIPLINES) {
-                                    popUpTo(NavigationRoutes.TASKS) {
-                                        inclusive = true
-                                    }
+                            ButtonFillMaxWidth("СПИСОК ПРЕПОДАВАТЕЛЕЙ", StudyBuddyTheme.colors.primary, true) {
+                                showDisc.value = Pair(3, 0)
+                            }
+                        }
+                    }
+                }
+                2 -> {
+                    val newDisc = remember {
+                        mutableStateOf(DisciplineEnt())
+                    }
+                    SpacerHeight(height = 16.dp)
+                    Column {
+                        Row(modifier = Modifier.fillMaxWidth()) {
+                            ButtonBack {
+                                showDisc.value = Pair(1, 0)
+                            }
+                            SpacerWidth(width = 12.dp)
+                            TextTitle(text = "Список преподавтелей", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
+                        }
+                        SpacerHeight(20.dp)
+                        ModifyDiscItem(newDisc, state)
+                        SpacerHeight(height = 24.dp)
+                        Column(modifier = Modifier
+                            .fillMaxWidth()
+                            .height(IntrinsicSize.Min)) {
+                            ButtonFillMaxWidth("СОЗДАТЬ", StudyBuddyTheme.colors.secondary, true) {
+                                viewModel.createDisc(newDisc.value) {
+                                    if(it) showDisc.value = Pair(1, 0)
                                 }
+                            }
+                            SpacerHeight(12.dp)
+                            ButtonFillMaxWidth("СПИСОК ПРЕПОДАВАТЕЛЕЙ", StudyBuddyTheme.colors.primary, true) {
+                                showDisc.value = Pair(3, 0)
                             }
                         }
                     }
