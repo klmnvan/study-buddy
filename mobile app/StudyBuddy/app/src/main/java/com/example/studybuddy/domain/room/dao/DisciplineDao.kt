@@ -13,6 +13,9 @@ interface DisciplineDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insertDisc(task: List<DisciplineEnt>)
 
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertDisc(task: DisciplineEnt)
+
     @Query("DELETE FROM disciplines")
     fun deleteAllDisc()
 

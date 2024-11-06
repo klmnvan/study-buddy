@@ -16,3 +16,4 @@ data class TaskEnt(
     var idDiscipline: Int? = null,
     var isCompleted: Boolean = false,
 )
+

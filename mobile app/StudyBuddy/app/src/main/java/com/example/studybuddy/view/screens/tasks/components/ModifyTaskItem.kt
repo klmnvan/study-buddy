@@ -23,7 +23,6 @@ import com.example.studybuddy.view.generalcomponents.textfields.PrimaryTextField
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ModifyTaskItem(updatedTask: MutableState<TaskEnt>, state: State<TasksSt>) {
     Box(
@@ -81,9 +80,4 @@ fun ModifyTaskItem(updatedTask: MutableState<TaskEnt>, state: State<TasksSt>) {
             SpacerHeight(height = 8.dp)
         }
     }
-}
-
-@Composable
-fun DateSelector() {
-
 }

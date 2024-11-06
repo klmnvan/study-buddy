@@ -9,3 +9,4 @@ data class CreateTaskDto(
     var idDiscipline: Int? = null,
     var description: String = "",
 )
+

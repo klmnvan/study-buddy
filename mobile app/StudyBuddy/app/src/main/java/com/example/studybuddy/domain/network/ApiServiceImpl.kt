@@ -1,17 +1,21 @@
 package com.example.studybuddy.domain.network
 
 import android.util.Log
+import com.example.studybuddy.data.dto.CreateDiscDto
 import com.example.studybuddy.data.dto.CreateTaskDto
+import com.example.studybuddy.data.dto.CreateTeacherDto
 import com.example.studybuddy.data.dto.LoginDto
 import com.example.studybuddy.data.dto.RegisterDto
 import com.example.studybuddy.data.dto.UserDto
 import com.example.studybuddy.data.entityes.DisciplineEnt
 import com.example.studybuddy.data.entityes.ExamEnt
 import com.example.studybuddy.data.entityes.TaskEnt
+import com.example.studybuddy.data.entityes.TeacherEnt
 import com.example.studybuddy.data.responses.DefaultResp
 import com.example.studybuddy.data.responses.ExamsResp
 import com.example.studybuddy.data.responses.TasksResp
 import com.example.studybuddy.data.responses.AuthResp
+import com.example.studybuddy.data.responses.DisciplinesResp
 import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -167,6 +171,47 @@ class ApiServiceImpl(
         }
     }
 
+    override suspend fun getTeachers(token: String): DisciplinesResp {
+        return try {
+            val exams = client.get {
+                url(HttpRoutes.GET_TEACHERS)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            val body = exams.body<List<TeacherEnt>>()
+            database.teacherDao.deleteAllTeacher()
+            database.teacherDao.insertTeacher(body)
+            val disciplines = client.get {
+                url(HttpRoutes.GET_DISCIPLINES)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            val disciplinesBody = disciplines.body<List<DisciplineEnt>>()
+            database.disciplineDao.deleteAllDisc()
+            database.disciplineDao.insertDisc(disciplinesBody)
+            DisciplinesResp(listTeachers = body, listDiscipline = disciplinesBody)
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DisciplinesResp(error = errorMessage)
+            }
+            DisciplinesResp(error = e.response.body<String>())
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DisciplinesResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DisciplinesResp(error = e.message.toString())
+        }
+    }
+
     override suspend fun updateTask(token: String, task: TaskEnt): DefaultResp {
         return try {
             val response = client.put {
@@ -260,6 +305,39 @@ class ApiServiceImpl(
         catch (e: Exception) {
             Log.d("Error ${e.message}", e.message.toString())
             TasksResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun createDisc(token: String, disc: CreateDiscDto): DisciplinesResp {
+        return try {
+            val response = client.post {
+                url(HttpRoutes.CREATE_DISC)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(disc)
+            }
+            val body = response.body<DisciplineEnt>()
+            if(response.status.isSuccess()) {
+                database.disciplineDao.insertDisc(body)
+            }
+            DisciplinesResp(disc = body)
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DisciplinesResp(error = errorMessage)
+            }
+            DisciplinesResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DisciplinesResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DisciplinesResp(error = "Ошибка: ${e.message.toString()}")
         }
     }
 

@@ -8,8 +8,11 @@ object HttpRoutes {
     const val INFORMATION = "$BASE_URL/account/accountInfo"
     const val GET_TASKS = "$BASE_URL/task/getTaskUSer"
     const val GET_DISCIPLINES = "$BASE_URL/discipline/getDisciplineUser"
+    const val GET_TEACHERS = "$BASE_URL/teacher/getTeachersUser"
+    const val CREATE_DISC = "$BASE_URL/discipline/createDiscipline"
     const val GET_EXAMS = "$BASE_URL/exam/getExamsUser"
     const val UPDATE_TASK = "$BASE_URL/task/updateTask"
     const val DELETE_TASK = "$BASE_URL/task/deleteTask"
     const val CREATE_TASK = "$BASE_URL/task/createTask"
+    const val CREATE_TEACHER = "$BASE_URL/task/createTeacher"
 }

@@ -5,6 +5,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.studybuddy.data.dto.CreateDiscDto
+import com.example.studybuddy.data.dto.CreateTaskDto
+import com.example.studybuddy.data.entityes.DisciplineEnt
+import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.states.DisciplinesSt
 import com.example.studybuddy.domain.UserRepository
 import com.example.studybuddy.domain.network.ApiServiceImpl
@@ -43,7 +47,11 @@ class DisciplinesViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             database.disciplineDao.getAllDiscs().collect {
                 stateValue = _state.value.copy(disciplines = it)
-                Log.e("disciplines", "Предметы, сохраненные в room: $it")
+            }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            database.teacherDao.getAllTeacher().collect {
+                stateValue = _state.value.copy(teachers = it)
             }
         }
     }
@@ -51,18 +59,39 @@ class DisciplinesViewModel @Inject constructor(
 
     fun fetch() {
         viewModelScope.launch(Dispatchers.Main) {
-            val response = service.getTasks(UserRepository.token)
+            val response = service.getTeachers(UserRepository.token)
             if(response.error == "") {
-                if(!stateValue.disciplines.equals(response.listDisc)) {
+                if(!stateValue.teachers.equals(response.listTeachers) || !stateValue.disciplines.equals(response.listDiscipline)) {
                     updateValues()
                 }
-                Log.e("tasks", "Задачи, полученные из API: " + response.listTask.toString())
-                Log.e("disc", "Предметы, полученные из API: " + response.listDisc.toString())
             } else {
                 Toast.makeText(context, "Данные не актуальны", Toast.LENGTH_SHORT).show()
                 Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
-                Log.e("error fetchTasks", response.error)
+                Log.e("error fetchDisc", response.error)
             }
+        }
+    }
+
+    fun createDisc(el: DisciplineEnt, success: (Boolean) -> Unit) {
+        if(el.title.isNotEmpty()) {
+            viewModelScope.launch(Dispatchers.Main) {
+                val response = service.createDisc(UserRepository.token, CreateDiscDto(
+                    title = el.title,
+                    idTeacher = el.idTeacher)
+                )
+                if(response.error == "") {
+                    success(true)
+                    updateValues()
+                    Log.e("tasks", "Я создал преподавателя и обновил базу")
+                } else {
+                    success(false)
+                    Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                    Log.e("error deleteTask", response.error)
+                }
+            }
+        } else {
+            Toast.makeText(context, "Не все поля заполнены", Toast.LENGTH_SHORT).show()
         }
     }
 
