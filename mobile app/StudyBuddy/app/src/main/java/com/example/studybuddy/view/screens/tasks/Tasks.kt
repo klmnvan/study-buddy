@@ -30,6 +30,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.view.navigation.NavigationRoutes
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
@@ -85,6 +86,7 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                     TextTitle("Задания", 32.sp, StudyBuddyTheme.colors.textTitle)
                     Spacer(modifier = Modifier.weight(1f))
                     ButtonAdd {
+                        showTask.value = Pair(4, 0)
                     }
                 }
                 SpacerHeight(8.dp)
@@ -160,6 +162,41 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                         .height(IntrinsicSize.Min)) {
                         ButtonFillMaxWidth("СОХРАНИТЬ", StudyBuddyTheme.colors.secondary, true) {
                             viewModel.updateTask(updatedTask.value) {
+                                if(it) showTask.value = Pair(1, 0)
+                            }
+                        }
+                        SpacerHeight(12.dp)
+                        ButtonFillMaxWidth("СПИСОК ПРЕДМЕТОВ", StudyBuddyTheme.colors.primary, true) {
+                            controller.navigate(NavigationRoutes.DISCIPLINES) {
+                                popUpTo(NavigationRoutes.TASKS) {
+                                    inclusive = true
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            if(showTask.value.first == 4) {
+                val newTask = remember {
+                    mutableStateOf(TaskEnt())
+                }
+                SpacerHeight(height = 16.dp)
+                Column {
+                    Row(modifier = Modifier.fillMaxWidth()) {
+                        ButtonBack {
+                            showTask.value = Pair(2, showTask.value.second)
+                        }
+                        SpacerWidth(width = 12.dp)
+                        TextTitle(text = "Новое задание", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
+                    }
+                    SpacerHeight(20.dp)
+                    ModifyTaskItem(newTask, state)
+                    SpacerHeight(height = 24.dp)
+                    Column(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(IntrinsicSize.Min)) {
+                        ButtonFillMaxWidth("СОЗДАТЬ", StudyBuddyTheme.colors.secondary, true) {
+                            viewModel.createTask(newTask.value) {
                                 if(it) showTask.value = Pair(1, 0)
                             }
                         }

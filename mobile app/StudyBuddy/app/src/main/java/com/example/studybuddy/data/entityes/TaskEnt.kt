@@ -8,11 +8,11 @@ import kotlinx.serialization.Serializable
 @Entity(tableName = "tasks")
 data class TaskEnt(
     @PrimaryKey
-    var idTask: Int,
-    var idUser: String,
-    var deadline: String,
-    var description: String,
-    var title: String,
-    var idDiscipline: Int?,
-    var isCompleted: Boolean,
+    var idTask: Int = 0,
+    var idUser: String = "",
+    var deadline: String = "",
+    var description: String = "",
+    var title: String = "",
+    var idDiscipline: Int? = null,
+    var isCompleted: Boolean = false,
 )

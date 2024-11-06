@@ -4,7 +4,9 @@ import com.example.studybuddy.data.dto.UserDto
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class RegisterResp(
+data class AuthResp(
     val user: UserDto? = null,
     val error: String = "",
 )
+
+

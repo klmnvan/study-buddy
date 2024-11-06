@@ -1,7 +1,7 @@
 package com.example.studybuddy.domain.network
 
 import android.util.Log
-import androidx.room.RoomDatabase
+import com.example.studybuddy.data.dto.CreateTaskDto
 import com.example.studybuddy.data.dto.LoginDto
 import com.example.studybuddy.data.dto.RegisterDto
 import com.example.studybuddy.data.dto.UserDto
@@ -9,12 +9,9 @@ import com.example.studybuddy.data.entityes.DisciplineEnt
 import com.example.studybuddy.data.entityes.ExamEnt
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.responses.DefaultResp
-import com.example.studybuddy.data.responses.GetExamsResp
-import com.example.studybuddy.data.responses.GetTasksResp
-import com.example.studybuddy.data.responses.LoginResp
-import com.example.studybuddy.data.responses.RegisterResp
-import com.example.studybuddy.domain.room.dao.DisciplineDao
-import com.example.studybuddy.domain.room.dao.TaskDao
+import com.example.studybuddy.data.responses.ExamsResp
+import com.example.studybuddy.data.responses.TasksResp
+import com.example.studybuddy.data.responses.AuthResp
 import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -27,13 +24,10 @@ import io.ktor.client.request.post
 import io.ktor.client.request.put
 import io.ktor.client.request.setBody
 import io.ktor.client.request.url
-import io.ktor.client.utils.EmptyContent.headers
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 import kotlinx.serialization.json.Json
 
 /** Реализация интерфейса, в котором описаны все методы для запросов к API + их кэшировние в локальную базу данных Room*/
@@ -42,7 +36,7 @@ class ApiServiceImpl(
     private val database: StudyBuddyDatabase,
     ): ApiService {
 
-    override suspend fun signIn(email: String, password: String): LoginResp {
+    override suspend fun signIn(email: String, password: String): AuthResp {
         return try {
             val response = client.post {
                 url(HttpRoutes.LOGIN)
@@ -50,22 +44,22 @@ class ApiServiceImpl(
                 setBody(LoginDto(email, password))
             }
             val responseBody = response.body<UserDto>()
-            LoginResp(user = responseBody)
+            AuthResp(user = responseBody)
         }
         catch (e: ClientRequestException) {
             //приходит text/plain иногда, поэтому проверять надо всегда
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
-                return LoginResp(error = errorMessage)
+                return AuthResp(error = errorMessage)
             }
-            LoginResp(error = e.response.body<String>())
+            AuthResp(error = e.response.body<String>())
         }
         catch (e: ServerResponseException) {
-            LoginResp(error = "Ошибка сервера: ${e.response.status}")
+            AuthResp(error = "Ошибка сервера: ${e.response.status}")
         }
         catch (e: Exception) {
             Log.d("Error ${e.message}", e.message.toString())
-            LoginResp(error = e.message.toString())
+            AuthResp(error = e.message.toString())
         }
     }
 
@@ -74,7 +68,7 @@ class ApiServiceImpl(
         password: String,
         passwordConf: String,
         nickname: String
-    ): RegisterResp {
+    ): AuthResp {
         return try {
             val response = client.post {
                 url(HttpRoutes.REGISTER)
@@ -82,26 +76,26 @@ class ApiServiceImpl(
                 setBody(RegisterDto(nickname,email, password, passwordConf))
             }
             val responseBody = response.body<UserDto>()
-            RegisterResp(user = responseBody)
+            AuthResp(user = responseBody)
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
-                return RegisterResp(error = errorMessage)
+                return AuthResp(error = errorMessage)
             }
-            RegisterResp(error = e.response.body<String>())
+            AuthResp(error = e.response.body<String>())
         }
         catch (e: ServerResponseException) {
             Log.d("Error ${e.response.status}", e.message)
-            RegisterResp(error = "Ошибка сервера: ${e.response.status}")
+            AuthResp(error = "Ошибка сервера: ${e.response.status}")
         }
         catch (e: Exception) {
             Log.d("Error ${e.message}", e.message.toString())
-            RegisterResp(error = e.message.toString())
+            AuthResp(error = e.message.toString())
         }
     }
 
-    override suspend fun getTasks(token: String): GetTasksResp {
+    override suspend fun getTasks(token: String): TasksResp {
         return try {
             val tasks = client.get {
                 url(HttpRoutes.GET_TASKS)
@@ -123,26 +117,26 @@ class ApiServiceImpl(
             val disciplinesBody = disciplines.body<List<DisciplineEnt>>()
             database.disciplineDao.deleteAllDisc()
             database.disciplineDao.insertDisc(disciplinesBody)
-            GetTasksResp(listTask = tasksBody, listDisc = disciplinesBody)
+            TasksResp(listTask = tasksBody, listDisc = disciplinesBody)
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
-                return GetTasksResp(error = errorMessage)
+                return TasksResp(error = errorMessage)
             }
-            GetTasksResp(error = e.response.body<String>())
+            TasksResp(error = e.response.body<String>())
         }
         catch (e: ServerResponseException) {
             Log.d("Error ${e.response.status}", e.message)
-            GetTasksResp(error = "Ошибка сервера: ${e.response.status}")
+            TasksResp(error = "Ошибка сервера: ${e.response.status}")
         }
         catch (e: Exception) {
             Log.d("Error ${e.message}", e.message.toString())
-            GetTasksResp(error = e.message.toString())
+            TasksResp(error = e.message.toString())
         }
     }
 
-    override suspend fun getExams(token: String): GetExamsResp {
+    override suspend fun getExams(token: String): ExamsResp {
         return try {
             val exams = client.get {
                 url(HttpRoutes.GET_EXAMS)
@@ -154,22 +148,22 @@ class ApiServiceImpl(
             val body = exams.body<List<ExamEnt>>()
             database.examDao.deleteAllExams()
             database.examDao.insertExam(body)
-            GetExamsResp(listExams = body)
+            ExamsResp(listExams = body)
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
-                return GetExamsResp(error = errorMessage)
+                return ExamsResp(error = errorMessage)
             }
-            GetExamsResp(error = e.response.body<String>())
+            ExamsResp(error = e.response.body<String>())
         }
         catch (e: ServerResponseException) {
             Log.d("Error ${e.response.status}", e.message)
-            GetExamsResp(error = "Ошибка сервера: ${e.response.status}")
+            ExamsResp(error = "Ошибка сервера: ${e.response.status}")
         }
         catch (e: Exception) {
             Log.d("Error ${e.message}", e.message.toString())
-            GetExamsResp(error = e.message.toString())
+            ExamsResp(error = e.message.toString())
         }
     }
 
@@ -233,6 +227,39 @@ class ApiServiceImpl(
         catch (e: Exception) {
             Log.d("Error ${e.message}", e.message.toString())
             DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun createTask(token: String, task: CreateTaskDto): TasksResp {
+        return try {
+            val response = client.post {
+                url(HttpRoutes.CREATE_TASK)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(task)
+            }
+            val body = response.body<TaskEnt>()
+            if(response.status.isSuccess()) {
+                database.taskDao.insertTask(body)
+            }
+            TasksResp(task = body)
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return TasksResp(error = errorMessage)
+            }
+            TasksResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            TasksResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            TasksResp(error = "Ошибка: ${e.message.toString()}")
         }
     }
 

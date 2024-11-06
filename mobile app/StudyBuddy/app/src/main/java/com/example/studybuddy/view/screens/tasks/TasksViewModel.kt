@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.studybuddy.data.dto.CreateTaskDto
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.states.TasksSt
 import com.example.studybuddy.domain.UserRepository
@@ -105,6 +106,32 @@ class TasksViewModel @Inject constructor(
             }
         }
     }
+
+    fun createTask(el: TaskEnt, success: (Boolean) -> Unit) {
+        if(el.title.isNotEmpty() && el.deadline.isNotEmpty() && el.description.isNotEmpty()) {
+            viewModelScope.launch(Dispatchers.Main) {
+                val response = service.createTask(UserRepository.token, CreateTaskDto(
+                    title = el.title,
+                    description = el.description,
+                    deadline = el.deadline,
+                    idDiscipline = el.idDiscipline
+                ))
+                if(response.error == "") {
+                    success(true)
+                    updateValueFromDB()
+                    Log.e("tasks", "Я создал задачу и обновил базу")
+                } else {
+                    success(false)
+                    Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                    Log.e("error deleteTask", response.error)
+                }
+            }
+        } else {
+            Toast.makeText(context, "Не все поля заполнены", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
 
 }

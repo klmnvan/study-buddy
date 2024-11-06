@@ -11,4 +11,5 @@ object HttpRoutes {
     const val GET_EXAMS = "$BASE_URL/exam/getExamsUser"
     const val UPDATE_TASK = "$BASE_URL/task/updateTask"
     const val DELETE_TASK = "$BASE_URL/task/deleteTask"
+    const val CREATE_TASK = "$BASE_URL/task/createTask"
 }
