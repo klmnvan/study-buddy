@@ -244,6 +244,38 @@ class ApiServiceImpl(
         }
     }
 
+    override suspend fun updateTeacher(token: String, teacher: TeacherEnt): DefaultResp {
+        return try {
+            val response = client.put {
+                url(HttpRoutes.UPDATE_TEACHER)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(teacher)
+            }
+            if(response.status.isSuccess()) {
+                database.teacherDao.updateTeacher(teacher)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
     override suspend fun deleteTask(token: String, task: TaskEnt): DefaultResp {
         return try {
             val response = client.delete {

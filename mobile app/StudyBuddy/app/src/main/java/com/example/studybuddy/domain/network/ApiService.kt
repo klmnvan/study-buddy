@@ -4,6 +4,7 @@ import com.example.studybuddy.data.dto.CreateDiscDto
 import com.example.studybuddy.data.dto.CreateTaskDto
 import com.example.studybuddy.data.dto.CreateTeacherDto
 import com.example.studybuddy.data.entityes.TaskEnt
+import com.example.studybuddy.data.entityes.TeacherEnt
 import com.example.studybuddy.data.responses.DefaultResp
 import com.example.studybuddy.data.responses.ExamsResp
 import com.example.studybuddy.data.responses.TasksResp
@@ -19,6 +20,7 @@ interface ApiService {
     suspend fun getExams(token: String): ExamsResp
     suspend fun getTeachers(token: String): DisciplinesResp
     suspend fun updateTask(token: String, task: TaskEnt): DefaultResp
+    suspend fun updateTeacher(token: String, teacher: TeacherEnt): DefaultResp
     suspend fun deleteTask(token: String, task: TaskEnt): DefaultResp
     suspend fun createTask(token: String, task: CreateTaskDto): TasksResp
     suspend fun createDisc(token: String, disc: CreateDiscDto): DisciplinesResp

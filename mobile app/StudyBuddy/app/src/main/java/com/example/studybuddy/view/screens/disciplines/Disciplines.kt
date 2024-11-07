@@ -37,6 +37,7 @@ import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.navigation.NavigationRoutes
 import com.example.studybuddy.view.screens.disciplines.components.DiscItem
 import com.example.studybuddy.view.screens.disciplines.components.ModifyDiscItem
+import com.example.studybuddy.view.screens.disciplines.components.ModifyTeacherItem
 import com.example.studybuddy.view.screens.tasks.components.ModifyTaskItem
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import kotlinx.coroutines.delay
@@ -115,7 +116,7 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                         }
                     }
                 }
-                2 -> {
+                3 -> {
                     val newDisc = remember {
                         mutableStateOf(DisciplineEnt())
                     }
@@ -126,10 +127,10 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                                 showDisc.value = Pair(1, 0)
                             }
                             SpacerWidth(width = 12.dp)
-                            TextTitle(text = "Список преподавтелей", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
+                            TextTitle(text = "Список преподавателей", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
                         }
                         SpacerHeight(20.dp)
-                        ModifyDiscItem(newDisc, state)
+                        ModifyTeacherItem(state, viewModel)
                         SpacerHeight(height = 24.dp)
                         Column(modifier = Modifier
                             .fillMaxWidth()
@@ -140,8 +141,8 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                                 }
                             }
                             SpacerHeight(12.dp)
-                            ButtonFillMaxWidth("СПИСОК ПРЕПОДАВАТЕЛЕЙ", StudyBuddyTheme.colors.primary, true) {
-                                showDisc.value = Pair(3, 0)
+                            ButtonFillMaxWidth("ВЕРНУТЬСЯ К ПРЕДМЕТУ", StudyBuddyTheme.colors.primary, true) {
+                                showDisc.value = Pair(2, 0)
                             }
                         }
                     }

@@ -9,6 +9,7 @@ import com.example.studybuddy.data.dto.CreateDiscDto
 import com.example.studybuddy.data.dto.CreateTaskDto
 import com.example.studybuddy.data.entityes.DisciplineEnt
 import com.example.studybuddy.data.entityes.TaskEnt
+import com.example.studybuddy.data.entityes.TeacherEnt
 import com.example.studybuddy.data.states.DisciplinesSt
 import com.example.studybuddy.domain.UserRepository
 import com.example.studybuddy.domain.network.ApiServiceImpl
@@ -92,6 +93,23 @@ class DisciplinesViewModel @Inject constructor(
             }
         } else {
             Toast.makeText(context, "Не все поля заполнены", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun updateTeacher(el: TeacherEnt, success: (Boolean) -> Unit) {
+        Log.e("tasks", el.toString())
+        viewModelScope.launch(Dispatchers.Main) {
+            val response = service.updateTeacher(UserRepository.token, el)
+            if(response.error == "") {
+                success(true)
+                updateValues()
+                Log.e("tasks", "Я изменил задачу и обновил базу")
+            } else {
+                success(false)
+                Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                Log.e("error updateTask", response.error)
+            }
         }
     }
 

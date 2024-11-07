@@ -15,4 +15,5 @@ object HttpRoutes {
     const val DELETE_TASK = "$BASE_URL/task/deleteTask"
     const val CREATE_TASK = "$BASE_URL/task/createTask"
     const val CREATE_TEACHER = "$BASE_URL/task/createTeacher"
+    const val UPDATE_TEACHER = "$BASE_URL/teacher/updateTeacher"
 }

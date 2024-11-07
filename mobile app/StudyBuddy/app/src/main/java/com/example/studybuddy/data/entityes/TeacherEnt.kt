@@ -11,5 +11,5 @@ data class TeacherEnt(
     var idTeacher: Int = 0,
     var idUser: String = "",
     var fullName: String = "",
-    var officeNumber: Int = 0,
+    var officeNumber: Int? = null,
 )
