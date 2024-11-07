@@ -13123,19 +13123,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\mcsyan\\.nuget\\packages\\": {}
+    "C:\\Users\\климычевааа\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj",
+      "projectUniqueName": "D:\\klim\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj",
       "projectName": "Tests",
-      "projectPath": "E:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj",
-      "packagesPath": "C:\\Users\\mcsyan\\.nuget\\packages\\",
-      "outputPath": "E:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\obj\\",
+      "projectPath": "D:\\klim\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj",
+      "packagesPath": "C:\\Users\\климычевааа\\.nuget\\packages\\",
+      "outputPath": "D:\\klim\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\mcsyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\климычевааа\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -13143,14 +13148,15 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "E:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {
-              "projectPath": "E:\\4_course_mobilka\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj"
+            "D:\\klim\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {
+              "projectPath": "D:\\klim\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj"
             }
           }
         }
@@ -13227,7 +13233,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.202/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.400/PortableRuntimeIdentifierGraph.json"
       }
     }
   },

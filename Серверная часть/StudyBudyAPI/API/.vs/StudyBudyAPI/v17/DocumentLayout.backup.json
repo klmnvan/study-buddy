@@ -3,13 +3,15 @@
   "WorkspaceRootPath": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{C304A4DA-6F9A-4965-B496-6746FDA24872}|..\\Tests\\Tests.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\tests\\controllers\\examcontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\api\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|solutionrelative:controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C304A4DA-6F9A-4965-B496-6746FDA24872}|..\\Tests\\Tests.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\tests\\repository\\examrepositorytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\api\\dtos\\createentity\\createteacherdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|solutionrelative:dtos\\createentity\\createteacherdto.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{C304A4DA-6F9A-4965-B496-6746FDA24872}|..\\Tests\\Tests.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\tests\\controllers\\accountcontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\4_course_mobilka\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\AccountControllerTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\api\\controllers\\examcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -20,12 +22,35 @@
       "RelativeMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|solutionrelative:controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\api\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\api\\service\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|solutionrelative:service\\tokenservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\api\\controllers\\notecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|solutionrelative:controllers\\notecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\api\\properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{7D366D0E-1459-4429-8BFD-50C07E99823D}|StudyBudyAPI.csproj|solutionrelative:properties\\launchsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\4_course_mobilka\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Repository\\ExamRepositoryTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|E:\\4_course_mobilka\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\ExamControllerTests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C304A4DA-6F9A-4965-B496-6746FDA24872}|..\\Tests\\Tests.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\tests\\controllers\\accountcontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C304A4DA-6F9A-4965-B496-6746FDA24872}|..\\Tests\\Tests.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\tests\\repository\\examrepositorytests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C304A4DA-6F9A-4965-B496-6746FDA24872}|..\\Tests\\Tests.csproj|d:\\klim\\studybuddy\\\u0441\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\studybudyapi\\tests\\controllers\\examcontrollertests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -35,8 +60,75 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 4,
+          "SelectedChildIndex": 0,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "TeacherController.cs",
+              "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Controllers\\TeacherController.cs",
+              "RelativeDocumentMoniker": "Controllers\\TeacherController.cs",
+              "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Controllers\\TeacherController.cs",
+              "RelativeToolTip": "Controllers\\TeacherController.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAAAQwDQAAAAPAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T10:37:39.893Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CreateTeacherDto.cs",
+              "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Dtos\\CreateEntity\\CreateTeacherDto.cs",
+              "RelativeDocumentMoniker": "Dtos\\CreateEntity\\CreateTeacherDto.cs",
+              "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Dtos\\CreateEntity\\CreateTeacherDto.cs*",
+              "RelativeToolTip": "Dtos\\CreateEntity\\CreateTeacherDto.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-11-07T10:37:26.144Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "TokenService.cs",
+              "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Service\\TokenService.cs",
+              "RelativeDocumentMoniker": "Service\\TokenService.cs",
+              "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Service\\TokenService.cs",
+              "RelativeToolTip": "Service\\TokenService.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T16:57:29.33Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "ExamRepositoryTests.cs",
+              "DocumentMoniker": "E:\\4_course_mobilka\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Repository\\ExamRepositoryTests.cs",
+              "ToolTip": "E:\\4_course_mobilka\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Repository\\ExamRepositoryTests.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T16:39:53.634Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "ExamControllerTests.cs",
+              "DocumentMoniker": "E:\\4_course_mobilka\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\ExamControllerTests.cs",
+              "ToolTip": "E:\\4_course_mobilka\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\ExamControllerTests.cs",
+              "ViewState": "AQIAAHsAAAAAAAAAAAAowLMAAABUAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T16:38:53.158Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "AccountControllerTests.cs",
+              "DocumentMoniker": "E:\\4_course_mobilka\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\AccountControllerTests.cs",
+              "ToolTip": "E:\\4_course_mobilka\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\AccountControllerTests.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T15:59:12.802Z"
+            },
             {
               "$type": "Document",
               "DocumentIndex": 4,
@@ -45,14 +137,13 @@
               "RelativeDocumentMoniker": "Controllers\\AccountController.cs",
               "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Controllers\\AccountController.cs",
               "RelativeToolTip": "Controllers\\AccountController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AQIAAGwAAAAAAAAAAAAUwCYAAAAxAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T11:25:41.511Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-24T11:25:41.511Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 7,
               "Title": "NoteController.cs",
               "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Controllers\\NoteController.cs",
               "RelativeDocumentMoniker": "Controllers\\NoteController.cs",
@@ -60,47 +151,18 @@
               "RelativeToolTip": "Controllers\\NoteController.cs",
               "ViewState": "AgIAAH4AAAAAAAAAAAAcwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T11:47:37.855Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-24T11:47:37.855Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 11,
               "Title": "AccountControllerTests.cs",
               "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\AccountControllerTests.cs",
               "RelativeDocumentMoniker": "..\\Tests\\Controllers\\AccountControllerTests.cs",
               "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\AccountControllerTests.cs",
               "RelativeToolTip": "..\\Tests\\Controllers\\AccountControllerTests.cs",
-              "ViewState": "AgIAALsAAAAAAAAAAAAcwNkAAAAOAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T11:25:41.527Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ExamRepositoryTests.cs",
-              "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Repository\\ExamRepositoryTests.cs",
-              "RelativeDocumentMoniker": "..\\Tests\\Repository\\ExamRepositoryTests.cs",
-              "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Repository\\ExamRepositoryTests.cs",
-              "RelativeToolTip": "..\\Tests\\Repository\\ExamRepositoryTests.cs",
-              "ViewState": "AgIAAEEAAAAAAAAAAAAQwFMAAAAoAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T10:44:44.305Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ExamControllerTests.cs",
-              "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\ExamControllerTests.cs",
-              "RelativeDocumentMoniker": "..\\Tests\\Controllers\\ExamControllerTests.cs",
-              "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\ExamControllerTests.cs",
-              "RelativeToolTip": "..\\Tests\\Controllers\\ExamControllerTests.cs",
-              "ViewState": "AgIAALQAAAAAAAAAAAArwMsAAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T10:49:38.625Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-24T11:25:41.527Z"
             },
             {
               "$type": "Document",
@@ -110,14 +172,47 @@
               "RelativeDocumentMoniker": "Controllers\\ExamController.cs",
               "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Controllers\\ExamController.cs",
               "RelativeToolTip": "Controllers\\ExamController.cs",
-              "ViewState": "AgIAAH8AAAAAAAAAAAAUwJUAAAARAAAAAAAAAA==",
+              "ViewState": "AQIAACIAAAAAAAAAAADwvzIAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-24T10:38:03.776Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-10-24T10:38:03.776Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 5,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAABbAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2024-10-24T17:02:23.152Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ExamRepositoryTests.cs",
+              "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Repository\\ExamRepositoryTests.cs",
+              "RelativeDocumentMoniker": "..\\Tests\\Repository\\ExamRepositoryTests.cs",
+              "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Repository\\ExamRepositoryTests.cs",
+              "RelativeToolTip": "..\\Tests\\Repository\\ExamRepositoryTests.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T10:44:44.305Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "ExamControllerTests.cs",
+              "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\ExamControllerTests.cs",
+              "RelativeDocumentMoniker": "..\\Tests\\Controllers\\ExamControllerTests.cs",
+              "ToolTip": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\Tests\\Controllers\\ExamControllerTests.cs",
+              "RelativeToolTip": "..\\Tests\\Controllers\\ExamControllerTests.cs",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-24T10:49:38.625Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
               "Title": "launchSettings.json",
               "DocumentMoniker": "D:\\klim\\StudyBuddy\\\u0421\u0435\u0440\u0432\u0435\u0440\u043D\u0430\u044F \u0447\u0430\u0441\u0442\u044C\\StudyBudyAPI\\API\\Properties\\launchSettings.json",
               "RelativeDocumentMoniker": "Properties\\launchSettings.json",
