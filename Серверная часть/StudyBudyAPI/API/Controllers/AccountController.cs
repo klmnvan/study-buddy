@@ -177,5 +177,27 @@ namespace StudyBudyAPI.Controllers
                 return StatusCode(500, e.Message);
             }
         }
+
+        [SwaggerOperation(Summary = "Удаление аккаунта и всех его данных")]
+        [HttpDelete]
+        [Route("deleteAccount")]
+        public async Task<ActionResult<UserInfoDto>> DeleteAccount()
+        {
+            try
+            {
+                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                var userRoles = await _userManager.GetRolesAsync(appUser);
+                if (appUser == null || userRoles == null)
+                {
+                    return BadRequest("Пользователь не найден");
+                }
+                await _userManager.DeleteAsync(appUser);
+                return Ok("Аккаунт удалён");
+            }
+            catch (Exception e)
+            {
+                return StatusCode(500, e.Message);
+            }
+        }
     }
 }

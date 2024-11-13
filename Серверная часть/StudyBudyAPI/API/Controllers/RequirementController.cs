@@ -28,10 +28,30 @@ namespace StudyBudyAPI.Controllers
             _logger = logger;
         }
 
+        [SwaggerOperation(Summary = "Получение всех требований к предметам у пользователя")]
+        [HttpGet("GetAllRequirementsUser")]
+        public async Task<ActionResult<List<Exam>>> GetAllRequirementsUser()
+        {
+            try
+            {
+                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (appUser == null)
+                {
+                    return Unauthorized();
+                }
+                var listEntity = _requirementRepository.GetAllRequirements(appUser.Id);
+                return Ok(listEntity);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [SwaggerOperation(Summary = "Получение всех требований к предмету")]
         [HttpGet("getRequirementsDiscipline")]
         public async Task<ActionResult<List<Requirement>>> GetRequirementsDiscipline(
-            [FromQuery(Name = "Id преподавателя")] int IdDiscipline)
+            [FromQuery(Name = "Id предмета")] int IdDiscipline)
         {
             try
             {
@@ -69,7 +89,7 @@ namespace StudyBudyAPI.Controllers
                     IdDiscipline = dto.IdDiscipline,
                     Content = dto.Content,
                 }; 
-                if (_requirementRepository.IsDuplicate(newR, appUser.Id))
+                if (_requirementRepository.IsDuplicate(newR))
                 {
                     return BadRequest("Требование с таким содержанием уже есть");
                 }
@@ -145,7 +165,7 @@ namespace StudyBudyAPI.Controllers
                     Content = dto.Content, 
                 };
 
-                if (_requirementRepository.IsDuplicate(newEl, appUser.Id))
+                if (_requirementRepository.IsDuplicate(newEl))
                 {
                     return BadRequest("Требование с таким содержанием уже есть");
                 }

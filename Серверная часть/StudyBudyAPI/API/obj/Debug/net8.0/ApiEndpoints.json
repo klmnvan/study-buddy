@@ -21,6 +21,26 @@
   },
   {
     "ContainingType": "StudyBudyAPI.Controllers.AccountController",
+    "Method": "DeleteAccount",
+    "RelativePath": "api/account/deleteAccount",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "StudyBudyAPI.Dtos.Account.UserInfoDto",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.AccountController",
     "Method": "Login",
     "RelativePath": "api/account/login",
     "HttpMethod": "POST",
@@ -251,6 +271,26 @@
   },
   {
     "ContainingType": "StudyBudyAPI.Controllers.NoteController",
+    "Method": "GetAllRequirementsUser",
+    "RelativePath": "api/note/GetAllNotesUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[StudyBudyAPI.Models.DB.Exam, StudyBudyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.NoteController",
     "Method": "GetNotesExam",
     "RelativePath": "api/note/getNotesExam",
     "HttpMethod": "GET",
@@ -335,6 +375,26 @@
   },
   {
     "ContainingType": "StudyBudyAPI.Controllers.RequirementController",
+    "Method": "GetAllRequirementsUser",
+    "RelativePath": "api/requirement/GetAllRequirementsUser",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[StudyBudyAPI.Models.DB.Exam, StudyBudyAPI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "StudyBudyAPI.Controllers.RequirementController",
     "Method": "GetRequirementsDiscipline",
     "RelativePath": "api/requirement/getRequirementsDiscipline",
     "HttpMethod": "GET",
@@ -342,7 +402,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Id \u043F\u0440\u0435\u043F\u043E\u0434\u0430\u0432\u0430\u0442\u0435\u043B\u044F",
+        "Name": "Id \u043F\u0440\u0435\u0434\u043C\u0435\u0442\u0430",
         "Type": "System.Int32",
         "IsRequired": false
       }

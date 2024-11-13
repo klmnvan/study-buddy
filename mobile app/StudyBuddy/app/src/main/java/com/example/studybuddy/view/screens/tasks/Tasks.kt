@@ -75,7 +75,7 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
             .fillMaxSize()
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 24.dp)
-            .padding(top = 60.dp, bottom = 100.dp)) {
+            .padding(top = 65.dp, bottom = 100.dp)) {
             Log.d("view", showTask.value.first.toString())
             when(showTask.value.first) {
                 1 -> {

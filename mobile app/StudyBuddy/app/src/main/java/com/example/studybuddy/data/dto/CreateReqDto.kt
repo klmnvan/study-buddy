@@ -3,8 +3,7 @@ package com.example.studybuddy.data.dto
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class CreateTeacherDto(
-    var fullName: String = "",
-    var officeNumber: Int? = null,
+data class CreateReqDto(
+    var idDiscipline: Int = 0,
+    var content: String = "",
 )
-

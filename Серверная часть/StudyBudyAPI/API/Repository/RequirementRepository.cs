@@ -31,15 +31,21 @@ namespace StudyBudyAPI.Repository
             return false;
         }
 
+        public List<Requirement> GetAllRequirements(Guid idUser)
+        {
+            List<Requirement> list = _context.Requirements.Select(it => it).Where(it => it.Discipline.IdUser == idUser).ToList();
+            return list;
+        }
+
         public List<Requirement> GetReqListByDisc(int idDisc)
         {
             List<Requirement> listR = _context.Requirements.Select(it => it).Where(it => it.IdDiscipline == idDisc).ToList();
             return listR;
         }
 
-        public bool IsDuplicate(Requirement el, Guid idUser)
+        public bool IsDuplicate(Requirement el)
         {
-            return _context.Requirements.Any(it => it.Content == el.Content && it.Discipline.IdUser == idUser);
+            return _context.Requirements.Any(it => it.Content == el.Content && it.IdDiscipline == el.IdDiscipline);
         }
 
         public bool RequirementIsExists(int id)

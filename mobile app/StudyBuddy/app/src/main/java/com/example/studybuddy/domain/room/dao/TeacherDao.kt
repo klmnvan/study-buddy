@@ -13,16 +13,16 @@ import kotlinx.coroutines.flow.Flow
 interface TeacherDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTeacher(tasks: List<TeacherEnt>)
+    fun insertTeacher(teachers: List<TeacherEnt>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertTeacher(task: TeacherEnt)
+    fun insertTeacher(teacher: TeacherEnt)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateTeacher(task: TeacherEnt)
+    fun updateTeacher(teacher: TeacherEnt)
 
     @Delete
-    fun deleteTeacher(task: TeacherEnt)
+    fun deleteTeacher(teacher: TeacherEnt)
 
     @Query("DELETE FROM teachers")
     fun deleteAllTeacher()

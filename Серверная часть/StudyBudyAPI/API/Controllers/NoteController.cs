@@ -29,6 +29,26 @@ namespace StudyBudyAPI.Controllers
             _logger = logger;
         }
 
+        [SwaggerOperation(Summary = "Получение всех заметок ко всем экзаменам у пользователя")]
+        [HttpGet("GetAllNotesUser")]
+        public async Task<ActionResult<List<Exam>>> GetAllRequirementsUser()
+        {
+            try
+            {
+                var appUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (appUser == null)
+                {
+                    return Unauthorized();
+                }
+                var listEntity = _noteRepository.GetAllNoteUser(appUser.Id);
+                return Ok(listEntity);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
+        }
+
         [SwaggerOperation(Summary = "Получение всех заметок у экзамена")]
         [HttpGet("getNotesExam")]
         public async Task<ActionResult<List<Note>>> GetNotesExam(
@@ -70,7 +90,7 @@ namespace StudyBudyAPI.Controllers
                     IdExam = dto.IdExam,
                     Content = dto.Content,
                 };
-                if (_noteRepository.IsDuplicate(newN, appUser.Id))
+                if (_noteRepository.IsDuplicate(newN))
                 {
                     return BadRequest("Заметка с таким содержанием уже есть");
                 }
@@ -143,7 +163,7 @@ namespace StudyBudyAPI.Controllers
                     Content = dto.Content,
                 };
 
-                if (_noteRepository.IsDuplicate(newEl, appUser.Id))
+                if (_noteRepository.IsDuplicate(newEl))
                 {
                     return BadRequest("Заметка с таким содержанием уже есть");
                 }

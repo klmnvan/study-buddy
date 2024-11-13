@@ -1,12 +1,12 @@
 package com.example.studybuddy.view.navigation
 
 object NavigationRoutes {
-    val SPLASH = "splash"
-    val AUTH = "auth"
-    val LOGIN = "login"
-    val REGIST = "regist"
-    val TASKS = "tasks"
-    val DISCIPLINES = "disciplines"
-    val EXAMS = "exams"
-    val SCHEDULE = "schedule"
+    const val SPLASH = "splash"
+    const val AUTH = "auth"
+    const val LOGIN = "login"
+    const val REGIST = "regist"
+    const val TASKS = "tasks"
+    const val DISCIPLINES = "disciplines"
+    const val EXAMS = "exams"
+    const val SCHEDULE = "schedule"
 }

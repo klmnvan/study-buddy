@@ -32,15 +32,21 @@ namespace StudyBudyAPI.Repository
             return false;
         }
 
+        public List<Note> GetAllNoteUser(Guid idUser)
+        {
+            List<Note> list = _context.Notes.Select(it => it).Where(it => it.Exam.IdUser == idUser).ToList();
+            return list;
+        }
+
         public List<Note> GetNoteListByExam(int idExam)
         {
             List<Note> listN = _context.Notes.Select(it => it).Where(it => it.IdExam == idExam).ToList();
             return listN;
         }
 
-        public bool IsDuplicate(Note el, Guid idUser)
+        public bool IsDuplicate(Note el)
         {
-            return _context.Notes.Any(it => (it.Content == el.Content && it.Exam.IdUser == idUser));
+            return _context.Notes.Any(it => (it.Content == el.Content && it.IdExam == el.IdExam));
         }
 
         public bool NoteIsExists(int id)

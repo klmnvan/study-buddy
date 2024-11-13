@@ -1,6 +1,8 @@
 package com.example.studybuddy.view.screens.disciplines.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -10,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.rotate
@@ -26,11 +29,17 @@ import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @Composable
-fun DiscItem(el: DisciplineEnt) {
+fun DiscItem(el: DisciplineEnt, onClick: (Int) -> Unit) {
 
-    Box(modifier = Modifier.fillMaxWidth().shadow(elevation = 4.dp, shape = RoundedCornerShape(5)).background(StudyBuddyTheme.colors.containerDefault, RoundedCornerShape(5.dp))) {
-        Row(modifier = Modifier.fillMaxWidth().padding(20.dp),
-            verticalAlignment = Alignment.CenterVertically) {
+    Row(modifier = Modifier.fillMaxWidth().shadow(elevation = 4.dp, shape = RoundedCornerShape(5))
+        .background(StudyBuddyTheme.colors.containerDefault, RoundedCornerShape(5.dp)).padding(20.dp)
+        .clickable(
+            interactionSource = remember { MutableInteractionSource() },
+            indication = null
+        ) {
+            onClick(el.idDiscipline)
+        },
+        verticalAlignment = Alignment.CenterVertically) {
             Text(text = el.title, style = StudyBuddyTheme.typography.bold, fontSize = 12.sp, color = StudyBuddyTheme.colors.textTitle,
                 modifier = Modifier.weight(1f), maxLines = 1,
                 overflow = TextOverflow.Ellipsis)
@@ -43,7 +52,6 @@ fun DiscItem(el: DisciplineEnt) {
                 contentDescription = null,
                 tint = StudyBuddyTheme.colors.textTitle
             )
-        }
     }
 
     SpacerHeight(12.dp)

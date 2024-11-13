@@ -2,6 +2,7 @@ package com.example.studybuddy.domain.network
 
 import android.util.Log
 import com.example.studybuddy.data.dto.CreateDiscDto
+import com.example.studybuddy.data.dto.CreateReqDto
 import com.example.studybuddy.data.dto.CreateTaskDto
 import com.example.studybuddy.data.dto.CreateTeacherDto
 import com.example.studybuddy.data.dto.LoginDto
@@ -9,6 +10,7 @@ import com.example.studybuddy.data.dto.RegisterDto
 import com.example.studybuddy.data.dto.UserDto
 import com.example.studybuddy.data.entityes.DisciplineEnt
 import com.example.studybuddy.data.entityes.ExamEnt
+import com.example.studybuddy.data.entityes.RequirementEnt
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.entityes.TeacherEnt
 import com.example.studybuddy.data.responses.DefaultResp
@@ -108,7 +110,7 @@ class ApiServiceImpl(
                     append(HttpHeaders.Authorization, "Bearer ${token}")
                 }
             }
-            val tasksBody = tasks.body<List<TaskEnt>>()
+            val tasksBody = tasks.body<MutableList<TaskEnt>>()
             database.taskDao.deleteAllTask()
             database.taskDao.insertTask(tasksBody)
             val disciplines = client.get {
@@ -118,7 +120,7 @@ class ApiServiceImpl(
                     append(HttpHeaders.Authorization, "Bearer ${token}")
                 }
             }
-            val disciplinesBody = disciplines.body<List<DisciplineEnt>>()
+            val disciplinesBody = disciplines.body<MutableList<DisciplineEnt>>()
             database.disciplineDao.deleteAllDisc()
             database.disciplineDao.insertDisc(disciplinesBody)
             TasksResp(listTask = tasksBody, listDisc = disciplinesBody)
@@ -193,7 +195,17 @@ class ApiServiceImpl(
             val disciplinesBody = disciplines.body<List<DisciplineEnt>>()
             database.disciplineDao.deleteAllDisc()
             database.disciplineDao.insertDisc(disciplinesBody)
-            DisciplinesResp(listTeachers = body, listDiscipline = disciplinesBody)
+            val requirements = client.get {
+                url(HttpRoutes.GET_REQUIREMENTS)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            val requirementsBody = requirements.body<List<RequirementEnt>>()
+            database.requirementDao.deleteAllReq()
+            database.requirementDao.insertReq(requirementsBody)
+            DisciplinesResp(listTeachers = body, listDiscipline = disciplinesBody, listRequirements = requirementsBody)
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -244,18 +256,18 @@ class ApiServiceImpl(
         }
     }
 
-    override suspend fun updateTeacher(token: String, teacher: TeacherEnt): DefaultResp {
+    override suspend fun updateReq(token: String, req: RequirementEnt): DefaultResp {
         return try {
             val response = client.put {
-                url(HttpRoutes.UPDATE_TEACHER)
+                url(HttpRoutes.UPDATE_REQUIREMENT)
                 contentType(ContentType.Application.Json)
                 headers {
                     append(HttpHeaders.Authorization, "Bearer ${token}")
                 }
-                setBody(teacher)
+                setBody(req)
             }
             if(response.status.isSuccess()) {
-                database.teacherDao.updateTeacher(teacher)
+                database.requirementDao.updateReq(req)
             }
             DefaultResp()
         }
@@ -276,6 +288,106 @@ class ApiServiceImpl(
         }
     }
 
+    override suspend fun updateTeacher(token: String, teacher: TeacherEnt): DefaultResp {
+        return try {
+            val response = client.put {
+                url(HttpRoutes.UPDATE_TEACHER)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(teacher)
+            }
+            if(response.status.isSuccess()) {
+                database.teacherDao.updateTeacher(teacher)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                if(errorMessage == "Имя преподавателя может состоять только из симолов латиницы или кирилицы и пробелов"){
+                    return DefaultResp(error = "Имя преподавателя может состоять только из симолов кирилицы и пробелов")
+                }
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun updateDiscipline(token: String, disc: DisciplineEnt): DefaultResp {
+        return try {
+            val response = client.put {
+                url(HttpRoutes.UPDATE_DISCIPLINE)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(disc)
+            }
+            if(response.status.isSuccess()) {
+                database.disciplineDao.updateDisc(disc)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun createTeacher(token: String, teacher: CreateTeacherDto): DisciplinesResp {
+        return try {
+            val response = client.post {
+                url(HttpRoutes.CREATE_TEACHER)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(teacher)
+            }
+            val body = response.body<TeacherEnt>()
+            if(response.status.isSuccess()) {
+                database.teacherDao.insertTeacher(body)
+            }
+            DisciplinesResp(teacher = body)
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DisciplinesResp(error = errorMessage)
+            }
+            DisciplinesResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DisciplinesResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DisciplinesResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
     override suspend fun deleteTask(token: String, task: TaskEnt): DefaultResp {
         return try {
             val response = client.delete {
@@ -287,6 +399,99 @@ class ApiServiceImpl(
             }
             if(response.status.isSuccess()) {
                 database.taskDao.deleteTask(task)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun deleteTeacher(token: String, teacher: TeacherEnt): DefaultResp {
+        return try {
+            val response = client.delete {
+                url(HttpRoutes.DELETE_TEACHER + "?Id преподавателя=${teacher.idTeacher}")
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            if(response.status.isSuccess()) {
+                database.teacherDao.deleteTeacher(teacher)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun deleteDisc(token: String, disc: DisciplineEnt): DefaultResp {
+        return try {
+            val response = client.delete {
+                url(HttpRoutes.DELETE_DISCIPLINE + "?Id предмета=${disc.idDiscipline}")
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            if(response.status.isSuccess()) {
+                database.disciplineDao.deleteDisc(disc)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun deleteReq(token: String, req: RequirementEnt): DefaultResp {
+        return try {
+            val response = client.delete {
+                url(HttpRoutes.DELETE_REQUIREMENT + "?Id требования=${req.idRequirement}")
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            if(response.status.isSuccess()) {
+                database.requirementDao.deleteReq(req)
             }
             DefaultResp()
         }
@@ -370,6 +575,39 @@ class ApiServiceImpl(
         catch (e: Exception) {
             Log.d("Error ${e.message}", e.message.toString())
             DisciplinesResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun createRequirement(token: String, req: CreateReqDto): DefaultResp {
+        return try {
+            val response = client.post {
+                url(HttpRoutes.CREATE_REQUIREMENT)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(req)
+            }
+            val body = response.body<RequirementEnt>()
+            if(response.status.isSuccess()) {
+                database.requirementDao.insertReq(body)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
         }
     }
 

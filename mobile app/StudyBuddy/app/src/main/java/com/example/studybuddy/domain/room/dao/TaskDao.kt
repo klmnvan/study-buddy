@@ -56,3 +56,4 @@ interface TaskDao {
 
 //Откуда взяла инфу: https://sqlite.org/lang_conflict.html
 //https://startandroid.ru/ru/courses/architecture-components/27-course/architecture-components/531-urok-7-room-insert-update-delete-transaction.html
+

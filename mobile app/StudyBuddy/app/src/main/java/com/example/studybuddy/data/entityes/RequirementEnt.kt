@@ -5,12 +5,10 @@ import androidx.room.PrimaryKey
 import kotlinx.serialization.Serializable
 
 @Serializable
-@Entity(tableName = "teachers")
-data class TeacherEnt(
+@Entity(tableName = "requirements")
+data class RequirementEnt(
     @PrimaryKey
-    var idTeacher: Int,
-    var idUser: String,
-    var fullName: String,
-    var officeNumber: Int?,
+    var idRequirement: Int = 0,
+    var idDiscipline: Int = 0,
+    var content: String = "",
 )
-
