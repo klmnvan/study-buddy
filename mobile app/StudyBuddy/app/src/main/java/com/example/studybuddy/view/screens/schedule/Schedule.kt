@@ -14,6 +14,8 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -21,6 +23,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.example.studybuddy.view.generalcomponents.buttons.ButtonDatePicker
+import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
@@ -33,8 +37,15 @@ fun Schedule(controller: NavHostController, pullToRefreshState: PullToRefreshSta
         //viewModel.launch()
     }
 
-    Box(modifier = Modifier.fillMaxSize().background(StudyBuddyTheme.colors.background).nestedScroll(pullToRefreshState.nestedScrollConnection)) {
-        Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(top = 60.dp, bottom = 100.dp)) {
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(StudyBuddyTheme.colors.background)
+        .nestedScroll(pullToRefreshState.nestedScrollConnection)) {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 24.dp)
+            .padding(top = 60.dp, bottom = 100.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -42,7 +53,15 @@ fun Schedule(controller: NavHostController, pullToRefreshState: PullToRefreshSta
             ) {
                 TextTitle("Расписание", 32.sp, StudyBuddyTheme.colors.textTitle)
             }
-            SpacerHeight(32.dp)
+            SpacerHeight(24.dp)
+            val date = remember { mutableStateOf("") }
+            ButtonDatePicker("Дата: ", date.value) {
+                date.value = it
+            }
+            SpacerHeight(18.dp)
+            ButtonFillMaxWidth(text = "показать", color = StudyBuddyTheme.colors.primary) {
+                
+            }
         }
     }
 
