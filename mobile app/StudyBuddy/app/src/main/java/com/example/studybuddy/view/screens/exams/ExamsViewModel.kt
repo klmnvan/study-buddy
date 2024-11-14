@@ -5,6 +5,10 @@ import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.studybuddy.data.dto.CreateExamDto
+import com.example.studybuddy.data.dto.CreateTaskDto
+import com.example.studybuddy.data.entityes.ExamEnt
+import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.states.ExamsSt
 import com.example.studybuddy.domain.UserRepository
 import com.example.studybuddy.domain.network.ApiServiceImpl
@@ -45,6 +49,11 @@ class ExamsViewModel @Inject constructor(
                 stateValue = _state.value.copy(exams = it)
             }
         }
+        viewModelScope.launch(Dispatchers.IO) {
+            database.noteDao.getAllNotes().collect {
+                stateValue = _state.value.copy(notes = it)
+            }
+        }
     }
 
 
@@ -52,14 +61,42 @@ class ExamsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.Main) {
             val response = service.getExams(UserRepository.token)
             if(response.error == "") {
-                if(!stateValue.exams.equals(response.listExams)) {
+                if(!stateValue.exams.equals(response.listExams) ||
+                    !stateValue.notes.equals(response.listNotes)) {
                     updateValues()
                 }
             } else {
                 Toast.makeText(context, "Данные не актуальны", Toast.LENGTH_SHORT).show()
                 Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
-                Log.e("error fetchTasks", response.error)
+                Log.e("error fetchExam", response.error)
             }
+        }
+    }
+
+    fun createExam(el: ExamEnt, success: (Boolean) -> Unit) {
+        if(el.title.isNotEmpty() && el.duration.isNotEmpty() && el.dateExam.isNotEmpty()) {
+            viewModelScope.launch(Dispatchers.Main) {
+                val response = service.createExam(UserRepository.token,
+                    CreateExamDto(
+                        title = el.title,
+                        dateExam = el.dateExam,
+                        duration = el.duration,
+                        numberTickets = el.numberTickets
+                    )
+                )
+                if(response.error == "") {
+                    success(true)
+                    updateValues()
+                    Log.e("tasks", "Я создал экзамен и обновил базу")
+                } else {
+                    success(false)
+                    Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                    Log.e("error deleteTask", response.error)
+                }
+            }
+        } else {
+            Toast.makeText(context, "Не все поля заполнены", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
 import com.example.studybuddy.data.entityes.RequirementEnt
-import com.example.studybuddy.data.entityes.TeacherEnt
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -38,3 +37,4 @@ interface RequirementDao {
     fun getAllReqs(): Flow<List<RequirementEnt>>
 
 }
+

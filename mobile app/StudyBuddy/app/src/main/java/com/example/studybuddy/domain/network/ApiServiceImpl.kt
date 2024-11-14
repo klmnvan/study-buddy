@@ -2,6 +2,8 @@ package com.example.studybuddy.domain.network
 
 import android.util.Log
 import com.example.studybuddy.data.dto.CreateDiscDto
+import com.example.studybuddy.data.dto.CreateExamDto
+import com.example.studybuddy.data.dto.CreateNoteDto
 import com.example.studybuddy.data.dto.CreateReqDto
 import com.example.studybuddy.data.dto.CreateTaskDto
 import com.example.studybuddy.data.dto.CreateTeacherDto
@@ -10,6 +12,7 @@ import com.example.studybuddy.data.dto.RegisterDto
 import com.example.studybuddy.data.dto.UserDto
 import com.example.studybuddy.data.entityes.DisciplineEnt
 import com.example.studybuddy.data.entityes.ExamEnt
+import com.example.studybuddy.data.entityes.NoteEnt
 import com.example.studybuddy.data.entityes.RequirementEnt
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.entityes.TeacherEnt
@@ -151,10 +154,20 @@ class ApiServiceImpl(
                     append(HttpHeaders.Authorization, "Bearer ${token}")
                 }
             }
-            val body = exams.body<List<ExamEnt>>()
+            val bodyExams = exams.body<List<ExamEnt>>()
             database.examDao.deleteAllExams()
-            database.examDao.insertExam(body)
-            ExamsResp(listExams = body)
+            database.examDao.insertExam(bodyExams)
+            val notes = client.get {
+                url(HttpRoutes.GET_NOTES)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            val bodyNotes = notes.body<List<NoteEnt>>()
+            database.noteDao.deleteAllNote()
+            database.noteDao.insertNote(bodyNotes)
+            ExamsResp(listExams = bodyExams, listNotes = bodyNotes)
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -355,6 +368,70 @@ class ApiServiceImpl(
         }
     }
 
+    override suspend fun updateNote(token: String, note: NoteEnt): DefaultResp {
+        return try {
+            val response = client.put {
+                url(HttpRoutes.UPDATE_NOTE)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(note)
+            }
+            if(response.status.isSuccess()) {
+                database.noteDao.updateNote(note)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun updateExam(token: String, exam: ExamEnt): DefaultResp {
+        return try {
+            val response = client.put {
+                url(HttpRoutes.UPDATE_EXAM)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(exam)
+            }
+            if(response.status.isSuccess()) {
+                database.examDao.updateExam(exam)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
     override suspend fun createTeacher(token: String, teacher: CreateTeacherDto): DisciplinesResp {
         return try {
             val response = client.post {
@@ -512,6 +589,68 @@ class ApiServiceImpl(
         }
     }
 
+    override suspend fun deleteNote(token: String, note: NoteEnt): DefaultResp {
+        return try {
+            val response = client.delete {
+                url(HttpRoutes.DELETE_NOTE + "?Id заметки=${note.idNote}")
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            if(response.status.isSuccess()) {
+                database.noteDao.deleteNote(note)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun deleteExam(token: String, exam: ExamEnt): DefaultResp {
+        return try {
+            val response = client.delete {
+                url(HttpRoutes.DELETE_EXAM + "?Id экзамена=${exam.idExam}")
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+            }
+            if(response.status.isSuccess()) {
+                database.examDao.deleteExam(exam)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
     override suspend fun createTask(token: String, task: CreateTaskDto): TasksResp {
         return try {
             val response = client.post {
@@ -591,6 +730,72 @@ class ApiServiceImpl(
             val body = response.body<RequirementEnt>()
             if(response.status.isSuccess()) {
                 database.requirementDao.insertReq(body)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun createNote(token: String, note: CreateNoteDto): DefaultResp {
+        return try {
+            val response = client.post {
+                url(HttpRoutes.CREATE_NOTE)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(note)
+            }
+            val body = response.body<NoteEnt>()
+            if(response.status.isSuccess()) {
+                database.noteDao.insertNote(body)
+            }
+            DefaultResp()
+        }
+        catch (e: ClientRequestException) {
+            if(e.response.contentType()?.match(ContentType.Application.Json) == true){
+                val errorMessage = Json.decodeFromString<String>(e.response.body())
+                return DefaultResp(error = errorMessage)
+            }
+            DefaultResp(error = "Ошибка: ${e}")
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            DefaultResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun createExam(token: String, exam: CreateExamDto): DefaultResp {
+        return try {
+            val response = client.post {
+                url(HttpRoutes.CREATE_EXAM)
+                contentType(ContentType.Application.Json)
+                headers {
+                    append(HttpHeaders.Authorization, "Bearer ${token}")
+                }
+                setBody(exam)
+            }
+            val body = response.body<ExamEnt>()
+            if(response.status.isSuccess()) {
+                database.examDao.insertExam(body)
             }
             DefaultResp()
         }

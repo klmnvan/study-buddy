@@ -8,10 +8,10 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ExamEnt(
     @PrimaryKey
-    var idExam: Int,
-    var duration: String,
-    var numberTickets: Int,
-    var dateExam: String,
-    var idUser: String,
-    var title: String,
+    var idExam: Int = 0,
+    var duration: String = "",
+    var numberTickets: Int = 0,
+    var dateExam: String = "",
+    var idUser: String = "",
+    var title: String = "",
 )

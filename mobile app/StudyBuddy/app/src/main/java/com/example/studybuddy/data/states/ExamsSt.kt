@@ -1,7 +1,9 @@
 package com.example.studybuddy.data.states
 
 import com.example.studybuddy.data.entityes.ExamEnt
+import com.example.studybuddy.data.entityes.NoteEnt
 
 data class ExamsSt(
-    var exams: List<ExamEnt> = listOf()
+    var exams: List<ExamEnt> = listOf(),
+    var notes: List<NoteEnt> = listOf()
 )

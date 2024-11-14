@@ -18,7 +18,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.pulltorefresh.PullToRefreshState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -27,14 +26,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.studybuddy.data.entityes.DisciplineEnt
-import com.example.studybuddy.data.entityes.TaskEnt
-import com.example.studybuddy.data.states.DisciplinesSt
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
 import com.example.studybuddy.view.generalcomponents.icons.ButtonAdd
@@ -43,13 +39,10 @@ import com.example.studybuddy.view.generalcomponents.icons.ButtonModify
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
-import com.example.studybuddy.view.navigation.NavigationRoutes
 import com.example.studybuddy.view.screens.disciplines.components.DiscItem
 import com.example.studybuddy.view.screens.disciplines.components.ModifyDiscItem
 import com.example.studybuddy.view.screens.disciplines.components.ModifyTeacherItem
 import com.example.studybuddy.view.screens.disciplines.components.ShowDiscItem
-import com.example.studybuddy.view.screens.tasks.components.ModifyTaskItem
-import com.example.studybuddy.view.screens.tasks.components.ShowTaskItem
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import kotlinx.coroutines.delay
 
@@ -58,7 +51,7 @@ import kotlinx.coroutines.delay
 fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefreshState, viewModel: DisciplinesViewModel = hiltViewModel()) {
 
     val state = viewModel.state.collectAsState()
-    val showDisc = remember { mutableStateOf(Pair(1, 0)) }
+    val show = remember { mutableStateOf(Pair(1, 0)) }
     val newDisc = remember { mutableStateOf(DisciplineEnt()) }
 
     if (pullToRefreshState.isRefreshing) {
@@ -75,7 +68,7 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
 
     Box(modifier = Modifier.fillMaxSize().background(StudyBuddyTheme.colors.background).nestedScroll(pullToRefreshState.nestedScrollConnection)) {
         Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(top = 65.dp, bottom = 100.dp)) {
-            when(showDisc.value.first) {
+            when(show.value.first) {
                 1 -> {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -84,13 +77,13 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                         TextTitle("Предметы", 32.sp, StudyBuddyTheme.colors.textTitle)
                         Spacer(modifier = Modifier.weight(1f))
                         ButtonAdd {
-                            showDisc.value = Pair(2, 0)
+                            show.value = Pair(2, 0)
                         }
                     }
                     SpacerHeight(32.dp)
                     state.value.disciplines.forEach { item ->
                         DiscItem(item) {
-                            showDisc.value = Pair(4, it)
+                            show.value = Pair(4, it)
                         }
                     }
                     Spacer(modifier = Modifier.weight(1f))
@@ -100,7 +93,7 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                     Column {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             ButtonBack {
-                                showDisc.value = Pair(1, 0)
+                                show.value = Pair(1, 0)
                             }
                             SpacerWidth(width = 12.dp)
                             TextTitle(text = "Новый предмет", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
@@ -113,13 +106,13 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                             .height(IntrinsicSize.Min)) {
                             ButtonFillMaxWidth("СОЗДАТЬ", StudyBuddyTheme.colors.secondary, true) {
                                 viewModel.createDisc(newDisc.value) {
-                                    if(it) showDisc.value = Pair(1, 0)
+                                    if(it) show.value = Pair(1, 0)
                                     newDisc.value = DisciplineEnt()
                                 }
                             }
                             SpacerHeight(12.dp)
                             ButtonFillMaxWidth("СПИСОК ПРЕПОДАВАТЕЛЕЙ", StudyBuddyTheme.colors.primary, true) {
-                                showDisc.value = Pair(3, 0)
+                                show.value = Pair(3, 0)
                             }
                         }
                     }
@@ -129,8 +122,8 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                     Column {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             ButtonBack {
-                                if(showDisc.value.second != 0) showDisc.value = Pair(5, showDisc.value.second)
-                                else showDisc.value = Pair(2, 0)
+                                if(show.value.second != 0) show.value = Pair(5, show.value.second)
+                                else show.value = Pair(2, 0)
                             }
                             SpacerWidth(width = 12.dp)
                             TextTitle(text = "Список преподавателей", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
@@ -139,18 +132,18 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                         ModifyTeacherItem(state, viewModel)
                         SpacerHeight(height = 24.dp)
                         ButtonFillMaxWidth("ВЕРНУТЬСЯ К ПРЕДМЕТУ", StudyBuddyTheme.colors.primary, true) {
-                            if(showDisc.value.second != 0) showDisc.value = Pair(5, showDisc.value.second)
-                            else showDisc.value = Pair(2, 0)
+                            if(show.value.second != 0) show.value = Pair(5, show.value.second)
+                            else show.value = Pair(2, 0)
                         }
                     }
                 }
                 4 -> {
                     SpacerHeight(height = 16.dp)
                     Column {
-                        val disc = state.value.disciplines.first { it.idDiscipline == showDisc.value.second }
+                        val disc = state.value.disciplines.first { it.idDiscipline == show.value.second }
                         Row(modifier = Modifier.fillMaxWidth()) {
                             ButtonBack {
-                                showDisc.value = Pair(1, 0)
+                                show.value = Pair(1, 0)
                             }
                             SpacerWidth(width = 12.dp)
                             Text(modifier = Modifier.horizontalScroll(rememberScrollState()),
@@ -172,11 +165,11 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                                     showDialog = true
                                 }
                                 if (showDialog) {
-                                    ShowFragment("Подтвердите", "Вы точно хотите удалить этот предмет без возможности возвращаения?") {
+                                    ShowFragment("Подтвердите", "Вы точно хотите удалить этот предмет без возможности возвращения?") {
                                         showDialog = false
                                         if(it) {
                                             viewModel.deleteDiscs(state.value.disciplines.first { it.idDiscipline == disc.idDiscipline }) {
-                                                if(it) showDisc.value = Pair(1, 0)
+                                                if(it) show.value = Pair(1, 0)
                                             }
                                         }
                                     }
@@ -184,7 +177,7 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                             }
                             SpacerWidth(12.dp)
                             ButtonModify {
-                                showDisc.value = Pair(5, showDisc.value.second)
+                                show.value = Pair(5, show.value.second)
                             }
                         }
                     }
@@ -192,13 +185,13 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                 5 -> {
                     Column {
                         val updateDisc = remember {
-                            mutableStateOf(state.value.disciplines.first { it.idDiscipline == showDisc.value.second })
+                            mutableStateOf(state.value.disciplines.first { it.idDiscipline == show.value.second })
                         }
                         SpacerHeight(height = 16.dp)
                         Column {
                             Row(modifier = Modifier.fillMaxWidth()) {
                                 ButtonBack {
-                                    showDisc.value = Pair(4, showDisc.value.second)
+                                    show.value = Pair(4, show.value.second)
                                 }
                                 SpacerWidth(width = 12.dp)
                                 TextTitle(text = "Редактирование", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
@@ -211,12 +204,12 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                                 .height(IntrinsicSize.Min)) {
                                 ButtonFillMaxWidth("СОХРАНИТЬ", StudyBuddyTheme.colors.secondary, true) {
                                     viewModel.updateDisc(updateDisc.value) {
-                                        if(it) showDisc.value = Pair(4, showDisc.value.second)
+                                        if(it) show.value = Pair(4, show.value.second)
                                     }
                                 }
                                 SpacerHeight(12.dp)
                                 ButtonFillMaxWidth("СПИСОК ПРЕПОДАВАТЕЛЕЙ", StudyBuddyTheme.colors.primary, true) {
-                                    showDisc.value = Pair(3, showDisc.value.second)
+                                    show.value = Pair(3, show.value.second)
                                 }
                             }
                         }

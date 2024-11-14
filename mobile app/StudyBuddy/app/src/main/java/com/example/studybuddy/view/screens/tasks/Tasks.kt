@@ -51,7 +51,7 @@ import kotlinx.coroutines.delay
 fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState, viewModel: TasksViewModel = hiltViewModel()) {
 
     val state = viewModel.state.collectAsState()
-    val showTask = remember {
+    val show = remember {
         mutableStateOf(Pair(1, 0))
     }
 
@@ -76,8 +76,8 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
             .verticalScroll(rememberScrollState())
             .padding(horizontal = 24.dp)
             .padding(top = 65.dp, bottom = 100.dp)) {
-            Log.d("view", showTask.value.first.toString())
-            when(showTask.value.first) {
+            Log.d("view", show.value.first.toString())
+            when(show.value.first) {
                 1 -> {
                     val expandedStates = remember { mutableStateListOf(true, true) }
                     Row(
@@ -87,17 +87,17 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                         TextTitle("Задания", 32.sp, StudyBuddyTheme.colors.textTitle)
                         Spacer(modifier = Modifier.weight(1f))
                         ButtonAdd {
-                            showTask.value = Pair(4, 0)
+                            show.value = Pair(4, 0)
                         }
                     }
                     SpacerHeight(8.dp)
                     PageSectionTask("Не готовы", state.value.tasks.filter { !it.isCompleted }, viewModel, expandedStates[0], state.value.disciplines, {
-                        showTask.value = Pair(2, it.idTask)
+                        show.value = Pair(2, it.idTask)
                     }) {
                         expandedStates[0] = it
                     }
                     PageSectionTask("Готовы", state.value.tasks.filter { it.isCompleted }, viewModel, expandedStates[1], state.value.disciplines, {
-                        showTask.value = Pair(2, it.idTask)
+                        show.value = Pair(2, it.idTask)
                     }) {
                         expandedStates[1] = it
                     }
@@ -107,13 +107,13 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                     Column {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             ButtonBack {
-                                showTask.value = Pair(1, 0)
+                                show.value = Pair(1, 0)
                             }
                             SpacerWidth(width = 12.dp)
                             TextTitle(text = "Детали", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
                         }
                         SpacerHeight(20.dp)
-                        ShowTaskItem(el = state.value.tasks.first { it.idTask == showTask.value.second })
+                        ShowTaskItem(el = state.value.tasks.first { it.idTask == show.value.second })
                         SpacerHeight(height = 24.dp)
                         Row(modifier = Modifier
                             .fillMaxWidth()
@@ -127,8 +127,8 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                                     ShowFragment("Подтвердите", "Вы точно хотите удалить эту задачу без возможности возвращаения?") {
                                         showDialog = false
                                         if(it) {
-                                            viewModel.deleteTask(state.value.tasks.first { it.idTask == showTask.value.second }) {
-                                                if(it) showTask.value = Pair(1, 0)
+                                            viewModel.deleteTask(state.value.tasks.first { it.idTask == show.value.second }) {
+                                                if(it) show.value = Pair(1, 0)
                                             }
                                         }
                                     }
@@ -136,20 +136,20 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                             }
                             SpacerWidth(12.dp)
                             ButtonModify {
-                                showTask.value = Pair(3,  showTask.value.second)
+                                show.value = Pair(3,  show.value.second)
                             }
                         }
                     }
                 }
                 3 -> {
                     val updatedTask = remember {
-                        mutableStateOf(state.value.tasks.first { it.idTask == showTask.value.second })
+                        mutableStateOf(state.value.tasks.first { it.idTask == show.value.second })
                     }
                     SpacerHeight(height = 16.dp)
                     Column {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             ButtonBack {
-                                showTask.value = Pair(2, showTask.value.second)
+                                show.value = Pair(2, show.value.second)
                             }
                             SpacerWidth(width = 12.dp)
                             TextTitle(text = "Редактирование", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
@@ -162,7 +162,7 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                             .height(IntrinsicSize.Min)) {
                             ButtonFillMaxWidth("СОХРАНИТЬ", StudyBuddyTheme.colors.secondary, true) {
                                 viewModel.updateTask(updatedTask.value) {
-                                    if(it) showTask.value = Pair(1, 0)
+                                    if(it) show.value = Pair(1, 0)
                                 }
                             }
                             SpacerHeight(12.dp)
@@ -184,7 +184,7 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                     Column {
                         Row(modifier = Modifier.fillMaxWidth()) {
                             ButtonBack {
-                                showTask.value = Pair(1, 0)
+                                show.value = Pair(1, 0)
                             }
                             SpacerWidth(width = 12.dp)
                             TextTitle(text = "Новое задание", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
@@ -197,7 +197,7 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                             .height(IntrinsicSize.Min)) {
                             ButtonFillMaxWidth("СОЗДАТЬ", StudyBuddyTheme.colors.secondary, true) {
                                 viewModel.createTask(newTask.value) {
-                                    if(it) showTask.value = Pair(1, 0)
+                                    if(it) show.value = Pair(1, 0)
                                 }
                             }
                             SpacerHeight(12.dp)

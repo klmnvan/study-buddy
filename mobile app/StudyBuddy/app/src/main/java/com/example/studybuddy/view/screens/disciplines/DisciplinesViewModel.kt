@@ -7,11 +7,9 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.studybuddy.data.dto.CreateDiscDto
 import com.example.studybuddy.data.dto.CreateReqDto
-import com.example.studybuddy.data.dto.CreateTaskDto
 import com.example.studybuddy.data.dto.CreateTeacherDto
 import com.example.studybuddy.data.entityes.DisciplineEnt
 import com.example.studybuddy.data.entityes.RequirementEnt
-import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.entityes.TeacherEnt
 import com.example.studybuddy.data.states.DisciplinesSt
 import com.example.studybuddy.domain.UserRepository
@@ -20,14 +18,9 @@ import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.emitAll
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
