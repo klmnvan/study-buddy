@@ -25,12 +25,13 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studybuddy.R
 import com.example.studybuddy.data.entityes.ExamEnt
+import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.texts.TextLight
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @Composable
-fun PageSectionExam(title: String, listItem: List<ExamEnt>, expandedValue: Boolean, expanded: (Boolean) -> Unit) {
+fun PageSectionExam(title: String, listItem: List<ExamEnt>, expandedValue: Boolean, onClickItem: (el: ExamEnt) -> Unit, expanded: (Boolean) -> Unit) {
     Column {
         Row(
             modifier = Modifier.clickable(
@@ -62,7 +63,7 @@ fun PageSectionExam(title: String, listItem: List<ExamEnt>, expandedValue: Boole
             Column {
                 Spacer(modifier = Modifier.height(8.dp))
                 listItem.forEach { exam ->
-                    ExamItem(exam)
+                    ExamItem(exam, onClickItem)
                 }
             }
         }

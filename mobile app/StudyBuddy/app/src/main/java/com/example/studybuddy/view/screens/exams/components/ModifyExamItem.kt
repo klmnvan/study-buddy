@@ -72,7 +72,7 @@ fun ModifyExamItem(updatedExam: MutableState<ExamEnt>, state: State<ExamsSt>) {
             )
             SpacerHeight(height = 4.dp)
             PrimaryTextField(
-                value = updatedExam.value.numberTickets.toString(),
+                value = if (updatedExam.value.numberTickets != 0) updatedExam.value.numberTickets.toString() else "",
                 placeholder = "30",
                 1
             ) {

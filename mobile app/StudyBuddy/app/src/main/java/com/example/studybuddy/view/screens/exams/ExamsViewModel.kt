@@ -6,8 +6,12 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.studybuddy.data.dto.CreateExamDto
+import com.example.studybuddy.data.dto.CreateNoteDto
+import com.example.studybuddy.data.dto.CreateReqDto
 import com.example.studybuddy.data.dto.CreateTaskDto
+import com.example.studybuddy.data.entityes.DisciplineEnt
 import com.example.studybuddy.data.entityes.ExamEnt
+import com.example.studybuddy.data.entityes.NoteEnt
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.states.ExamsSt
 import com.example.studybuddy.domain.UserRepository
@@ -93,6 +97,103 @@ class ExamsViewModel @Inject constructor(
                     Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
                     Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
                     Log.e("error deleteTask", response.error)
+                }
+            }
+        } else {
+            Toast.makeText(context, "Не все поля заполнены", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun deleteNote(el: NoteEnt, success: (Boolean) -> Unit) {
+        viewModelScope.launch(Dispatchers.Main) {
+            val response = service.deleteNote(UserRepository.token, el)
+            if(response.error == "") {
+                success(true)
+                updateValues()
+                Toast.makeText(context, "Удалено", Toast.LENGTH_SHORT).show()
+                Log.e("tasks", "Я удалил заметку и обновил базу")
+            } else {
+                success(false)
+                Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                Log.e("error deleteNote", response.error)
+            }
+        }
+    }
+
+    fun deleteExam(el: ExamEnt, success: (Boolean) -> Unit) {
+        viewModelScope.launch(Dispatchers.Main) {
+            val response = service.deleteExam(UserRepository.token, el)
+            if(response.error == "") {
+                success(true)
+                updateValues()
+                Toast.makeText(context, "Удалено", Toast.LENGTH_SHORT).show()
+                Log.e("tasks", "Я удалил заметку и обновил базу")
+            } else {
+                success(false)
+                Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                Log.e("error deleteExam", response.error)
+            }
+        }
+    }
+
+    fun updateNote(el: NoteEnt, success: (Boolean) -> Unit) {
+        if(el.content.isNotEmpty()) {
+            viewModelScope.launch(Dispatchers.Main) {
+                val response = service.updateNote(UserRepository.token, el)
+                if(response.error == "") {
+                    success(true)
+                    updateValues()
+                    Toast.makeText(context, "Изменено", Toast.LENGTH_SHORT).show()
+                    Log.e("tasks", "Я изменил заметку и обновил базу")
+                } else {
+                    success(false)
+                    Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                    Log.e("error updateTask", response.error)
+                }
+            }
+        } else {
+            Toast.makeText(context, "Содержимое заметки не может быть пустым", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun updateExam(el: ExamEnt, success: (Boolean) -> Unit) {
+        if(el.title.isNotEmpty() && el.duration.isNotEmpty() && el.dateExam.isNotEmpty()) {
+            viewModelScope.launch(Dispatchers.Main) {
+                val response = service.updateExam(UserRepository.token, el)
+                if(response.error == "") {
+                    success(true)
+                    updateValues()
+                    Toast.makeText(context, "Изменено", Toast.LENGTH_SHORT).show()
+                    Log.e("tasks", "Я изменил экзамен и обновил базу")
+                } else {
+                    success(false)
+                    Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                    Log.e("error updateExam", response.error)
+                }
+            }
+        } else {
+            Toast.makeText(context, "Не все поля заполнены", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    fun createNote(el: CreateNoteDto, success: (Boolean) -> Unit) {
+        if(el.content.isNotEmpty() && el.idExam != 0) {
+            viewModelScope.launch(Dispatchers.Main) {
+                val response = service.createNote(UserRepository.token, el)
+                if(response.error == "") {
+                    success(true)
+                    updateValues()
+                    Toast.makeText(context, "Добавлено", Toast.LENGTH_SHORT).show()
+                    Log.e("tasks", "Я создал заметку и обновил базу")
+                } else {
+                    success(false)
+                    Toast.makeText(context, "Данные не изменились", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                    Log.e("error createNote", response.error)
                 }
             }
         } else {

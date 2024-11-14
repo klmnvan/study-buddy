@@ -9,6 +9,7 @@ import com.example.studybuddy.data.dto.CreateDiscDto
 import com.example.studybuddy.data.dto.CreateReqDto
 import com.example.studybuddy.data.dto.CreateTeacherDto
 import com.example.studybuddy.data.entityes.DisciplineEnt
+import com.example.studybuddy.data.entityes.ExamEnt
 import com.example.studybuddy.data.entityes.RequirementEnt
 import com.example.studybuddy.data.entityes.TeacherEnt
 import com.example.studybuddy.data.states.DisciplinesSt
@@ -150,8 +151,6 @@ class DisciplinesViewModel @Inject constructor(
         }
     }
 
-
-
     fun updateDisc(el: DisciplineEnt, success: (Boolean) -> Unit) {
         if(el.title.isNotEmpty()) {
             viewModelScope.launch(Dispatchers.Main) {
@@ -262,5 +261,7 @@ class DisciplinesViewModel @Inject constructor(
             Toast.makeText(context, "Не все поля заполнены", Toast.LENGTH_SHORT).show()
         }
     }
+
+
 
 }

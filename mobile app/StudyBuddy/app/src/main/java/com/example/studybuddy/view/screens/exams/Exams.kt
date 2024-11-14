@@ -47,6 +47,7 @@ import com.example.studybuddy.view.screens.disciplines.components.ModifyTeacherI
 import com.example.studybuddy.view.screens.disciplines.components.ShowDiscItem
 import com.example.studybuddy.view.screens.exams.components.ModifyExamItem
 import com.example.studybuddy.view.screens.exams.components.PageSectionExam
+import com.example.studybuddy.view.screens.exams.components.ShowExamItem
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import kotlinx.coroutines.delay
 import java.time.LocalDate
@@ -87,10 +88,12 @@ fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                         }
                     }
                     SpacerHeight(8.dp)
-                    PageSectionExam ("Предстоящие", state.value.exams.filter { StringToLocalDate(it.dateExam)!! > LocalDate.now() }, expandedStates[0]) {
+                    PageSectionExam ("Предстоящие", state.value.exams.filter { StringToLocalDate(it.dateExam)!! > LocalDate.now() }, expandedStates[0],
+                        { show.value = Pair(3, it.idExam) }) {
                         expandedStates[0] = it
                     }
-                    PageSectionExam ("Прошедшие", state.value.exams.filter { StringToLocalDate(it.dateExam)!! < LocalDate.now() }, expandedStates[1]) {
+                    PageSectionExam ("Прошедшие", state.value.exams.filter { StringToLocalDate(it.dateExam)!! < LocalDate.now() }, expandedStates[1],
+                        { show.value = Pair(3, it.idExam) }) {
                         expandedStates[1] = it
                     }
                 }
@@ -126,6 +129,7 @@ fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                         val exam = state.value.exams.first { it.idExam == show.value.second }
                         Row(modifier = Modifier.fillMaxWidth()) {
                             ButtonBack {
+                                viewModel.stateValue = state.value.copy(notesByExam = listOf())
                                 show.value = Pair(1, 0)
                             }
                             SpacerWidth(width = 12.dp)
@@ -136,8 +140,8 @@ fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                             )
                         }
                         SpacerHeight(20.dp)
-                        //viewModel.stateValue = state.value.copy(requirementsByDisc = state.value.requirements.filter { it.idDiscipline == disc.idDiscipline })
-                        //ShowDiscItem(disc, state.value.teachers.firstOrNull { it.idTeacher == disc.idTeacher }, state, viewModel )
+                        viewModel.stateValue = state.value.copy(notesByExam = state.value.notes.filter { it.idExam == exam.idExam })
+                        ShowExamItem(exam, state, viewModel )
                         SpacerHeight(height = 24.dp)
                         Row(modifier = Modifier
                             .fillMaxWidth()
@@ -151,9 +155,10 @@ fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                                     ShowFragment("Подтвердите", "Вы точно хотите удалить этот экзамен без возможности возвращения?") {
                                         showDialog = false
                                         if(it) {
-                                            /*viewModel.deleteDiscs(state.value.disciplines.first { it.idDiscipline == disc.idDiscipline }) {
+                                            viewModel.deleteExam(state.value.exams.first { it.idExam == exam.idExam }) {
+                                                viewModel.stateValue = state.value.copy(notesByExam = listOf())
                                                 if(it) show.value = Pair(1, 0)
-                                            }*/
+                                            }
                                         }
                                     }
                                 }
@@ -165,7 +170,35 @@ fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                         }
                     }
                 }
-
+                4 -> {
+                    Column {
+                        val updateExam = remember {
+                            mutableStateOf(state.value.exams.first { it.idExam == show.value.second })
+                        }
+                        SpacerHeight(height = 16.dp)
+                        Column {
+                            Row(modifier = Modifier.fillMaxWidth()) {
+                                ButtonBack {
+                                    show.value = Pair(3, show.value.second)
+                                }
+                                SpacerWidth(width = 12.dp)
+                                TextTitle(text = "Редактирование", fontSize = 24.sp, color = StudyBuddyTheme.colors.textTitle)
+                            }
+                            SpacerHeight(20.dp)
+                            ModifyExamItem(updateExam, state)
+                            SpacerHeight(height = 24.dp)
+                            Column(modifier = Modifier
+                                .fillMaxWidth()
+                                .height(IntrinsicSize.Min)) {
+                                ButtonFillMaxWidth("СОХРАНИТЬ", StudyBuddyTheme.colors.secondary, true) {
+                                    viewModel.updateExam(updateExam.value) {
+                                        if(it) show.value = Pair(3, show.value.second)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
 
         }
