@@ -53,7 +53,7 @@ fun Register(controller: NavHostController, viewModel: RegisterViewModel = hiltV
             TextFieldAuthPassword(state.value.confirmPassword, { viewModel.stateValue = state.value.copy(confirmPassword = it) }, "********")
             SpacerHeight(40.dp)
             ButtonFillMaxWidth("СОЗДАТЬ ПРОФИЛЬ", StudyBuddyTheme.colors.primary, true) {
-                viewModel.signUp()
+                viewModel.signUp(controller)
             }
             Spacer(modifier = Modifier.weight(1f))
             SpacerHeight(20.dp)

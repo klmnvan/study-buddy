@@ -43,16 +43,21 @@ class RegisterViewModel @Inject constructor(
         }
     }
 
-    fun signUp() {
+    fun signUp(controller: NavHostController) {
         if(stateValue.email != "" && stateValue.password != "" && stateValue.confirmPassword != "" && stateValue.nickname != "") {
             if(stateValue.email.isEmailValid()) {
                 if(stateValue.password == stateValue.confirmPassword) {
-                    if(stateValue.nickname.isNicknameValid()){
-                        if(stateValue.password.length >= 8){
+                    if(stateValue.nickname.isNicknameValid()) {
+                        if(stateValue.password.length >= 8) {
 
                             viewModelScope.launch {
                                 val response = service.signUp(stateValue.email, stateValue.password, stateValue.confirmPassword, stateValue.nickname)
                                 if(response.error == "") {
+                                    controller.navigate(NavigationRoutes.LOGIN) {
+                                        popUpTo(NavigationRoutes.REGIST) {
+                                            inclusive = true
+                                        }
+                                    }
                                     Toast.makeText(context, "Пользователь создан", Toast.LENGTH_SHORT).show()
                                 } else {
                                     Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
