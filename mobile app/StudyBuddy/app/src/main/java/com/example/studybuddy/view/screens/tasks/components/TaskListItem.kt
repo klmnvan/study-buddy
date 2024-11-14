@@ -1,6 +1,8 @@
 package com.example.studybuddy.view.screens.tasks.components
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -72,8 +74,11 @@ fun TaskListItem(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<Disci
                 }
                 SpacerWidth(16.dp)
                 Checkbox(checked = el.isCompleted, onCheckedChange = {
-                    showDialog = true
-                }, modifier = Modifier
+                    viewModel.updateTask(el.copy(isCompleted = !el.isCompleted)) {
+
+                    }
+                },
+                    modifier = Modifier
                     .size(20.dp)
                     .clip(RoundedCornerShape(5.dp)),
                     colors = CheckboxDefaults.colors(
@@ -105,15 +110,5 @@ fun TaskListItem(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<Disci
         }
     }
     SpacerHeight(16.dp)
-    if (showDialog) {
-        ShowFragment("Подтвердите", "Вы точно хотите изменить статус выполнения данной задачи?") {
-            showDialog = false
-            if(it) {
-                viewModel.updateTask(el.copy(isCompleted = !el.isCompleted)) {
-
-                }
-            }
-        }
-    }
 }
 

@@ -23,6 +23,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.studybuddy.R
 import com.example.studybuddy.domain.UserRepository
@@ -34,23 +35,28 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import com.example.studybuddy.view.ui.theme.ThemeMode
 
 @Composable
-fun TopBar(controller: NavHostController, currentThemeMode: MutableState<ThemeMode>) {
+fun TopBar(controller: NavHostController, currentThemeMode: MutableState<ThemeMode>,
+           viewModel: TopBarViewModel = hiltViewModel()) {
 
     Box {
-        Row(modifier = Modifier.fillMaxWidth().shadow(elevation = 4.dp, spotColor = Color(
-            Black.value)
-        ).background(StudyBuddyTheme.colors.containerDefault).padding(bottom = 12.dp, top = 12.dp).padding(horizontal = 24.dp)) {
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .shadow(
+                elevation = 4.dp, spotColor = Color(
+                    Black.value
+                )
+            )
+            .background(StudyBuddyTheme.colors.containerDefault)
+            .padding(bottom = 12.dp, top = 12.dp)
+            .padding(horizontal = 24.dp)) {
             Row (
-                modifier = Modifier.background(StudyBuddyTheme.colors.secondary, RoundedCornerShape(5.dp))
-                    .clickable(interactionSource = remember { MutableInteractionSource() }, indication = null) {
-                        controller.navigate(NavigationRoutes.AUTH) {
-                            controller.currentDestination?.route?.let {
-                                controller.popBackStack(
-                                    route = it, // Очистить весь стек
-                                    inclusive = true // Удалить все элементы стека, включая текущий
-                                )
-                            }
-                        }
+                modifier = Modifier
+                    .background(StudyBuddyTheme.colors.secondary, RoundedCornerShape(5.dp))
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    ) {
+                        viewModel.logOut(controller)
                     },
             ) {
                 Row(modifier = Modifier.padding(vertical = 6.dp, horizontal = 8.dp)) {
@@ -70,13 +76,18 @@ fun TopBar(controller: NavHostController, currentThemeMode: MutableState<ThemeMo
             Icon(imageVector = ImageVector.vectorResource(R.drawable.icon_brush),
                 contentDescription = null,
                 tint = StudyBuddyTheme.colors.containerDefault,
-                modifier = Modifier.background(gradientForBrushIcon, RoundedCornerShape(20)).clickable(
-                    interactionSource = remember { MutableInteractionSource() },
-                    indication = null
-                ) {
-                    currentThemeMode.value = themes.first { theme -> theme.title != UserRepository.theme }
-                    UserRepository.theme = currentThemeMode.value.title
-                }.padding(8.dp).size(12.dp)
+                modifier = Modifier
+                    .background(gradientForBrushIcon, RoundedCornerShape(20))
+                    .clickable(
+                        interactionSource = remember { MutableInteractionSource() },
+                        indication = null
+                    ) {
+                        currentThemeMode.value =
+                            themes.first { theme -> theme.title != UserRepository.theme }
+                        UserRepository.theme = currentThemeMode.value.title
+                    }
+                    .padding(8.dp)
+                    .size(12.dp)
             )
         }
     }

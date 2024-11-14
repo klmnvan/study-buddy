@@ -43,6 +43,8 @@ import com.example.studybuddy.view.generalcomponents.icons.ButtonMore
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.textfields.PrimaryTextField
+import com.example.studybuddy.view.generalcomponents.texts.DateTextViewer
+import com.example.studybuddy.view.generalcomponents.texts.NumberTicketsViewer
 import com.example.studybuddy.view.generalcomponents.texts.TextExtraLight
 import com.example.studybuddy.view.generalcomponents.texts.TextLight
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
@@ -119,7 +121,7 @@ fun ShowExamItem(el: ExamEnt, state: State<ExamsSt>, vm: ExamsViewModel) {
             .fillMaxWidth()
             .shadow(
                 elevation = 4.dp, shape = RoundedCornerShape(5), spotColor = Color(
-                    Color.Black.value
+                    Black.value
                 )
             )
             .background(StudyBuddyTheme.colors.primary, RoundedCornerShape(5.dp))
@@ -135,15 +137,23 @@ fun ShowExamItem(el: ExamEnt, state: State<ExamsSt>, vm: ExamsViewModel) {
                 .padding(bottom = 24.dp, top = 10.dp)
                 .padding(horizontal = 20.dp)
         ) {
+            Row(modifier =  Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+                DateTextViewer(el.dateExam)
+                SpacerWidth(12.dp)
+                NumberTicketsViewer(number = el.numberTickets)
+            }
+            SpacerHeight(8.dp)
             TextExtraLight("Длительность: ${el.duration}", 12.sp, StudyBuddyTheme.colors.textTitle)
             SpacerHeight(12.dp)
-            TextTitle("Требования", 24.sp, StudyBuddyTheme.colors.textTitle)
+            TextTitle("Заметки", 24.sp, StudyBuddyTheme.colors.textTitle)
             SpacerHeight(8.dp)
-            Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+            Row(modifier = Modifier
+                .fillMaxWidth()
+                .height(IntrinsicSize.Min)) {
                 Column(modifier = Modifier.weight(1f)) {
                     PrimaryTextField(
                         value = nevNote.value.content,
-                        placeholder = "Новое требование",
+                        placeholder = "Новая заметка",
                         lineCount = 1
                     ) {
                         nevNote.value = nevNote.value.copy(content = it)
@@ -158,12 +168,13 @@ fun ShowExamItem(el: ExamEnt, state: State<ExamsSt>, vm: ExamsViewModel) {
                         .fillMaxHeight()
                         .background(StudyBuddyTheme.colors.primary, RoundedCornerShape(10))
                         .padding(15.dp)
-                        .size(20.dp).clickable(
+                        .size(20.dp)
+                        .clickable(
                             interactionSource = remember { MutableInteractionSource() },
                             indication = null
                         ) {
                             vm.createNote(nevNote.value) {
-                                if(it) {
+                                if (it) {
                                     nevNote.value = CreateNoteDto(idExam = el.idExam)
                                 }
                             }
@@ -176,7 +187,9 @@ fun ShowExamItem(el: ExamEnt, state: State<ExamsSt>, vm: ExamsViewModel) {
                 LaunchedEffect(note) {
                     noteValue.value = note.content
                 }
-                Row(modifier = Modifier.fillMaxWidth().height(IntrinsicSize.Min)) {
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(IntrinsicSize.Min)) {
                     Column(modifier = Modifier.weight(1f)) {
                         PrimaryTextField(
                             value = noteValue.value,
@@ -195,9 +208,13 @@ fun ShowExamItem(el: ExamEnt, state: State<ExamsSt>, vm: ExamsViewModel) {
                             tint = StudyBuddyTheme.colors.textButton,
                             modifier = Modifier
                                 .fillMaxHeight()
-                                .background(StudyBuddyTheme.colors.secondary, RoundedCornerShape(10))
+                                .background(
+                                    StudyBuddyTheme.colors.secondary,
+                                    RoundedCornerShape(10)
+                                )
                                 .padding(15.dp)
-                                .size(20.dp).clickable(
+                                .size(20.dp)
+                                .clickable(
                                     interactionSource = remember { MutableInteractionSource() },
                                     indication = null
                                 ) {
@@ -213,7 +230,8 @@ fun ShowExamItem(el: ExamEnt, state: State<ExamsSt>, vm: ExamsViewModel) {
                                 .fillMaxHeight()
                                 .background(StudyBuddyTheme.colors.primary, RoundedCornerShape(10))
                                 .padding(15.dp)
-                                .size(20.dp).clickable(
+                                .size(20.dp)
+                                .clickable(
                                     interactionSource = remember { MutableInteractionSource() },
                                     indication = null
                                 ) {
