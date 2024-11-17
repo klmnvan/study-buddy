@@ -12,3 +12,4 @@ data class DisciplinesResp(
     val teacher: TeacherEnt? = null,
     val error: String = "",
 )
+

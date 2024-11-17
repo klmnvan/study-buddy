@@ -11,6 +11,7 @@ object HttpRoutes {
     const val GET_TEACHERS = "$BASE_URL/teacher/getTeachersUser"
     const val GET_EXAMS = "$BASE_URL/exam/getExamsUser"
     const val GET_REQUIREMENT = "$BASE_URL/requirement/getRequirementsDiscipline"
+    const val GET_VALUES = "https://api.it-reshalo.ru/available?values=cabinet%2Cgroup%2Cteacher"
     const val GET_REQUIREMENTS = "$BASE_URL/requirement/GetAllRequirementsUser"
     const val GET_NOTES = "$BASE_URL/note/GetAllNotesUser"
     const val UPDATE_TASK = "$BASE_URL/task/updateTask"

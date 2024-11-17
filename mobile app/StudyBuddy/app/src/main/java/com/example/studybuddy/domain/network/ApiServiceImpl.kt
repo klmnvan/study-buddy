@@ -16,11 +16,14 @@ import com.example.studybuddy.data.entityes.NoteEnt
 import com.example.studybuddy.data.entityes.RequirementEnt
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.entityes.TeacherEnt
+import com.example.studybuddy.data.modelsitreshalo.Values
+import com.example.studybuddy.data.modelsitreshalo.ValuesSchedule
 import com.example.studybuddy.data.responses.DefaultResp
 import com.example.studybuddy.data.responses.ExamsResp
 import com.example.studybuddy.data.responses.TasksResp
 import com.example.studybuddy.data.responses.AuthResp
 import com.example.studybuddy.data.responses.DisciplinesResp
+import com.example.studybuddy.data.responses.ScheduleResp
 import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -648,6 +651,52 @@ class ApiServiceImpl(
         catch (e: Exception) {
             Log.d("Error ${e.message}", e.message.toString())
             DefaultResp(error = "Ошибка: ${e.message.toString()}")
+        }
+    }
+
+    override suspend fun getValues(): ScheduleResp {
+        return try {
+            val values = client.get {
+                url(HttpRoutes.GET_VALUES)
+                contentType(ContentType.Text.Html)
+            }
+            val bodyValues = values.body<Values>()
+            ScheduleResp(values = bodyValues)
+        }
+        catch (e: ClientRequestException) {
+            Log.d("Error ${e.response.status}", e.message)
+            ScheduleResp(error = e.response.body<String>())
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            ScheduleResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            ScheduleResp(error = e.message.toString())
+        }
+    }
+
+    override suspend fun getSchedule(): ScheduleResp {
+        return try {
+            val values = client.get {
+                url("https://api.it-reshalo.ru/schedule?filter_id=48&date=1731877200&regarding=group")
+                contentType(ContentType.Text.Html)
+            }
+            val bodyValues = values.body<ValuesSchedule>()
+            ScheduleResp(valuesSchedule = bodyValues)
+        }
+        catch (e: ClientRequestException) {
+            Log.d("Error ${e.response.status}", e.message)
+            ScheduleResp(error = e.response.body<String>())
+        }
+        catch (e: ServerResponseException) {
+            Log.d("Error ${e.response.status}", e.message)
+            ScheduleResp(error = "Ошибка сервера: ${e.response.status}")
+        }
+        catch (e: Exception) {
+            Log.d("Error ${e.message}", e.message.toString())
+            ScheduleResp(error = e.message.toString())
         }
     }
 

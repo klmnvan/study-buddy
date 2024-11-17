@@ -16,6 +16,8 @@ import io.ktor.client.engine.android.Android
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
+import io.ktor.http.ContentType
+import io.ktor.serialization.kotlinx.KotlinxSerializationConverter
 import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 
@@ -39,6 +41,15 @@ class ApiServiceProvider {
                         isLenient = true
                         useAlternativeNames = false
                     })
+                register(
+                    ContentType.Text.Html, KotlinxSerializationConverter(
+                        Json {
+                            prettyPrint = true
+                            isLenient = true
+                            ignoreUnknownKeys = true
+                        }
+                    )
+                )
             }
         }
     }

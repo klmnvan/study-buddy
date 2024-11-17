@@ -6,8 +6,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -33,7 +36,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studybuddy.R
-import com.example.studybuddy.data.entityes.TeacherEnt
+import com.example.studybuddy.data.modelsitreshalo.Group
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.texts.TextBold
 import com.example.studybuddy.view.generalcomponents.texts.TextExtraLight
@@ -42,11 +45,11 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("RememberReturnType")
 @Composable
-fun DropDownMenuTeacher(
-    value: String, list: MutableList<TeacherEnt>, placeholder: String, input: (Int) -> Unit){
+fun DropDownMenuGroup(
+    value: String, list: MutableList<Group>, placeholder: String, input: (Group) -> Unit) {
     var expanded by remember { mutableStateOf(false) }
     LaunchedEffect(list) {
-        list.add(0, TeacherEnt(0, "", "Не выбрано", 0))
+        list.add(0, Group(id = 0, name = "Не выбрано"))
     }
     Column {
         Box(
@@ -93,19 +96,19 @@ fun DropDownMenuTeacher(
             expanded = expanded,
             onDismissRequest = { expanded = false },
             modifier = Modifier.background(StudyBuddyTheme.colors.containerDefault.copy(alpha = 0.8f))
-                .background(StudyBuddyTheme.colors.containerPrimary),
+                .background(StudyBuddyTheme.colors.containerPrimary).fillMaxHeight(0.4f),
         ) {
             list.forEach { item ->
                 DropdownMenuItem(
                     text = {
                         TextExtraLight(
-                            item.fullName,
+                            item.name?: "Не выбрано",
                             12.sp,
                             StudyBuddyTheme.colors.textTitle
                         )
                     },
                     onClick = {
-                        input(item.idTeacher)
+                        input(item)
                         expanded = false
                     },
                     contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding,
