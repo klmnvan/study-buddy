@@ -2,6 +2,7 @@ package com.example.studybuddy.data.modelsitreshalo
 
 import kotlinx.serialization.Serializable
 
+/** Преподаватель */
 @Serializable
 data class Teacher(
     val full_name: String? = "",

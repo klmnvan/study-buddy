@@ -53,6 +53,6 @@ interface ApiService {
 
     //it-reshalo
     suspend fun getValues(): ScheduleResp
-    suspend fun getSchedule(): ScheduleResp
+    suspend fun getSchedule(filterId: Int, date: Long): ScheduleResp
 
 }

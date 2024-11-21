@@ -10,3 +10,4 @@ fun ConvertLongToTime2(time: Long): String {
     val format = SimpleDateFormat("yyyy-MM-dd")
     return format.format(date)
 }
+

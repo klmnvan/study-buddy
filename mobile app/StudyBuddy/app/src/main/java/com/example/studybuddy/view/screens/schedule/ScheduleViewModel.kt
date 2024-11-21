@@ -6,6 +6,7 @@ import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.studybuddy.data.states.ScheduleSt
+import com.example.studybuddy.domain.converters.DateToTimestamp
 import com.example.studybuddy.domain.network.ApiServiceImpl
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -39,8 +40,7 @@ class ScheduleViewModel @Inject constructor(
                 stateValue = stateValue.copy(
                     groups = response.values.result.group,
                     cabinets = response.values.result.cabinet,
-                    teachers = response.values.result.teacher
-                    )
+                    teachers = response.values.result.teacher)
             } else {
                 Toast.makeText(context, "Данные не актуальны", Toast.LENGTH_SHORT).show()
                 Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
@@ -49,15 +49,19 @@ class ScheduleViewModel @Inject constructor(
         }
     }
 
-    fun getSchedule() {
+    fun getSchedule(date: String) {
         viewModelScope.launch(Dispatchers.Main) {
-            val response = service.getSchedule()
-            if(response.error == "") {
-                Log.e("values", response.valuesSchedule.toString())
-            } else {
-                Toast.makeText(context, "Данные не актуальны", Toast.LENGTH_SHORT).show()
-                Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
-                Log.e("error fetchDisc", response.error)
+            val dateTimestamp = DateToTimestamp(date)
+            if(dateTimestamp != null){
+                val response = service.getSchedule(stateValue.selGroup.id, dateTimestamp)
+                if(response.error == "") {
+                    stateValue = stateValue.copy(valuesSchedule = response.valuesSchedule)
+                    Log.e("values", response.valuesSchedule.toString())
+                } else {
+                    Toast.makeText(context, "Данные не актуальны", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                    Log.e("error getSchedule", response.error)
+                }
             }
         }
     }

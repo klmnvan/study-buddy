@@ -25,23 +25,25 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.studybuddy.data.modelsitreshalo.Group
+import com.example.studybuddy.domain.converters.ConvertLongToTime
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonDatePicker
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
-import com.example.studybuddy.view.screens.disciplines.components.DropDownMenuTeacher
 import com.example.studybuddy.view.screens.schedule.components.DropDownMenuGroup
+import com.example.studybuddy.view.screens.schedule.components.ScheduleViewer
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import kotlinx.coroutines.delay
+import java.time.LocalDate
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Schedule(controller: NavHostController, pullToRefreshState: PullToRefreshState, viewModel: ScheduleViewModel = hiltViewModel()) {
+fun Schedule(pullToRefreshState: PullToRefreshState, viewModel: ScheduleViewModel = hiltViewModel()) {
 
     val state = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.getSchedule()
+        viewModel.getValues()
     }
 
     if (pullToRefreshState.isRefreshing) {
@@ -52,10 +54,15 @@ fun Schedule(controller: NavHostController, pullToRefreshState: PullToRefreshSta
         }
     }
 
-    Box(modifier = Modifier.fillMaxSize().background(StudyBuddyTheme.colors.background)
+    Box(modifier = Modifier
+        .fillMaxSize()
+        .background(StudyBuddyTheme.colors.background)
         .nestedScroll(pullToRefreshState.nestedScrollConnection)) {
-        Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState())
-            .padding(horizontal = 24.dp).padding(top = 60.dp, bottom = 100.dp)) {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+            .padding(horizontal = 24.dp)
+            .padding(top = 60.dp, bottom = 100.dp)) {
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -72,15 +79,17 @@ fun Schedule(controller: NavHostController, pullToRefreshState: PullToRefreshSta
                 if (it.id == 0) viewModel.stateValue = viewModel.stateValue.copy(selGroup = Group(id = 0, name = "Не выбрано"))
             }
             SpacerHeight(12.dp)
-            val date = remember { mutableStateOf("") }
+            val date = remember { mutableStateOf(ConvertLongToTime(LocalDate.now())) }
             ButtonDatePicker("Дата: ", date.value) {
                 date.value = it
             }
             SpacerHeight(18.dp)
             ButtonFillMaxWidth(text = "показать", color = StudyBuddyTheme.colors.primary) {
-                
+                viewModel.getSchedule(date.value)
             }
+            SpacerHeight(24.dp)
+            ScheduleViewer(state)
         }
     }
-
 }
+

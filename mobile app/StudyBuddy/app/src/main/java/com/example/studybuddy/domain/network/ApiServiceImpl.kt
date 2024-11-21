@@ -16,6 +16,7 @@ import com.example.studybuddy.data.entityes.NoteEnt
 import com.example.studybuddy.data.entityes.RequirementEnt
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.entityes.TeacherEnt
+import com.example.studybuddy.data.modelsitreshalo.Group
 import com.example.studybuddy.data.modelsitreshalo.Values
 import com.example.studybuddy.data.modelsitreshalo.ValuesSchedule
 import com.example.studybuddy.data.responses.DefaultResp
@@ -677,10 +678,10 @@ class ApiServiceImpl(
         }
     }
 
-    override suspend fun getSchedule(): ScheduleResp {
+    override suspend fun getSchedule(filterId: Int, date: Long): ScheduleResp {
         return try {
             val values = client.get {
-                url("https://api.it-reshalo.ru/schedule?filter_id=48&date=1731877200&regarding=group")
+                url("https://api.it-reshalo.ru/schedule?filter_id=${filterId}&date=${date}&regarding=group")
                 contentType(ContentType.Text.Html)
             }
             val bodyValues = values.body<ValuesSchedule>()

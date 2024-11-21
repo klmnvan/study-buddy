@@ -59,7 +59,7 @@ fun Navigation(controller: NavHostController, barsIsVisible: MutableState<Boolea
         }
 
         composable(NavigationRoutes.SCHEDULE) {
-            Schedule(controller, pullToRefreshState)
+            Schedule(pullToRefreshState)
             barsIsVisible.value = true
         }
 
