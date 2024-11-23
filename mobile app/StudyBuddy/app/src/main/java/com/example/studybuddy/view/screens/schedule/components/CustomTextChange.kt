@@ -2,6 +2,7 @@ package com.example.studybuddy.view.screens.schedule.components
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.ColumnScope
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -18,7 +19,7 @@ import androidx.compose.ui.unit.em
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @Composable
-fun RowScope.CustomTextChange(text: String, colorText: Color, back: Color){
+fun ColumnScope.CustomTextChange(text: String, colorText: Color, back: Color){
     Box(
         modifier = Modifier
             .weight(0.5f)

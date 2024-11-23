@@ -36,9 +36,11 @@ import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
 import com.example.studybuddy.view.generalcomponents.icons.ButtonAdd
 import com.example.studybuddy.view.generalcomponents.icons.ButtonBack
+import com.example.studybuddy.view.generalcomponents.icons.ButtonFilter
 import com.example.studybuddy.view.generalcomponents.icons.ButtonModify
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
+import com.example.studybuddy.view.generalcomponents.textfields.SearchTextField
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.screens.tasks.components.ModifyTaskItem
 import com.example.studybuddy.view.screens.tasks.components.PageSectionTask
@@ -54,6 +56,9 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
     val show = remember {
         mutableStateOf(Pair(1, 0))
     }
+    var filterIsOpen by remember { mutableStateOf(false) }
+    var search by remember { mutableStateOf("") }
+    var showList by remember { mutableStateOf(state.value.tasks) }
 
     if (pullToRefreshState.isRefreshing) {
         LaunchedEffect(true) {
@@ -65,6 +70,10 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
 
     LaunchedEffect(Unit) {
         viewModel.launch()
+    }
+
+    LaunchedEffect(search, viewModel.stateValue.tasks) {
+        showList = viewModel.stateValue.tasks.filter { it.title.contains(search, ignoreCase = true) }
     }
 
     Box(modifier = Modifier
@@ -86,17 +95,27 @@ fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                     ) {
                         TextTitle("Задания", 32.sp, StudyBuddyTheme.colors.textTitle)
                         Spacer(modifier = Modifier.weight(1f))
+                        ButtonFilter(filterIsOpen) {
+                            filterIsOpen = !filterIsOpen
+                        }
+                        SpacerWidth(8.dp)
                         ButtonAdd {
                             show.value = Pair(4, 0)
                         }
                     }
+                    if(filterIsOpen) {
+                        SpacerHeight(12.dp)
+                        SearchTextField(search, "Поиск") {
+                            search = it
+                        }
+                    }
                     SpacerHeight(8.dp)
-                    PageSectionTask("Не готовы", state.value.tasks.filter { !it.isCompleted }, viewModel, expandedStates[0], state.value.disciplines, {
+                    PageSectionTask("Не готовы", showList.filter { !it.isCompleted }, viewModel, expandedStates[0], state.value.disciplines, {
                         show.value = Pair(2, it.idTask)
                     }) {
                         expandedStates[0] = it
                     }
-                    PageSectionTask("Готовы", state.value.tasks.filter { it.isCompleted }, viewModel, expandedStates[1], state.value.disciplines, {
+                    PageSectionTask("Готовы", showList.filter { it.isCompleted }, viewModel, expandedStates[1], state.value.disciplines, {
                         show.value = Pair(2, it.idTask)
                     }) {
                         expandedStates[1] = it

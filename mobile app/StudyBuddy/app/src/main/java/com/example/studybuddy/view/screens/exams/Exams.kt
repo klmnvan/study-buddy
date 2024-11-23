@@ -38,9 +38,11 @@ import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
 import com.example.studybuddy.view.generalcomponents.icons.ButtonAdd
 import com.example.studybuddy.view.generalcomponents.icons.ButtonBack
+import com.example.studybuddy.view.generalcomponents.icons.ButtonFilter
 import com.example.studybuddy.view.generalcomponents.icons.ButtonModify
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
+import com.example.studybuddy.view.generalcomponents.textfields.SearchTextField
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.screens.disciplines.components.ModifyDiscItem
 import com.example.studybuddy.view.screens.disciplines.components.ModifyTeacherItem
@@ -59,6 +61,9 @@ fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState,
     val state = viewModel.state.collectAsState()
     val show = remember { mutableStateOf(Pair(1, 0)) }
     val newExam = remember { mutableStateOf(ExamEnt()) }
+    var filterIsOpen by remember { mutableStateOf(false) }
+    var search by remember { mutableStateOf("") }
+    var showList by remember { mutableStateOf(state.value.exams) }
 
     if (pullToRefreshState.isRefreshing) {
         LaunchedEffect(true) {
@@ -72,6 +77,10 @@ fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState,
         viewModel.launch()
     }
 
+    LaunchedEffect(search, viewModel.stateValue.exams) {
+        showList = viewModel.stateValue.exams.filter { it.title.contains(search, ignoreCase = true) }
+    }
+
     Box(modifier = Modifier.fillMaxSize().background(StudyBuddyTheme.colors.background).nestedScroll(pullToRefreshState.nestedScrollConnection)) {
         val expandedStates = remember { mutableStateListOf(true, true) }
         Column(modifier = Modifier.fillMaxSize().verticalScroll(rememberScrollState()).padding(horizontal = 24.dp).padding(top = 60.dp, bottom = 100.dp)) {
@@ -83,16 +92,26 @@ fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                     ) {
                         TextTitle("Экзамены", 32.sp, StudyBuddyTheme.colors.textTitle)
                         Spacer(modifier = Modifier.weight(1f))
+                        ButtonFilter(filterIsOpen) {
+                            filterIsOpen = !filterIsOpen
+                        }
+                        SpacerWidth(8.dp)
                         ButtonAdd {
                             show.value = Pair(2, 0)
                         }
                     }
+                    if(filterIsOpen) {
+                        SpacerHeight(12.dp)
+                        SearchTextField(search, "Поиск") {
+                            search = it
+                        }
+                    }
                     SpacerHeight(8.dp)
-                    PageSectionExam ("Предстоящие", state.value.exams.filter { StringToLocalDate(it.dateExam)!! > LocalDate.now() }, expandedStates[0],
+                    PageSectionExam ("Предстоящие", showList.filter { StringToLocalDate(it.dateExam)!! > LocalDate.now() }, expandedStates[0],
                         { show.value = Pair(3, it.idExam) }) {
                         expandedStates[0] = it
                     }
-                    PageSectionExam ("Прошедшие", state.value.exams.filter { StringToLocalDate(it.dateExam)!! < LocalDate.now() }, expandedStates[1],
+                    PageSectionExam ("Прошедшие", showList.filter { StringToLocalDate(it.dateExam)!! < LocalDate.now() }, expandedStates[1],
                         { show.value = Pair(3, it.idExam) }) {
                         expandedStates[1] = it
                     }

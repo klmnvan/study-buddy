@@ -95,45 +95,59 @@ fun ItemRowSchedule(time: String, listMain: List<Main>, listChange: List<Change>
             }
         }
         SpacerWidth(8.dp)
-        if (listChange.isNotEmpty()) {
-            listChange.forEach { changeItem ->
-                var textChange = ""
-                var colorBack = StudyBuddyTheme.colors.containerSecondary
-                if (changeItem.type == "replace") {
-                    colorBack = StudyBuddyTheme.colors.containerThird
-                    textChange = "ЗАМЕНА \n${changeItem.paraFrom.lesson!!.short_name}\nНА\n" +
-                            "${changeItem.paraTo!!.lesson!!.name}\n" +
-                            (if (changeItem.paraTo.teachers.isNotEmpty()) changeItem.paraTo.teachers.first().name + "\n" else "") +
-                            "Группа: ${changeItem.group.name}\n" +
-                            "Кабинет: ${changeItem.cabinet?.name}"
-                } else if (changeItem.type == "remove") {
-                    colorBack = StudyBuddyTheme.colors.secondary
-                    textChange = "ОТМЕНА \n${changeItem.paraFrom.lesson!!.short_name}\n У " +
-                            "${changeItem.paraFrom.teachers.first().instrumental_case}\n" +
-                            "Группа: ${changeItem.group.name}"
-                } else if (changeItem.paraTo?.lesson != null && changeItem.parallel == null) {
-                    colorBack = StudyBuddyTheme.colors.primary
-                    textChange = "${changeItem.paraTo.lesson.short_name}\n" +
-                            "${changeItem.paraTo.teachers.first().name}\n" +
-                            "Группа: ${changeItem.group.name}\n" +
-                            "Кабинет: ${changeItem.cabinet?.name}"
-                } else if (changeItem.parallel != null) {
-                    colorBack = StudyBuddyTheme.colors.primary
-                    textChange = "${changeItem.paraTo?.lesson?.short_name}\n" +
-                            "${changeItem.paraTo?.teachers?.first()?.name}\n" +
-                            "Группа: ${changeItem.group.name}\n" +
-                            "Кабинет: ${changeItem.cabinet?.name}\n\n" +
-                            "ПАРАЛЛЕЛЬНО С ${changeItem.parallel.instrumental_case}"
+        Box(
+            modifier = Modifier
+                .weight(0.5f)
+                .fillMaxHeight()
+                .fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
 
+            Column (
+                modifier = Modifier.fillMaxHeight(),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                if (listChange.isNotEmpty()) {
+                    listChange.forEach { changeItem ->
+                        var textChange = ""
+                        var colorBack = StudyBuddyTheme.colors.containerSecondary
+                        if (changeItem.type == "replace") {
+                            colorBack = StudyBuddyTheme.colors.containerThird
+                            textChange = "ЗАМЕНА \n${changeItem.paraFrom.lesson!!.short_name}\nНА\n" +
+                                    "${changeItem.paraTo!!.lesson!!.name}\n" +
+                                    (if (changeItem.paraTo.teachers.isNotEmpty()) changeItem.paraTo.teachers.first().name + "\n" else "") +
+                                    "Группа: ${changeItem.group.name}\n" +
+                                    "Кабинет: ${changeItem.cabinet?.name}"
+                        } else if (changeItem.type == "remove") {
+                            colorBack = StudyBuddyTheme.colors.secondary
+                            textChange = "ОТМЕНА \n${changeItem.paraFrom.lesson!!.short_name}\n У " +
+                                    "${changeItem.paraFrom.teachers.first().instrumental_case}\n" +
+                                    "Группа: ${changeItem.group.name}"
+                        } else if (changeItem.paraTo?.lesson != null && changeItem.parallel == null) {
+                            colorBack = StudyBuddyTheme.colors.primary
+                            textChange = "${changeItem.paraTo.lesson.short_name}\n" +
+                                    "${changeItem.paraTo.teachers.first().name}\n" +
+                                    "Группа: ${changeItem.group.name}\n" +
+                                    "Кабинет: ${changeItem.cabinet?.name}"
+                        } else if (changeItem.parallel != null) {
+                            colorBack = StudyBuddyTheme.colors.primary
+                            textChange = "${changeItem.paraTo?.lesson?.short_name}\n" +
+                                    "${changeItem.paraTo?.teachers?.first()?.name}\n" +
+                                    "Группа: ${changeItem.group.name}\n" +
+                                    "Кабинет: ${changeItem.cabinet?.name}\n\n" +
+                                    "ПАРАЛЛЕЛЬНО С ${changeItem.parallel.instrumental_case}"
+
+                        }
+                        CustomTextChange(textChange, StudyBuddyTheme.colors.textTitle, colorBack)
+                    }
+                } else {
+                    CustomTextChange(
+                        "",
+                        StudyBuddyTheme.colors.secondary,
+                        StudyBuddyTheme.colors.containerSecondary
+                    )
                 }
-                CustomTextChange(textChange, StudyBuddyTheme.colors.textTitle, colorBack)
             }
-        } else {
-            CustomTextChange(
-                "",
-                StudyBuddyTheme.colors.secondary,
-                StudyBuddyTheme.colors.containerSecondary
-            )
         }
     }
 }

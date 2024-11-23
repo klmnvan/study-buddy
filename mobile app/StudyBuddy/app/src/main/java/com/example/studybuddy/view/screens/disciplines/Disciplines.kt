@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
@@ -37,9 +36,11 @@ import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
 import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
 import com.example.studybuddy.view.generalcomponents.icons.ButtonAdd
 import com.example.studybuddy.view.generalcomponents.icons.ButtonBack
+import com.example.studybuddy.view.generalcomponents.icons.ButtonFilter
 import com.example.studybuddy.view.generalcomponents.icons.ButtonModify
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
+import com.example.studybuddy.view.generalcomponents.textfields.SearchTextField
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.screens.disciplines.components.DiscItem
 import com.example.studybuddy.view.screens.disciplines.components.ModifyDiscItem
@@ -55,6 +56,9 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
     val state = viewModel.state.collectAsState()
     val show: MutableState<Pair<Int, Int?>> = remember { mutableStateOf(Pair(1, 0)) }
     val newDisc = remember { mutableStateOf(DisciplineEnt()) }
+    var filterIsOpen by remember { mutableStateOf(false) }
+    var search by remember { mutableStateOf("") }
+    var showList by remember { mutableStateOf(state.value.disciplines) }
 
     if (pullToRefreshState.isRefreshing) {
         LaunchedEffect(true) {
@@ -66,6 +70,10 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
 
     LaunchedEffect(Unit) {
         viewModel.launch()
+    }
+
+    LaunchedEffect(search, viewModel.stateValue.disciplines) {
+        showList = viewModel.stateValue.disciplines.filter { it.title.contains(search, ignoreCase = true) }
     }
 
     Box(modifier = Modifier
@@ -87,12 +95,22 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                             TextTitle("Предметы", 32.sp, StudyBuddyTheme.colors.textTitle)
                         }
                         Spacer(modifier = Modifier.weight(1f))
+                        ButtonFilter(filterIsOpen) {
+                            filterIsOpen = !filterIsOpen
+                        }
+                        SpacerWidth(8.dp)
                         ButtonAdd {
                             show.value = Pair(2, 0)
                         }
                     }
-                    SpacerHeight(32.dp)
-                    state.value.disciplines.forEach { item ->
+                    if(filterIsOpen) {
+                        SpacerHeight(12.dp)
+                        SearchTextField(search, "Поиск") {
+                            search = it
+                        }
+                    }
+                    SpacerHeight(24.dp)
+                    showList.forEach { item ->
                         DiscItem(item) {
                             show.value = Pair(4, it)
                         }
