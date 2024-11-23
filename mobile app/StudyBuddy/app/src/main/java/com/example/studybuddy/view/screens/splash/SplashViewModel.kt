@@ -29,7 +29,7 @@ class SplashViewModel @Inject constructor(
                     }
                 }
             } else {
-                logOut(navController)
+                logOut()
                 navController.navigate(NavigationRoutes.AUTH) {
                     popUpTo(NavigationRoutes.SPLASH) {
                         inclusive = true
@@ -39,7 +39,7 @@ class SplashViewModel @Inject constructor(
         }
     }
 
-    private fun logOut(controller: NavHostController) {
+    private fun logOut() {
         try {
             with(database) {
                 teacherDao.deleteAllTeacher()

@@ -1,12 +1,13 @@
 package com.example.studybuddy.data.modelsitreshalo
 
+import com.example.studybuddy.data.entityes.GroupEnt
 import kotlinx.serialization.Serializable
 
 /** Основное расписание без изменений */
 @Serializable
 data class Main(
     val cabinet: Cabinet?,
-    val group: Group,
+    val group: GroupEnt,
     val id: Int,
     val is_short: Boolean,
     val lesson: Lesson,

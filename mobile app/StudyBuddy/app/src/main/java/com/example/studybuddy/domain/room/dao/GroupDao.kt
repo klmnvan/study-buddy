@@ -6,30 +6,29 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
-import com.example.studybuddy.data.entityes.ExamEnt
+import com.example.studybuddy.data.entityes.GroupEnt
 import kotlinx.coroutines.flow.Flow
 
 @Dao
-interface ExamDao {
+interface GroupDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertExam(task: List<ExamEnt>)
+    fun insertGroup(group: List<GroupEnt>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    fun insertExam(task: ExamEnt)
+    fun insertGroup(group: GroupEnt)
 
     @Delete
-    fun deleteExam(exam: ExamEnt)
+    fun deleteGroup(group: GroupEnt)
 
-    @Query("DELETE FROM exams")
-    fun deleteAllExams()
+    @Query("DELETE FROM groups")
+    fun deleteAllGroups()
 
-    @Query("SELECT * FROM exams")
-    fun getAllExams(): Flow<List<ExamEnt>>
+    @Query("SELECT * FROM groups")
+    fun getAllGroups(): Flow<List<GroupEnt>>
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun updateExam(exam: ExamEnt)
+    fun updateGroup(group: GroupEnt)
 
 
 }
-

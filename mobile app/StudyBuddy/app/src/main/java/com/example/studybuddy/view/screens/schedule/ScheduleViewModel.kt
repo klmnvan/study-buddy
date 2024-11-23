@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.studybuddy.data.states.ScheduleSt
 import com.example.studybuddy.domain.converters.DateToTimestamp
 import com.example.studybuddy.domain.network.ApiServiceImpl
+import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +22,7 @@ import javax.inject.Inject
 class ScheduleViewModel @Inject constructor(
     private val service: ApiServiceImpl,
     @ApplicationContext private val context: Context,
+    private val database: StudyBuddyDatabase,
 ) : ViewModel()  {
 
     private val _state = MutableStateFlow(ScheduleSt())
@@ -32,15 +34,23 @@ class ScheduleViewModel @Inject constructor(
             _state.value = value
         }
 
+    fun updateValues() {
+        viewModelScope.launch(Dispatchers.IO) {
+            database.groupDao.getAllGroups().collect {
+                stateValue = _state.value.copy(group = it)
+                Log.d("группы из локальной базы", it.toString())
+            }
+        }
+    }
+
     fun getValues() {
         viewModelScope.launch(Dispatchers.Main) {
             val response = service.getValues()
             if(response.error == "") {
-                Log.e("values", response.values.toString())
-                stateValue = stateValue.copy(
-                    groups = response.values.result.group,
-                    cabinets = response.values.result.cabinet,
-                    teachers = response.values.result.teacher)
+                if(!stateValue.group.equals(response.values.result.group)) {
+                    updateValues()
+                    Log.d("группы из API", response.values.result.group.toString())
+                }
             } else {
                 Toast.makeText(context, "Данные не актуальны", Toast.LENGTH_SHORT).show()
                 Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
@@ -52,7 +62,7 @@ class ScheduleViewModel @Inject constructor(
     fun getSchedule(date: String) {
         viewModelScope.launch(Dispatchers.Main) {
             val dateTimestamp = DateToTimestamp(date)
-            if(dateTimestamp != null){
+            if(dateTimestamp != null) {
                 val response = service.getSchedule(stateValue.selGroup.id, dateTimestamp)
                 if(response.error == "") {
                     stateValue = stateValue.copy(valuesSchedule = response.valuesSchedule)

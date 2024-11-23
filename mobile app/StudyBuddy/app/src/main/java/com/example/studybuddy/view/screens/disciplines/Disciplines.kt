@@ -98,6 +98,7 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                         }
                     }
                     Spacer(modifier = Modifier.weight(1f))
+                    SpacerHeight(24.dp)
                     ButtonFillMaxWidth(text = "Преподаватели", color = StudyBuddyTheme.colors.primary) {
                         show.value = Pair(3, null)
                     }
@@ -146,8 +147,8 @@ fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefresh
                         SpacerHeight(20.dp)
                         ModifyTeacherItem(state, viewModel)
                         SpacerHeight(height = 24.dp)
-                        ButtonFillMaxWidth("ВЕРНУТЬСЯ К ПРЕДМЕТУ", StudyBuddyTheme.colors.primary, true) {
-                            if(show.value.second == null) Pair(1, 0)
+                        ButtonFillMaxWidth("ВЕРНУТЬСЯ", StudyBuddyTheme.colors.primary, true) {
+                            if(show.value.second == null) show.value = Pair(1, 0)
                             else if(show.value.second != 0) show.value = Pair(5, show.value.second)
                             else show.value = Pair(2, 0)
                         }

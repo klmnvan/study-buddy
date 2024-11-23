@@ -60,7 +60,6 @@ class ExamsViewModel @Inject constructor(
         }
     }
 
-
     fun fetch() {
         viewModelScope.launch(Dispatchers.Main) {
             val response = service.getExams(UserRepository.token)

@@ -16,7 +16,6 @@ import com.example.studybuddy.data.entityes.NoteEnt
 import com.example.studybuddy.data.entityes.RequirementEnt
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.entityes.TeacherEnt
-import com.example.studybuddy.data.modelsitreshalo.Group
 import com.example.studybuddy.data.modelsitreshalo.Values
 import com.example.studybuddy.data.modelsitreshalo.ValuesSchedule
 import com.example.studybuddy.data.responses.DefaultResp
@@ -662,6 +661,8 @@ class ApiServiceImpl(
                 contentType(ContentType.Text.Html)
             }
             val bodyValues = values.body<Values>()
+            database.groupDao.deleteAllGroups()
+            database.groupDao.insertGroup(bodyValues.result.group)
             ScheduleResp(values = bodyValues)
         }
         catch (e: ClientRequestException) {

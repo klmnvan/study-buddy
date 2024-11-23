@@ -23,8 +23,7 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavHostController
-import com.example.studybuddy.data.modelsitreshalo.Group
+import com.example.studybuddy.data.entityes.GroupEnt
 import com.example.studybuddy.domain.converters.ConvertLongToTime
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonDatePicker
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonFillMaxWidth
@@ -43,6 +42,7 @@ fun Schedule(pullToRefreshState: PullToRefreshState, viewModel: ScheduleViewMode
     val state = viewModel.state.collectAsState()
 
     LaunchedEffect(Unit) {
+        viewModel.updateValues()
         viewModel.getValues()
     }
 
@@ -73,10 +73,10 @@ fun Schedule(pullToRefreshState: PullToRefreshState, viewModel: ScheduleViewMode
             SpacerHeight(24.dp)
             DropDownMenuGroup (
                 state.value.selGroup.name
-                    ?: "Не выбрано", state.value.groups.toMutableList(), "Группа"
+                    ?: "Не выбрано", state.value.group.toMutableList().sortedBy { it.name }.toMutableList(), "Группа"
             ) {
                 viewModel.stateValue = viewModel.stateValue.copy(selGroup = it)
-                if (it.id == 0) viewModel.stateValue = viewModel.stateValue.copy(selGroup = Group(id = 0, name = "Не выбрано"))
+                if (it.id == 0) viewModel.stateValue = viewModel.stateValue.copy(selGroup = GroupEnt(id = 0, name = "Не выбрано"))
             }
             SpacerHeight(12.dp)
             val date = remember { mutableStateOf(ConvertLongToTime(LocalDate.now())) }

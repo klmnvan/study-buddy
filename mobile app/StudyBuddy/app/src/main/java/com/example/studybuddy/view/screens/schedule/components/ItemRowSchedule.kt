@@ -100,7 +100,7 @@ fun ItemRowSchedule(time: String, listMain: List<Main>, listChange: List<Change>
                 var textChange = ""
                 var colorBack = StudyBuddyTheme.colors.containerSecondary
                 if (changeItem.type == "replace") {
-                    colorBack = StudyBuddyTheme.colors.third
+                    colorBack = StudyBuddyTheme.colors.containerThird
                     textChange = "ЗАМЕНА \n${changeItem.paraFrom.lesson!!.short_name}\nНА\n" +
                             "${changeItem.paraTo!!.lesson!!.name}\n" +
                             (if (changeItem.paraTo.teachers.isNotEmpty()) changeItem.paraTo.teachers.first().name + "\n" else "") +
@@ -126,7 +126,7 @@ fun ItemRowSchedule(time: String, listMain: List<Main>, listChange: List<Change>
                             "ПАРАЛЛЕЛЬНО С ${changeItem.parallel.instrumental_case}"
 
                 }
-                CustomTextChange(textChange, StudyBuddyTheme.colors.textButton, colorBack)
+                CustomTextChange(textChange, StudyBuddyTheme.colors.textTitle, colorBack)
             }
         } else {
             CustomTextChange(

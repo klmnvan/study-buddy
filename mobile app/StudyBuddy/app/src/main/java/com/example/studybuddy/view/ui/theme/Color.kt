@@ -42,7 +42,7 @@ val baseLightPalette = ColorPalette(
     textButton = White,
     containerPrimary = Green.copy(alpha = 0.2f),
     containerSecondary = Orange.copy(alpha = 0.2f),
-    containerThird = Yellow.copy(alpha = 0.6f),
+    containerThird = Yellow.copy(alpha = 0.8f),
     containerDefault = White,
     unselectItem = Gray
 )
@@ -58,7 +58,7 @@ val darkPalette = ColorPalette(
     containerPrimary = Green2.copy(alpha = 0.2f),
     containerSecondary = Orange2.copy(alpha = 0.2f),
     containerDefault = DarkCont,
-    containerThird = Yellow.copy(alpha = 0.6f),
+    containerThird = Yellow.copy(alpha = 0.8f),
     unselectItem = White40
 )
 
