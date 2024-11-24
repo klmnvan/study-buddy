@@ -100,6 +100,9 @@ dependencies {
     // coroutines
     // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.9.0")
 
+    //уведомления
+    implementation("com.google.accompanist:accompanist-permissions:0.31.1-alpha")
+
     //Room
     val room_version = "2.4.0"
     implementation("androidx.room:room-runtime:$room_version")
