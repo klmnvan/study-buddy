@@ -8,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.studybuddy.data.states.ScheduleSt
 import com.example.studybuddy.domain.converters.DateToTimestamp
 import com.example.studybuddy.domain.network.ApiServiceImpl
+import com.example.studybuddy.domain.repository.UserRepository
 import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
@@ -65,6 +66,10 @@ class ScheduleViewModel @Inject constructor(
             if(dateTimestamp != null) {
                 val response = service.getSchedule(stateValue.selGroup.id, dateTimestamp)
                 if(response.error == "") {
+                    if(stateValue.selGroup.name != null) {
+                        UserRepository.lastGroupId = stateValue.selGroup.id
+                        UserRepository.lastGroupName = stateValue.selGroup.name!!
+                    }
                     stateValue = stateValue.copy(valuesSchedule = response.valuesSchedule)
                     Log.e("values", response.valuesSchedule.toString())
                 } else {

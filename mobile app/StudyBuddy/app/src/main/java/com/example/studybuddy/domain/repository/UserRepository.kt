@@ -1,4 +1,4 @@
-package com.example.studybuddy.domain
+package com.example.studybuddy.domain.repository
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -67,5 +67,13 @@ object UserRepository {
     var theme: String
         get() = spAct.getString("theme", ThemeMode.Light.title)!!
         set(value) = spAct.edit().putString("theme", value).apply()
+
+    var lastGroupName: String
+        get() = spAct.getString("group name", "Не выбрано")!!
+        set(value) = spAct.edit().putString("group name", value).apply()
+
+    var lastGroupId: Int
+        get() = spAct.getInt("group id", 0)
+        set(value) = spAct.edit().putInt("group id", value).apply()
 
 }

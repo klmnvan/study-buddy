@@ -26,9 +26,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import com.example.studybuddy.R
-import com.example.studybuddy.domain.UserRepository
-import com.example.studybuddy.domain.UserRepository.themes
-import com.example.studybuddy.view.navigation.NavigationRoutes
+import com.example.studybuddy.domain.repository.UserRepository
+import com.example.studybuddy.domain.repository.UserRepository.themes
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.texts.TextLight
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme

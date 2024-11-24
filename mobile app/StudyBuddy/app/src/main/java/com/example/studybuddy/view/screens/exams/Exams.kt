@@ -54,6 +54,7 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 
+/**  */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState, viewModel: ExamsViewModel = hiltViewModel()) {
@@ -115,6 +116,7 @@ fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState,
                         { show.value = Pair(3, it.idExam) }) {
                         expandedStates[1] = it
                     }
+
                 }
                 2 -> {
                     SpacerHeight(height = 16.dp)

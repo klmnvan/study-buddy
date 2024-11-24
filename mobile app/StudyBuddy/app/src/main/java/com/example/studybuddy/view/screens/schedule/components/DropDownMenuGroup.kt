@@ -60,9 +60,9 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 fun DropDownMenuGroup(
     value: String, list: MutableList<GroupEnt>, placeholder: String, input: (GroupEnt) -> Unit) {
     val configuration: Configuration = LocalConfiguration.current
-    var screenHeight = configuration.screenHeightDp.dp
-    var expanded by remember { mutableStateOf(false) }
     var dropdownWidth by remember {  mutableStateOf(0.dp) } //размер выпадающего списка под контекст
+    val screenHeight = configuration.screenHeightDp.dp
+    var expanded by remember { mutableStateOf(false) }
     var listPreview by remember { mutableStateOf(list) }
     var search by remember { mutableStateOf("") }
     val c = LocalDensity.current

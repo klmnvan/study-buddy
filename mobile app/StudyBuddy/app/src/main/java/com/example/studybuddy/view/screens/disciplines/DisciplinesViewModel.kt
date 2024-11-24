@@ -9,11 +9,10 @@ import com.example.studybuddy.data.dto.CreateDiscDto
 import com.example.studybuddy.data.dto.CreateReqDto
 import com.example.studybuddy.data.dto.CreateTeacherDto
 import com.example.studybuddy.data.entityes.DisciplineEnt
-import com.example.studybuddy.data.entityes.ExamEnt
 import com.example.studybuddy.data.entityes.RequirementEnt
 import com.example.studybuddy.data.entityes.TeacherEnt
 import com.example.studybuddy.data.states.DisciplinesSt
-import com.example.studybuddy.domain.UserRepository
+import com.example.studybuddy.domain.repository.UserRepository
 import com.example.studybuddy.domain.network.ApiServiceImpl
 import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -89,7 +88,8 @@ class DisciplinesViewModel @Inject constructor(
     fun createDisc(el: DisciplineEnt, success: (Boolean) -> Unit) {
         if(el.title.isNotEmpty()) {
             viewModelScope.launch(Dispatchers.Main) {
-                val response = service.createDisc(UserRepository.token, CreateDiscDto(
+                val response = service.createDisc(
+                    UserRepository.token, CreateDiscDto(
                     title = el.title,
                     idTeacher = el.idTeacher)
                 )

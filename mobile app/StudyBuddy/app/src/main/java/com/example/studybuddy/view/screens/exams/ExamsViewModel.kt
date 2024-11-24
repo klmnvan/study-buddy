@@ -7,14 +7,10 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.studybuddy.data.dto.CreateExamDto
 import com.example.studybuddy.data.dto.CreateNoteDto
-import com.example.studybuddy.data.dto.CreateReqDto
-import com.example.studybuddy.data.dto.CreateTaskDto
-import com.example.studybuddy.data.entityes.DisciplineEnt
 import com.example.studybuddy.data.entityes.ExamEnt
 import com.example.studybuddy.data.entityes.NoteEnt
-import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.states.ExamsSt
-import com.example.studybuddy.domain.UserRepository
+import com.example.studybuddy.domain.repository.UserRepository
 import com.example.studybuddy.domain.network.ApiServiceImpl
 import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -79,7 +75,8 @@ class ExamsViewModel @Inject constructor(
     fun createExam(el: ExamEnt, success: (Boolean) -> Unit) {
         if(el.title.isNotEmpty() && el.duration.isNotEmpty() && el.dateExam.isNotEmpty()) {
             viewModelScope.launch(Dispatchers.Main) {
-                val response = service.createExam(UserRepository.token,
+                val response = service.createExam(
+                    UserRepository.token,
                     CreateExamDto(
                         title = el.title,
                         dateExam = el.dateExam,

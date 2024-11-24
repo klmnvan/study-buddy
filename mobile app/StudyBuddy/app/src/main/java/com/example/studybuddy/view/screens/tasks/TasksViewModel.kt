@@ -8,7 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.studybuddy.data.dto.CreateTaskDto
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.states.TasksSt
-import com.example.studybuddy.domain.UserRepository
+import com.example.studybuddy.domain.repository.UserRepository
 import com.example.studybuddy.domain.network.ApiServiceImpl
 import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -110,7 +110,8 @@ class TasksViewModel @Inject constructor(
     fun createTask(el: TaskEnt, success: (Boolean) -> Unit) {
         if(el.title.isNotEmpty() && el.deadline.isNotEmpty() && el.description.isNotEmpty()) {
             viewModelScope.launch(Dispatchers.Main) {
-                val response = service.createTask(UserRepository.token, CreateTaskDto(
+                val response = service.createTask(
+                    UserRepository.token, CreateTaskDto(
                     title = el.title,
                     description = el.description,
                     deadline = el.deadline,

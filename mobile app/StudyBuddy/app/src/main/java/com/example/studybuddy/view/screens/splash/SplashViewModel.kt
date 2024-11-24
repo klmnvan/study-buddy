@@ -1,15 +1,13 @@
 package com.example.studybuddy.view.screens.splash
 
-import android.content.Context
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.NavHostController
-import com.example.studybuddy.domain.UserRepository
+import com.example.studybuddy.domain.repository.UserRepository
 import com.example.studybuddy.domain.room.database.StudyBuddyDatabase
 import com.example.studybuddy.view.navigation.NavigationRoutes
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import javax.inject.Inject
