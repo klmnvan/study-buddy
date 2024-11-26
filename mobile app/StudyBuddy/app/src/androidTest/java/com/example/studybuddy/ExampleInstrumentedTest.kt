@@ -3,22 +3,21 @@ package com.example.studybuddy
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithText
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.compose.rememberNavController
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.studybuddy.view.MainActivity
 import com.example.studybuddy.view.screens.auth.Auth
-import com.google.ar.core.Config
+import com.example.studybuddy.view.screens.login.Login
+import com.example.studybuddy.view.screens.login.LoginViewModel
+import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.testing.CustomTestApplication
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
-import dagger.hilt.android.testing.HiltTestApplication
-
-import org.junit.Test
-import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
-import org.robolectric.RobolectricTestRunner
+import org.junit.Test
+import org.junit.runner.RunWith
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -26,19 +25,52 @@ import org.robolectric.RobolectricTestRunner
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 
+//AndroidJUnit4 – Это аннотация, которая указывает, что тесты в данном классе должны выполняться с использованием AndroidJUnit4 тестового раннера.
 @HiltAndroidTest
-@Config(application = HiltTestApplication::class)
-@RunWith(RobolectricTestRunner::class)
-@LooperMode(LooperMode.Mode.PAUSED)
-class ExampleInstrumentedTest {
+@CustomTestApplication(MainActivity::class)
+@RunWith(AndroidJUnit4::class)
+class UITest {
 
     @get:Rule
-    var hiltRule = HiltAndroidRule(this)
+    val composeTestRule = createComposeRule() //это функция, которая создает правило для тестирования Jetpack Compose UI компонентов.
+
+    @get:Rule
+    val hiltRule = HiltAndroidRule(this)
+
+    lateinit var loginViewModel: LoginViewModel
 
     @Before
     fun setUp() {
-        hiltRule.inject() // 6
+        hiltRule.inject()
     }
+
+    @Test
+    fun AuthScreenIsDisplayed() {
+        composeTestRule.setContent {
+            Auth(rememberNavController())
+        }
+        composeTestRule.onNodeWithText("Умное планирование учёбы").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Здесь ты сможешь узнавать расписание, готовится к экзаменам, отслеживать дедлайны и добавлять информацию о дисциплинах").assertIsDisplayed()
+        composeTestRule.onNodeWithText("ВОЙТИ").assertIsDisplayed()
+        composeTestRule.onNodeWithText("СОЗДАТЬ ПРОФИЛЬ").assertIsDisplayed()
+    }
+
+    @Test
+    fun testMyComponent() {
+        composeTestRule.setContent {
+            loginViewModel = hiltViewModel()
+            Login(rememberNavController())
+        }
+        composeTestRule.onNodeWithText("Авторизация").assertIsDisplayed()
+    }
+
+}
+
+/*
+@RunWith(AndroidJUnit4::class)
+class ExampleInstrumentedTest1 {
+    @get:Rule
+    val composeTestRule = createComposeRule()
 
     @Test
     fun useAppContext() {
@@ -46,14 +78,4 @@ class ExampleInstrumentedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         assertEquals("com.example.studybuddy", appContext.packageName)
     }
-
-    @Test
-    fun SignUpscreenisdisplayed() {
-        hiltRule.setContent {
-            Auth(rememberNavController())
-        }
-        // Проверяем, что экран регистрации отображается
-        composeTestRule.onNodeWithText("StudyBuddy").assertIsDisplayed()
-    }
-
-}
+}*/

@@ -53,31 +53,34 @@ class ScheduleViewModel @Inject constructor(
                     Log.d("группы из API", response.values.result.group.toString())
                 }
             } else {
-                Toast.makeText(context, "Данные не актуальны", Toast.LENGTH_SHORT).show()
                 Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
                 Log.e("error fetchDisc", response.error)
             }
         }
+
     }
 
     fun getSchedule(date: String) {
-        viewModelScope.launch(Dispatchers.Main) {
-            val dateTimestamp = DateToTimestamp(date)
-            if(dateTimestamp != null) {
-                val response = service.getSchedule(stateValue.selGroup.id, dateTimestamp)
-                if(response.error == "") {
-                    if(stateValue.selGroup.name != null) {
-                        UserRepository.lastGroupId = stateValue.selGroup.id
-                        UserRepository.lastGroupName = stateValue.selGroup.name!!
+        if(stateValue.selGroup.id != 0) {
+            viewModelScope.launch(Dispatchers.Main) {
+                val dateTimestamp = DateToTimestamp(date)
+                if(dateTimestamp != null) {
+                    val response = service.getSchedule(stateValue.selGroup.id, dateTimestamp)
+                    if(response.error == "") {
+                        if(stateValue.selGroup.name != null) {
+                            UserRepository.lastGroupId = stateValue.selGroup.id
+                            UserRepository.lastGroupName = stateValue.selGroup.name!!
+                        }
+                        stateValue = stateValue.copy(valuesSchedule = response.valuesSchedule)
+                        Log.e("values", response.valuesSchedule.toString())
+                    } else {
+                        Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
+                        Log.e("error getSchedule", response.error)
                     }
-                    stateValue = stateValue.copy(valuesSchedule = response.valuesSchedule)
-                    Log.e("values", response.valuesSchedule.toString())
-                } else {
-                    Toast.makeText(context, "Данные не актуальны", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(context, response.error, Toast.LENGTH_SHORT).show()
-                    Log.e("error getSchedule", response.error)
                 }
             }
+        } else {
+            Toast.makeText(context,"Не все поля заполнены", Toast.LENGTH_SHORT).show()
         }
     }
 

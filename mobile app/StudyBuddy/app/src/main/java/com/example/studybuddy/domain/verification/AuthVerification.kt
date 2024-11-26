@@ -6,11 +6,14 @@ import android.text.TextUtils
 object AuthVerification {
 
     fun String.isEmailValid () : Boolean {
-        return !TextUtils.isEmpty(this) && android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
+        return !TextUtils.isEmpty(this)
+                && android.util.Patterns.EMAIL_ADDRESS.matcher(this)
+                    .matches()
     }
 
     fun String.isNicknameValid () : Boolean {
-        val regex = Regex("^[a-zA-Zа-яА-ЯёЁ\\s]+\$"); //Никнейм может состоять только из симолов латиницы или кирилицы и пробелов
+        val regex = Regex("^[a-zA-Zа-яА-ЯёЁ\\s]+\$");
+        //Никнейм может состоять только из симолов латиницы или кирилицы и пробелов
         return regex.matches(this)
     }
 

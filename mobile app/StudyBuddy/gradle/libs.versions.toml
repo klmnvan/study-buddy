@@ -11,6 +11,7 @@ composeBom = "2024.04.01"
 navigationCompose = "1.2.0"
 protoliteWellKnownTypes = "18.0.0"
 core = "1.46.0"
+hiltAndroidTesting = "2.51.1"
 
 [libraries]
 hilt-navigation-compose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "navigationCompose" }
@@ -30,6 +31,7 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 protolite-well-known-types = { group = "com.google.firebase", name = "protolite-well-known-types", version.ref = "protoliteWellKnownTypes" }
 core = { group = "com.google.ar", name = "core", version.ref = "core" }
+hilt-android-testing = { group = "com.google.dagger", name = "hilt-android-testing", version.ref = "hiltAndroidTesting" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

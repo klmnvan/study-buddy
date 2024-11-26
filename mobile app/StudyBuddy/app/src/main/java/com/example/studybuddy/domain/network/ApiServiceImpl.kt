@@ -41,6 +41,7 @@ import io.ktor.http.HttpHeaders
 import io.ktor.http.contentType
 import io.ktor.http.isSuccess
 import kotlinx.serialization.json.Json
+import okio.IOException
 
 /** Реализация интерфейса, в котором описаны все методы для запросов к API + их кэшировние в локальную базу данных Room*/
 class ApiServiceImpl(
@@ -57,6 +58,9 @@ class ApiServiceImpl(
             }
             val responseBody = response.body<UserDto>()
             AuthResp(user = responseBody)
+        }
+        catch (e: IOException) {
+            AuthResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             //приходит text/plain иногда, поэтому проверять надо всегда
@@ -89,6 +93,9 @@ class ApiServiceImpl(
             }
             val responseBody = response.body<UserDto>()
             AuthResp(user = responseBody)
+        }
+        catch (e: IOException) {
+            AuthResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -131,6 +138,9 @@ class ApiServiceImpl(
             database.disciplineDao.insertDisc(disciplinesBody)
             TasksResp(listTask = tasksBody, listDisc = disciplinesBody)
         }
+        catch (e: IOException) {
+            TasksResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -171,6 +181,9 @@ class ApiServiceImpl(
             database.noteDao.deleteAllNote()
             database.noteDao.insertNote(bodyNotes)
             ExamsResp(listExams = bodyExams, listNotes = bodyNotes)
+        }
+        catch (e: IOException) {
+            ExamsResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -223,6 +236,9 @@ class ApiServiceImpl(
             database.requirementDao.insertReq(requirementsBody)
             DisciplinesResp(listTeachers = body, listDiscipline = disciplinesBody, listRequirements = requirementsBody)
         }
+        catch (e: IOException) {
+            DisciplinesResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -254,6 +270,9 @@ class ApiServiceImpl(
                 database.taskDao.updateTask(task)
             }
             DefaultResp()
+        }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -287,6 +306,9 @@ class ApiServiceImpl(
             }
             DefaultResp()
         }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -318,6 +340,9 @@ class ApiServiceImpl(
                 database.teacherDao.updateTeacher(teacher)
             }
             DefaultResp()
+        }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -354,6 +379,9 @@ class ApiServiceImpl(
             }
             DefaultResp()
         }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -386,6 +414,9 @@ class ApiServiceImpl(
             }
             DefaultResp()
         }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -417,6 +448,9 @@ class ApiServiceImpl(
                 database.examDao.updateExam(exam)
             }
             DefaultResp()
+        }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -451,6 +485,9 @@ class ApiServiceImpl(
             }
             DisciplinesResp(teacher = body)
         }
+        catch (e: IOException) {
+            DisciplinesResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -481,6 +518,9 @@ class ApiServiceImpl(
                 database.taskDao.deleteTask(task)
             }
             DefaultResp()
+        }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -513,6 +553,9 @@ class ApiServiceImpl(
             }
             DefaultResp()
         }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -543,6 +586,9 @@ class ApiServiceImpl(
                 database.disciplineDao.deleteDisc(disc)
             }
             DefaultResp()
+        }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -575,6 +621,9 @@ class ApiServiceImpl(
             }
             DefaultResp()
         }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -605,6 +654,9 @@ class ApiServiceImpl(
                 database.noteDao.deleteNote(note)
             }
             DefaultResp()
+        }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -637,6 +689,9 @@ class ApiServiceImpl(
             }
             DefaultResp()
         }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -665,6 +720,9 @@ class ApiServiceImpl(
             database.groupDao.insertGroup(bodyValues.result.group)
             ScheduleResp(values = bodyValues)
         }
+        catch (e: IOException) {
+            ScheduleResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             Log.d("Error ${e.response.status}", e.message)
             ScheduleResp(error = e.response.body<String>())
@@ -687,6 +745,9 @@ class ApiServiceImpl(
             }
             val bodyValues = values.body<ValuesSchedule>()
             ScheduleResp(valuesSchedule = bodyValues)
+        }
+        catch (e: IOException) {
+            ScheduleResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             Log.d("Error ${e.response.status}", e.message)
@@ -717,6 +778,9 @@ class ApiServiceImpl(
                 database.taskDao.insertTask(body)
             }
             TasksResp(task = body)
+        }
+        catch (e: IOException) {
+            TasksResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -751,6 +815,9 @@ class ApiServiceImpl(
             }
             DisciplinesResp(disc = body)
         }
+        catch (e: IOException) {
+            DisciplinesResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -783,6 +850,9 @@ class ApiServiceImpl(
                 database.requirementDao.insertReq(body)
             }
             DefaultResp()
+        }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
@@ -817,6 +887,9 @@ class ApiServiceImpl(
             }
             DefaultResp()
         }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
+        }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){
                 val errorMessage = Json.decodeFromString<String>(e.response.body())
@@ -849,6 +922,9 @@ class ApiServiceImpl(
                 database.examDao.insertExam(body)
             }
             DefaultResp()
+        }
+        catch (e: IOException) {
+            DefaultResp(error = "Нет соединения с интернетом")
         }
         catch (e: ClientRequestException) {
             if(e.response.contentType()?.match(ContentType.Application.Json) == true){

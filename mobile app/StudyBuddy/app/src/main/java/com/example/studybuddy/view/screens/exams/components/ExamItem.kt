@@ -37,7 +37,7 @@ import com.example.studybuddy.R
 import com.example.studybuddy.data.dto.CreateNoteDto
 import com.example.studybuddy.data.entityes.ExamEnt
 import com.example.studybuddy.data.states.ExamsSt
-import com.example.studybuddy.domain.converters.ConvertDate
+import com.example.studybuddy.domain.converters.FormatDateDBToDMMMMYYYY
 import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
 import com.example.studybuddy.view.generalcomponents.icons.ButtonMore
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
@@ -103,7 +103,7 @@ fun ExamItem(el: ExamEnt, onClickItem: (el: ExamEnt) -> Unit) {
                         modifier = Modifier.size(20.dp)
                     )
                     SpacerWidth(8.dp)
-                    TextTitle(ConvertDate(el.dateExam), 12.sp, StudyBuddyTheme.colors.textTitle)
+                    TextTitle(FormatDateDBToDMMMMYYYY(el.dateExam), 12.sp, StudyBuddyTheme.colors.textTitle)
                 }
 
             }

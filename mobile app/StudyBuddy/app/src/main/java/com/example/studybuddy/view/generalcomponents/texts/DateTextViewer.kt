@@ -15,7 +15,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.studybuddy.R
-import com.example.studybuddy.domain.converters.ConvertDate
+import com.example.studybuddy.domain.converters.FormatDateDBToDMMMMYYYY
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
@@ -34,7 +34,7 @@ fun DateTextViewer(date: String) {
                 modifier = Modifier.size(20.dp)
             )
             SpacerWidth(width = 8.dp)
-            TextBold(ConvertDate(date), 12.sp, StudyBuddyTheme.colors.secondary)
+            TextBold(FormatDateDBToDMMMMYYYY(date), 12.sp, StudyBuddyTheme.colors.secondary)
         }
     }
 }

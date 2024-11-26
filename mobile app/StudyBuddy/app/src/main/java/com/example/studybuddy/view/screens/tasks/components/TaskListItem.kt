@@ -1,8 +1,6 @@
 package com.example.studybuddy.view.screens.tasks.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -33,13 +31,12 @@ import androidx.compose.ui.unit.sp
 import com.example.studybuddy.R
 import com.example.studybuddy.data.entityes.DisciplineEnt
 import com.example.studybuddy.data.entityes.TaskEnt
-import com.example.studybuddy.domain.converters.ConvertDate
+import com.example.studybuddy.domain.converters.FormatDateDBToDMMMMYYYY
 import com.example.studybuddy.view.generalcomponents.buttons.ButtonSmall
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerHeight
 import com.example.studybuddy.view.generalcomponents.spacers.SpacerWidth
 import com.example.studybuddy.view.generalcomponents.texts.TextExtraLight
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
-import com.example.studybuddy.view.generalcomponents.fragments.ShowFragment
 import com.example.studybuddy.view.screens.tasks.TasksViewModel
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
@@ -99,7 +96,7 @@ fun TaskListItem(el: TaskEnt, viewModel: TasksViewModel, disciplines: List<Disci
                         modifier = Modifier.size(20.dp)
                     )
                     SpacerWidth(8.dp)
-                    TextTitle(ConvertDate(el.deadline), 12.sp, StudyBuddyTheme.colors.textTitle)
+                    TextTitle(FormatDateDBToDMMMMYYYY(el.deadline), 12.sp, StudyBuddyTheme.colors.textTitle)
                 }
                 SpacerWidth(16.dp)
                 ButtonSmall("Детали", StudyBuddyTheme.colors.primary) {

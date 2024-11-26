@@ -22,7 +22,9 @@ android {
             useSupportLibrary = true
         }
     }
-
+    kapt {
+        correctErrorTypes = true
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -70,6 +72,7 @@ dependencies {
     implementation(libs.protolite.well.known.types)
     implementation(libs.core)
     testImplementation(libs.junit)
+    testImplementation(libs.hilt.android.testing)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
@@ -101,14 +104,16 @@ dependencies {
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
 
     //тестирование
-
-    androidTestImplementation("org.robolectric:robolectric:4.14")
+    //androidTestImplementation("org.robolectric:robolectric:4.14")
     val compose_version = "1.7.5"
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
     // For instrumented tests.
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
+    androidTestImplementation("com.google.dagger:hilt-android-testing:$hilt_android_version")
     // ...with Kotlin.
     kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.51.1")
+
+    testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
+    testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")
 
     // coil
     implementation("io.coil-kt:coil-compose:2.2.2")
