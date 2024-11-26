@@ -73,12 +73,12 @@ fun ModifyExamItem(updatedExam: MutableState<ExamEnt>, state: State<ExamsSt>) {
             SpacerHeight(height = 4.dp)
             PrimaryTextField(
                 value = if (updatedExam.value.numberTickets != 0) updatedExam.value.numberTickets.toString() else "",
-                placeholder = "30",
+                placeholder = "0",
                 1
             ) {
-                if (it == "") updatedExam.value = updatedExam.value.copy(numberTickets = 0)
                 val regex = Regex("[1-9]\\d*")
-                if (regex.matches(it) && it.length < 10)
+                if (it == "" || it == "0") updatedExam.value = updatedExam.value.copy(numberTickets = 0)
+                else if (regex.matches(it) && it.length < 10)
                     updatedExam.value = updatedExam.value.copy(numberTickets = it.toInt())
             }
             SpacerHeight(height = 12.dp)
