@@ -33,16 +33,18 @@ import com.google.accompanist.permissions.ExperimentalPermissionsApi
 import com.google.accompanist.permissions.isGranted
 import com.google.accompanist.permissions.rememberPermissionState
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 import kotlin.random.Random
 
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
-    @OptIn(ExperimentalPermissionsApi::class)
+
+    @OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            /*UserRepository.init(LocalContext.current)
+            UserRepository.init(LocalContext.current)
             val controller = rememberNavController()
             val barsIsVisible = remember { mutableStateOf(false) }
             val pullToRefreshState = rememberPullToRefreshState()
@@ -65,8 +67,8 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Navigation(controller, barsIsVisible, pullToRefreshState)
                 }
-            }*/
-            val postNotificationPermission =
+            }
+            /*val postNotificationPermission =
                 rememberPermissionState(permission = Manifest.permission.POST_NOTIFICATIONS)
 
             val waterNotificationService = WaterNotificationService(this)
@@ -86,7 +88,7 @@ class MainActivity : ComponentActivity() {
                 ) {
                     Text(text = "Show expandable with image notification")
                 }
-            }
+            }*/
         }
     }
 }

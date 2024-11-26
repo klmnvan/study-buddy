@@ -50,6 +50,11 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
 }
 
 dependencies {
@@ -63,6 +68,7 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.protolite.well.known.types)
+    implementation(libs.core)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -89,9 +95,20 @@ dependencies {
     implementation("eu.bambooapps:compose-material3-pullrefresh:1.0.0")
 
     // hilt
-    implementation("com.google.dagger:hilt-android:2.48")
-    kapt("com.google.dagger:hilt-compiler:2.48")
+    val hilt_android_version = "2.48"
+    implementation("com.google.dagger:hilt-android:$hilt_android_version")
+    kapt("com.google.dagger:hilt-compiler:$hilt_android_version")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    //тестирование
+
+    androidTestImplementation("org.robolectric:robolectric:4.14")
+    val compose_version = "1.7.5"
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$compose_version")
+    // For instrumented tests.
+    androidTestImplementation("com.google.dagger:hilt-android-testing:2.51.1")
+    // ...with Kotlin.
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.51.1")
 
     // coil
     implementation("io.coil-kt:coil-compose:2.2.2")
