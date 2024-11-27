@@ -4,25 +4,33 @@
     <selectionStates>
       <SelectionState runConfigName="app">
         <option name="selectionMode" value="DROPDOWN" />
-        <DropdownSelection timestamp="2024-11-17T15:00:16.246748400Z">
+        <DropdownSelection timestamp="2024-11-27T07:17:48.414526300Z">
           <Target type="DEFAULT_BOOT">
             <handle>
-              <DeviceId pluginId="PhysicalDevice" identifier="serial=44fcb748" />
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\AndroidSettings\.android\avd\Pixel_8_API_34.avd" />
             </handle>
           </Target>
         </DropdownSelection>
         <DialogSelection />
       </SelectionState>
-      <SelectionState runConfigName="ExampleInstrumentedTest">
+      <SelectionState runConfigName="UITest">
+        <option name="selectionMode" value="DROPDOWN" />
+        <DropdownSelection timestamp="2024-11-27T05:51:43.086120900Z">
+          <Target type="DEFAULT_BOOT">
+            <handle>
+              <DeviceId pluginId="LocalEmulator" identifier="path=C:\AndroidSettings\.android\avd\Pixel_8_API_34.avd" />
+            </handle>
+          </Target>
+        </DropdownSelection>
+        <DialogSelection />
+      </SelectionState>
+      <SelectionState runConfigName="Regist_TryRegistUncorrectNickname_ShowError()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="SignUpscreenisdisplayed()">
+      <SelectionState runConfigName="Regist_TryRegistPasswordDontMatch_ShowError()">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
-      <SelectionState runConfigName="MyTest">
-        <option name="selectionMode" value="DROPDOWN" />
-      </SelectionState>
-      <SelectionState runConfigName="ExampleInstrumentedTest1">
+      <SelectionState runConfigName="VerificationFunctionsUnitTest">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
     </selectionStates>

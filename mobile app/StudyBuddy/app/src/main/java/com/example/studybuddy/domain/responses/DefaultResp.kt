@@ -1,4 +1,4 @@
-package com.example.studybuddy.data.responses
+package com.example.studybuddy.domain.responses
 
 import kotlinx.serialization.Serializable
 

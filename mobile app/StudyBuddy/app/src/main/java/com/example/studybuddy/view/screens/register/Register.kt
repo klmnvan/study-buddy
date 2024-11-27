@@ -29,6 +29,7 @@ import com.example.studybuddy.view.generalcomponents.textfields.TextFieldAuthPas
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
+/** Экран регистрации */
 @Composable
 fun Register(controller: NavHostController, viewModel: RegisterViewModel = hiltViewModel()) {
 

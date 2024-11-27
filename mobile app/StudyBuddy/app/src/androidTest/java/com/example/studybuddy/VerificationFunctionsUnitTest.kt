@@ -1,8 +1,8 @@
 package com.example.studybuddy
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.studybuddy.domain.verification.AuthVerification.isEmailValid
-import com.example.studybuddy.domain.verification.AuthVerification.isNicknameValid
+import com.example.studybuddy.view.verification.AuthVerification.isEmailValid
+import com.example.studybuddy.view.verification.AuthVerification.isNicknameValid
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

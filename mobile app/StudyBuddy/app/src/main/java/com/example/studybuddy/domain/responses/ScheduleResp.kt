@@ -1,4 +1,4 @@
-package com.example.studybuddy.data.responses
+package com.example.studybuddy.domain.responses
 
 import com.example.studybuddy.data.modelsitreshalo.Values
 import com.example.studybuddy.data.modelsitreshalo.ValuesSchedule

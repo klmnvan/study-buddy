@@ -21,6 +21,7 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        javaCompileOptions.annotationProcessorOptions.arguments["dagger.hilt.disableCrossCompilationRootValidation"] = "true"
     }
     kapt {
         correctErrorTypes = true
@@ -56,6 +57,9 @@ android {
         unitTests {
             isIncludeAndroidResources = true
         }
+    }
+    buildFeatures {
+        compose = true
     }
 }
 
@@ -110,7 +114,7 @@ dependencies {
     // For instrumented tests.
     androidTestImplementation("com.google.dagger:hilt-android-testing:$hilt_android_version")
     // ...with Kotlin.
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.51.1")
+    kaptAndroidTest("com.google.dagger:hilt-android-compiler:$hilt_android_version")
 
     testImplementation("org.mockito.kotlin:mockito-kotlin:5.1.0")
     testImplementation ("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.9.0")

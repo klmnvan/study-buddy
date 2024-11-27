@@ -31,6 +31,7 @@ import com.example.studybuddy.view.generalcomponents.texts.TextLight
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
+/** Экран для перехода на авторизацию и регистрацию */
 @Composable
 fun Auth(controller: NavHostController) {
 

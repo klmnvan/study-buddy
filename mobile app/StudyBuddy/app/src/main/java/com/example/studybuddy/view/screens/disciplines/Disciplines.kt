@@ -49,6 +49,7 @@ import com.example.studybuddy.view.screens.disciplines.components.ShowDiscItem
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import kotlinx.coroutines.delay
 
+/** Экран с пердметами */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Disciplines(controller: NavHostController, pullToRefreshState: PullToRefreshState, viewModel: DisciplinesViewModel = hiltViewModel()) {

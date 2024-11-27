@@ -17,6 +17,7 @@ import androidx.navigation.NavHostController
 import com.example.studybuddy.R
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
+/** СплэшСкрин */
 @Composable
 fun Splash(controller: NavHostController, viewModel: SplashViewModel = hiltViewModel()) {
 

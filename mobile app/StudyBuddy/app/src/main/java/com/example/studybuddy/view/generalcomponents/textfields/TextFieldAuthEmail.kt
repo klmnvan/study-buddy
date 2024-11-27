@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -20,7 +21,7 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextFieldAuthEmail(value: String, input: (String) -> Unit, placeholder: String){
+fun TextFieldAuthEmail(value: String, input: (String) -> Unit, placeholder: String, tag: String = "default"){
     OutlinedTextField(
         value = value,
         onValueChange = { input(it) },
@@ -29,7 +30,7 @@ fun TextFieldAuthEmail(value: String, input: (String) -> Unit, placeholder: Stri
             fontSize = 16.sp
         ),
         modifier = Modifier
-            .fillMaxWidth(),
+            .fillMaxWidth().testTag(tag),
         placeholder = {
             Text(
                 text = placeholder,

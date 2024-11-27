@@ -13,12 +13,12 @@ import com.example.studybuddy.data.entityes.RequirementEnt
 import com.example.studybuddy.data.entityes.TaskEnt
 import com.example.studybuddy.data.entityes.TeacherEnt
 import com.example.studybuddy.data.modelsitreshalo.Values
-import com.example.studybuddy.data.responses.DefaultResp
-import com.example.studybuddy.data.responses.ExamsResp
-import com.example.studybuddy.data.responses.TasksResp
-import com.example.studybuddy.data.responses.AuthResp
-import com.example.studybuddy.data.responses.DisciplinesResp
-import com.example.studybuddy.data.responses.ScheduleResp
+import com.example.studybuddy.domain.responses.DefaultResp
+import com.example.studybuddy.domain.responses.ExamsResp
+import com.example.studybuddy.domain.responses.TasksResp
+import com.example.studybuddy.domain.responses.AuthResp
+import com.example.studybuddy.domain.responses.DisciplinesResp
+import com.example.studybuddy.domain.responses.ScheduleResp
 
 /** Интерфейс, в котором описаны все методы для запросов к API и создаётся объект ApiServiceImpl */
 interface ApiService {

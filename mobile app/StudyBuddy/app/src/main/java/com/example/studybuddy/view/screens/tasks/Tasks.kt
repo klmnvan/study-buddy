@@ -48,6 +48,7 @@ import com.example.studybuddy.view.screens.tasks.components.ShowTaskItem
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import kotlinx.coroutines.delay
 
+/** Экран задач */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Tasks(controller: NavHostController, pullToRefreshState: PullToRefreshState, viewModel: TasksViewModel = hiltViewModel()) {

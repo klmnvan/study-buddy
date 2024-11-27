@@ -1,4 +1,4 @@
-package com.example.studybuddy.domain.verification
+package com.example.studybuddy.view.verification
 
 import android.text.TextUtils
 

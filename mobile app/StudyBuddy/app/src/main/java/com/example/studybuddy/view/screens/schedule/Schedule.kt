@@ -35,6 +35,7 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 
+/** Экран просмотра расписания */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Schedule(pullToRefreshState: PullToRefreshState, viewModel: ScheduleViewModel = hiltViewModel()) {

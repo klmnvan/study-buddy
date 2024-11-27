@@ -28,6 +28,7 @@ import com.example.studybuddy.view.generalcomponents.textfields.TextFieldAuthPas
 import com.example.studybuddy.view.generalcomponents.texts.TextTitle
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 
+/** Экран авторизации */
 @Composable
 fun Login(controller: NavHostController, viewModel: LoginViewModel = hiltViewModel()) {
 
@@ -43,7 +44,7 @@ fun Login(controller: NavHostController, viewModel: LoginViewModel = hiltViewMod
                 TextLight("Войдите в свой профиль", 16.sp, StudyBuddyTheme.colors.primary)
             }
             SpacerHeight(60.dp)
-            TextFieldAuthEmail(state.value.email, { viewModel.stateValue = state.value.copy(email = it) }, "user@mail.ru")
+            TextFieldAuthEmail(state.value.email, { viewModel.stateValue = state.value.copy(email = it) }, "user@mail.ru", "EMAIL_FIELD")
             SpacerHeight(16.dp)
             TextFieldAuthPassword(state.value.password, { viewModel.stateValue = state.value.copy(password = it) }, "********")
             SpacerHeight(40.dp)

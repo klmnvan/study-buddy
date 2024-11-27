@@ -17,6 +17,7 @@ import com.example.studybuddy.domain.room.dao.RequirementDao
 import com.example.studybuddy.domain.room.dao.TaskDao
 import com.example.studybuddy.domain.room.dao.TeacherDao
 
+/** Локальная база данных */
 @Database(
     entities = [TaskEnt::class, DisciplineEnt::class, ExamEnt::class, TeacherEnt::class,
         RequirementEnt::class, NoteEnt::class, GroupEnt::class],

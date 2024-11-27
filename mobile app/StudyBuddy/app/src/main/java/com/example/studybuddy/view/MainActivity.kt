@@ -21,6 +21,7 @@ import com.example.studybuddy.R
 import com.example.studybuddy.view.navigation.Navigation
 import com.example.studybuddy.domain.repository.UserRepository
 import com.example.studybuddy.view.generalcomponents.pullrefresh.CustomPullToRefreshContainer
+import com.example.studybuddy.view.navigation.NavigationRoutes
 import com.example.studybuddy.view.panels.bottombar.BottomBar
 import com.example.studybuddy.view.panels.topbar.TopBar
 import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
@@ -31,7 +32,7 @@ import kotlin.random.Random
 @AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
-    @OptIn(ExperimentalPermissionsApi::class, ExperimentalMaterial3Api::class)
+    @OptIn(ExperimentalMaterial3Api::class)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "InlinedApi")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,67 +58,9 @@ class MainActivity : ComponentActivity() {
                         CustomPullToRefreshContainer(pullToRefreshState)
                     }
                 ) {
-                    Navigation(controller, barsIsVisible, pullToRefreshState)
+                    Navigation(controller, barsIsVisible, pullToRefreshState, NavigationRoutes.SPLASH)
                 }
             }
-            /*val postNotificationPermission =
-                rememberPermissionState(permission = Manifest.permission.POST_NOTIFICATIONS)
-
-            val waterNotificationService = WaterNotificationService(this)
-
-            LaunchedEffect(key1 = true) {
-                if (!postNotificationPermission.status.isGranted) {
-                    postNotificationPermission.launchPermissionRequest()
-                }
-            }
-
-            Column {
-
-                Button(
-                    onClick = {
-                        waterNotificationService.showExpandableNotification()
-                    }
-                ) {
-                    Text(text = "Show expandable with image notification")
-                }
-            }*/
         }
     }
-}
-
-class WaterNotificationService(
-    private val context: Context
-) {
-    private val notificationManager = context.getSystemService(NotificationManager::class.java)
-
-    fun showExpandableNotification() {
-        val image = context.bitmapFromResource(R.drawable.mini_logo)
-
-        val notification = NotificationCompat.Builder(context, "water_reminder")
-            .setContentTitle("Water Reminder")
-            .setContentText("Time to drink some water!")
-            .setSmallIcon(R.drawable.mini_logo)
-            .setPriority(NotificationCompat.PRIORITY_HIGH)
-            .setLargeIcon(image)
-            .setStyle(
-                NotificationCompat
-                    .BigPictureStyle()
-                    .bigPicture(image)
-                    .bigLargeIcon(null as Bitmap?)
-            )
-            .setAutoCancel(true)
-            .build()
-
-        notificationManager.notify(
-            Random.nextInt(),
-            notification
-        )
-    }
-
-    private fun Context.bitmapFromResource(
-        @DrawableRes resId: Int
-    ) = BitmapFactory.decodeResource(
-        resources,
-        resId
-    )
 }

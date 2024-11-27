@@ -54,7 +54,7 @@ import com.example.studybuddy.view.ui.theme.StudyBuddyTheme
 import kotlinx.coroutines.delay
 import java.time.LocalDate
 
-/**  */
+/** Экран экзаменов */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Exams(controller: NavHostController, pullToRefreshState: PullToRefreshState, viewModel: ExamsViewModel = hiltViewModel()) {

@@ -10,8 +10,8 @@ import androidx.navigation.NavHostController
 import com.example.studybuddy.data.states.RegisterSt
 import com.example.studybuddy.view.navigation.NavigationRoutes
 import com.example.studybuddy.domain.network.ApiServiceImpl
-import com.example.studybuddy.domain.verification.AuthVerification.isEmailValid
-import com.example.studybuddy.domain.verification.AuthVerification.isNicknameValid
+import com.example.studybuddy.view.verification.AuthVerification.isEmailValid
+import com.example.studybuddy.view.verification.AuthVerification.isNicknameValid
 import dagger.hilt.android.lifecycle.HiltViewModel
 import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
