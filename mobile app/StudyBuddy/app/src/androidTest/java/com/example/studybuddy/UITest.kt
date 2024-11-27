@@ -68,12 +68,12 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class UITest {
 
-    val client = HttpClient(Android){
+    val client = HttpClient(Android) {
         expectSuccess = true
         install(Logging) {
             level = LogLevel.ALL
         }
-        install(ContentNegotiation){
+        install(ContentNegotiation) {
             json(
                 Json {
                     encodeDefaults = false
@@ -100,7 +100,8 @@ class UITest {
     lateinit var registViewModel: RegisterViewModel
 
     @get:Rule
-    val composeTestRule = createComposeRule() //это функция, которая создает правило для тестирования Jetpack Compose UI компонентов.
+    val composeTestRule =
+        createComposeRule() //это функция, которая создает правило для тестирования Jetpack Compose UI компонентов.
 
     @Test
     fun UseAppContext() {
@@ -114,7 +115,8 @@ class UITest {
             Auth(rememberNavController())
         }
         composeTestRule.onNodeWithText("Умное планирование учёбы").assertIsDisplayed()
-        composeTestRule.onNodeWithText("Здесь ты сможешь узнавать расписание, готовится к экзаменам, отслеживать дедлайны и добавлять информацию о дисциплинах").assertIsDisplayed()
+        composeTestRule.onNodeWithText("Здесь ты сможешь узнавать расписание, готовится к экзаменам, отслеживать дедлайны и добавлять информацию о дисциплинах")
+            .assertIsDisplayed()
         composeTestRule.onNodeWithText("ВОЙТИ").assertIsDisplayed()
         composeTestRule.onNodeWithText("СОЗДАТЬ ПРОФИЛЬ").assertIsDisplayed()
     }
@@ -147,7 +149,8 @@ class UITest {
             ).allowMainThreadQueries().build()
             service = ApiServiceImpl(client, database)
             loginViewModel = LoginViewModel(service, context)
-            loginViewModel.stateValue = loginViewModel.stateValue.copy(email = "erwer", password = "12345678")
+            loginViewModel.stateValue =
+                loginViewModel.stateValue.copy(email = "erwer", password = "12345678")
             TestNavigation(NavigationRoutes.LOGIN)
         }
         composeTestRule.onNodeWithText("ВОЙТИ").performClick()
@@ -165,8 +168,10 @@ class UITest {
             ).allowMainThreadQueries().build()
             service = ApiServiceImpl(client, database)
             registViewModel = RegisterViewModel(service, context)
-            registViewModel.stateValue = registViewModel.stateValue.copy(email = "user@email.com", password = "12345678", confirmPassword = "12345678",
-                nickname = "NiCk0Name1")
+            registViewModel.stateValue = registViewModel.stateValue.copy(
+                email = "user@email.com", password = "12345678", confirmPassword = "12345678",
+                nickname = "NiCk0Name1"
+            )
             TestNavigation(NavigationRoutes.REGIST)
         }
         composeTestRule.onNodeWithText("СОЗДАТЬ ПРОФИЛЬ").performClick()
@@ -184,8 +189,10 @@ class UITest {
             ).allowMainThreadQueries().build()
             service = ApiServiceImpl(client, database)
             registViewModel = RegisterViewModel(service, context)
-            registViewModel.stateValue = registViewModel.stateValue.copy(email = "user@email.com", password = "12345678", confirmPassword = "1345678",
-                nickname = "NiCkname")
+            registViewModel.stateValue = registViewModel.stateValue.copy(
+                email = "user@email.com", password = "12345678", confirmPassword = "1345678",
+                nickname = "NiCkname"
+            )
             TestNavigation(NavigationRoutes.REGIST)
         }
         composeTestRule.onNodeWithText("СОЗДАТЬ ПРОФИЛЬ").performClick()
@@ -203,7 +210,7 @@ class UITest {
         NavHost(
             navController = controller,
             startDestination = start,
-            enterTransition = { fadeIn(animationSpec = tween(durationMillis = 0)) } ) {
+            enterTransition = { fadeIn(animationSpec = tween(durationMillis = 0)) }) {
 
             composable(NavigationRoutes.AUTH) {
                 barsIsVisible.value = false
@@ -226,27 +233,4 @@ class UITest {
         }
     }
 
-/*    @Test
-    fun testMyComponent() {
-        composeTestRule.setContent {
-            loginViewModel = hiltViewModel()
-            Login(rememberNavController())
-        }
-        composeTestRule.onNodeWithText("Авторизация").assertIsDisplayed()
-    }*/
-
 }
-
-/*
-@RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest1 {
-    @get:Rule
-    val composeTestRule = createComposeRule()
-
-    @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.studybuddy", appContext.packageName)
-    }
-}*/
