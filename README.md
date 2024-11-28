@@ -1,6 +1,7 @@
 # Study Buddy
 Тема: мобильное приложение для упрощения процесса обучения. А конкретнее: для отслеживания экзаменов, указания сведений о предметах и преподавателях, открытия заданий по учебе и просмотра расписания.  
 Макет: https://www.figma.com/design/v5KJd1cucl5fac1s3jC2wG/Study-Buddy?node-id=65-1187&t=aVZbgiCfhhMute3t-1  
+Презентация: https://www.figma.com/slides/PvPXOQJ0ehcNIyB00l6CgI/StudyBuddyPresentation?node-id=3-30&t=hpgt1Y44FEJ1LyPF-1
 
 ## Установка
 1. Склонировать/Скачать архивом проект

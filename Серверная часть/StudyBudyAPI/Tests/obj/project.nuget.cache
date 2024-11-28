@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "hCXS4pZOkvOHb82tenZdfLWk9jeT79Gm8VYHhtrjKAYrTl+kO9znBGa89ot1dWWP+f2zha8CAQDXUU1EB9EjZg==",
+  "dgSpecHash": "0LhJK3JjuzrAFNaTc19wDp/Qg3lxLSrWhqYJiBC2ljEAiXpynPPQMBOJ3jOaYXh+RGYAb6mgb/A4H4EdUnLSfA==",
   "success": true,
-  "projectFilePath": "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj",
+  "projectFilePath": "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\mcsyan\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\mcsyan\\.nuget\\packages\\castle.core\\5.1.1\\castle.core.5.1.1.nupkg.sha512",

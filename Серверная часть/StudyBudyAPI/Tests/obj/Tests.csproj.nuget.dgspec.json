@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj": {}
+    "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj": {}
   },
   "projects": {
-    "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {
+    "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
+        "projectUniqueName": "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
         "projectName": "StudyBudyAPI",
-        "projectPath": "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
+        "projectPath": "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj",
         "packagesPath": "C:\\Users\\mcsyan\\.nuget\\packages\\",
-        "outputPath": "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\API\\obj\\",
+        "outputPath": "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mcsyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -107,14 +107,14 @@
         }
       }
     },
-    "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj": {
+    "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj",
+        "projectUniqueName": "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj",
         "projectName": "Tests",
-        "projectPath": "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj",
+        "projectPath": "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\Tests.csproj",
         "packagesPath": "C:\\Users\\mcsyan\\.nuget\\packages\\",
-        "outputPath": "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\Tests\\obj\\",
+        "outputPath": "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\Tests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\mcsyan\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -131,8 +131,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {
-                "projectPath": "E:\\mobile_try_refactor\\study-buddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj"
+              "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj": {
+                "projectPath": "E:\\study-buddy\\StudyBuddy\\Серверная часть\\StudyBudyAPI\\API\\StudyBudyAPI.csproj"
               }
             }
           }
