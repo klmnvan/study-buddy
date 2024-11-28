@@ -11,7 +11,7 @@ object AuthVerification {
                     .matches()
     }
 
-    fun String.isNicknameValid () : Boolean {
+    fun String.isNicknameValid(): Boolean {
         val regex = Regex("^[a-zA-Zа-яА-ЯёЁ\\s]+\$");
         //Никнейм может состоять только из симолов латиницы или кирилицы и пробелов
         return regex.matches(this)
